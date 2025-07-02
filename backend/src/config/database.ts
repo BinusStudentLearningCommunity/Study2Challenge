@@ -14,7 +14,6 @@ const connectDB = async (): Promise<void> => {
 
     console.log('MongoDB terhubung berhasil!');
 
-    // Event listener untuk koneksi error setelah koneksi awal berhasil
     mongoose.connection.on('error', (err) => {
       console.error(`MongoDB connection error setelah initial connect: ${err.message}`);
     });
