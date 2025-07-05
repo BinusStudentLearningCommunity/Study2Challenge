@@ -7,51 +7,56 @@ const Navbar = () => {
   const isLoggedIn = false; // Placeholder, ganti dengan status dari AuthContext
 
   return (
-    <nav className={styles.navbar}>
-      <div className={styles.navbarBrand}>
-        <Link to="/" className={styles.brandLink}>
-          EventApp
-        </Link>
-      </div>
-      <ul className={styles.navbarNav}>
-        <li className={styles.navItem}>
-          <Link to="/" className={styles.navLink}>
-            Home
-          </Link>
-        </li>
-        {isLoggedIn ? (
-          <>
-            <li className={styles.navItem}>
-              <Link to="/dashboard" className={styles.navLink}>
-                Dashboard
-              </Link>
-            </li>
-            <li className={styles.navItem}>
-              {/* TODO: Tambahkan fungsi logout */}
-              <button className={styles.navLinkButton}>Logout</button>
-            </li>
-          </>
-        ) : (
-          <>
-            <li className={styles.navItem}>
-              <Link to="/login" className={styles.navLink}>
-                Login
-              </Link>
-            </li>
-            <li className={styles.navItem}>
-              <Link to="/register" className={styles.navLink}>
-                Register
-              </Link>
-            </li>
-          </>
-        )}
-         <li className={styles.navItem}>
-          <Link to="/event-registration" className={styles.navLink}>
-            Daftar Event
-          </Link>
-        </li>
-      </ul>
-    </nav>
+		<div className={styles.navbarContainer}>
+			<nav className={styles.navbar}>
+				<div className={styles.navbarBrand}>
+					<Link to="/" className={styles.brandLink}>
+						Logo "STUDY 2 CHALLENGE 2025"
+					</Link>
+				</div>
+				<ul className={styles.navbarNav}>
+					{isLoggedIn ? (
+						<>
+							<li className={styles.navItem}>
+								<Link to="/dashboard" className={styles.navLink}>
+									Dashboard
+								</Link>
+							</li>
+							<li className={styles.navItem}>
+								{/* TODO: Tambahkan fungsi logout */}
+								<button className={styles.navLinkButton}>Logout</button>
+							</li>
+						</>
+					) : (
+						<>
+							<li className={styles.navItem}>
+								<Link to="/login" className={styles.navLink}>
+									Tentang S2C
+								</Link>
+							</li>
+							<li className={styles.navItem}>
+								<Link to="/register" className={styles.navLink}>
+									Manfaat
+								</Link>
+							</li>
+							<li className={styles.navItem}>
+								<Link to="/register" className={styles.navLink}>
+									Timeline
+								</Link>
+							</li>
+							<li className={styles.navItem}>
+								<Link to="/register" className={styles.navLink}>
+									FAQ
+								</Link>
+							</li>
+						</>
+					)}
+				</ul>
+				<Link to="/event-registration" className={styles.navLinkButton}>
+					DAFTAR TIM
+				</Link>
+			</nav>
+		</div>
   );
 };
 
