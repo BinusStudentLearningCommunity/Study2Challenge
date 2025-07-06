@@ -6,7 +6,7 @@ const MainLayout = () => {
   return (
     <div>
       <Navbar />
-      <main style={{ padding: '20px' }}>
+      <main>
         <Outlet /> {/* Konten halaman akan dirender di sini */}
       </main>
       {/* <Footer /> */}
