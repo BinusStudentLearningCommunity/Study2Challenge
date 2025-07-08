@@ -75,7 +75,7 @@ const Navbar = () => {
             </>
           )}
         </ul>
-        <Link to="/register" className={styles.navLinkButton}>
+        <Link to="/dashboard" className={styles.navLinkButton}>
           DAFTAR TIM
         </Link>
 			</nav>
