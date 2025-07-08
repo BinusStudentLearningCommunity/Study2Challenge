@@ -1,10 +1,18 @@
 import { Link } from 'react-router-dom';
-import styles from './Navbar.module.css'; 
+import styles from './Navbar.module.css';
+import { useState } from 'react';
 
-// HANYA CODE CONTOH
 const Navbar = () => {
-  // TODO: Nanti kita akan tambahkan logika untuk menampilkan link berdasarkan status login dari AuthContext
-  const isLoggedIn = false; // Placeholder, ganti dengan status dari AuthContext
+  const isLoggedIn = false;
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+      setIsMenuOpen(false);
+    }
+  };
 
   return (
 		<div className={styles.navbarContainer}>
@@ -14,47 +22,62 @@ const Navbar = () => {
 						Logo "STUDY 2 CHALLENGE 2025"
 					</Link>
 				</div>
-				<ul className={styles.navbarNav}>
-					{isLoggedIn ? (
-						<>
-							<li className={styles.navItem}>
-								<Link to="/dashboard" className={styles.navLink}>
-									Dashboard
-								</Link>
-							</li>
-							<li className={styles.navItem}>
-								{/* TODO: Tambahkan fungsi logout */}
-								<button className={styles.navLinkButton}>Logout</button>
-							</li>
-						</>
-					) : (
-						<>
-							<li className={styles.navItem}>
-								<Link to="/login" className={styles.navLink}>
-									Tentang S2C
-								</Link>
-							</li>
-							<li className={styles.navItem}>
-								<Link to="/register" className={styles.navLink}>
-									Manfaat
-								</Link>
-							</li>
-							<li className={styles.navItem}>
-								<Link to="/register" className={styles.navLink}>
-									Timeline
-								</Link>
-							</li>
-							<li className={styles.navItem}>
-								<Link to="/register" className={styles.navLink}>
-									FAQ
-								</Link>
-							</li>
-						</>
-					)}
-				</ul>
-				<Link to="/event-registration" className={styles.navLinkButton}>
-					DAFTAR TIM
-				</Link>
+				<button
+          className={`${styles.hamburger} ${isMenuOpen ? styles.active : ''}`}
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+        <ul className={`${styles.navbarNav} ${isMenuOpen ? styles.active : ''}`}>
+          {isLoggedIn ? (
+            <>
+              <li className={styles.navItem}>
+                <Link to="/dashboard" className={styles.navLink}>
+                  Dashboard
+                </Link>
+              </li>
+              <li className={styles.navItem}>
+                <button className={styles.navLinkButton}>Logout</button>
+              </li>
+            </>
+          ) : (
+            <>
+              <li className={styles.navItem}>
+                <button
+                  onClick={() => scrollToSection('Hero')}
+                  className={styles.navLink}
+                >
+                  Tentang S2C
+                </button>
+              </li>
+              <li className={styles.navItem}>
+                <button
+                  onClick={() => scrollToSection('WhyJoin')}
+                  className={styles.navLink}
+                >
+                  Manfaat
+                </button>
+              </li>
+              <li className={styles.navItem}>
+                <button onClick={() => scrollToSection('Timeline')} className={styles.navLink}>Timeline</button>
+              </li>
+              <li className={styles.navItem}>
+                <button
+                  onClick={() => scrollToSection('Faq')}
+                  className={styles.navLink}
+                >
+                  FAQ
+                </button>
+              </li>
+            </>
+          )}
+        </ul>
+        <Link to="/register" className={styles.navLinkButton}>
+          DAFTAR TIM
+        </Link>
 			</nav>
 		</div>
   );

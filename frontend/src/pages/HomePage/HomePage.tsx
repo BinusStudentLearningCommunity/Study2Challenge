@@ -41,11 +41,9 @@ const HomePage = () => {
     <div className={styles.homePage}>
       {/* Background decorative elements - these add visual flair to different sections */}
       <div className={styles.decorativeElements}>
-        {/* Left side decorative images */}
         <img src="/assets/Group 106.png" alt="Decorative element" className={`${styles.decorativeImage} ${styles.leftTop}`} />
         <img src="/assets/astrounotFall_black 1.png" alt="Decorative element" className={`${styles.decorativeImage} ${styles.leftBottom}`} />
-        
-        {/* Right side decorative images */}
+
         <img src="/assets/galaxy_black 1.png" alt="Decorative element" className={`${styles.decorativeImage} ${styles.rightTop}`} />
         <img src="/assets/Group 107.png" alt="Decorative element" className={`${styles.decorativeImage} ${styles.rightBottom}`} />
 
@@ -62,12 +60,9 @@ const HomePage = () => {
 
         {/* Sponsors section decorations */}
         <img src="/assets/galaxy_black 2.png" alt="Decorative element" className={`${styles.decorativeImage} ${styles.sponsorBottomLeft}`} />
-        <img src="/assets/Group 125.png" alt="Decorative element" className={`${styles.decorativeImage} ${styles.sponsorRight}`} />
-        <img src="/assets/Group 126.png" alt="Decorative element" className={`${styles.decorativeImage} ${styles.sponsorLeft}`} />
 
         {/* Media Partner section decorations */}
         <img src="/assets/Clip path group (2).png" alt="Decorative element" className={`${styles.decorativeImage} ${styles.mediaMiddle}`} />
-        <img src="/assets/astrounotFall_black 2.png" alt="Decorative element" className={`${styles.decorativeImage} ${styles.mediaRight}`} />
 
         {/* FAQ section decoration */}
         <img src="/assets/astrounot_black 1.png" alt="Decorative element" className={`${styles.decorativeImage} ${styles.faqLeftTop}`} />
@@ -78,7 +73,7 @@ const HomePage = () => {
       </div>
 
       {/* Hero section - main landing area with countdown and registration */}
-      <section className={styles.Hero}>
+      <section className={styles.Hero} id='Hero'>
         <div className={styles.heroText}>
           <h1>STUDY 2 CHALLENGE 2025</h1>
           <h2>BRIDGING GLOBAL PROBLEMS: TECH FOR A BETTER TOMORROW</h2>
@@ -93,7 +88,7 @@ const HomePage = () => {
       </section>
 
       {/* Why Join section - explains the benefits of participating */}
-      <section className={styles.whyJoinSection}>
+      <section className={styles.whyJoinSection} id='WhyJoin'>
         <h2>Mengapa Bergabung dengan Study 2 Challenge 2025?</h2>
         <hr />
         
@@ -167,7 +162,7 @@ const HomePage = () => {
       </section>
 
       {/* Timeline section - shows the competition schedule */}
-      <section className={styles.Timeline}>
+      <section className={styles.Timeline} id="Timeline">
         <h2>Timeline</h2>
         <hr />
         <div className={styles.timelineContainer}>
@@ -294,8 +289,14 @@ const HomePage = () => {
 
       {/* Sponsors section - showcases competition sponsors */}
       <section className={styles.Sponsor}>
-        <h2>OUR SPONSORS</h2>
-        <hr />
+        <div className={styles.sponsorTitleContainer}>
+          <img src="/assets/Group 125.png" alt="Decorative element" className={styles.sponsorTitleLeft} />
+          <div className={styles.sponsorTitleCenter}>
+            <h2>OUR SPONSORS</h2>
+            <hr />
+          </div>
+          <img src="/assets/Group 126.png" alt="Decorative element" className={styles.sponsorTitleRight} />
+        </div>
         <div className={styles.sponsorGrid}>
           {/* Sponsor cards - placeholder for actual sponsor logos */}
           {Array.from({ length: 16 }, (_, index) => (
@@ -305,9 +306,15 @@ const HomePage = () => {
       </section>
 
       {/* Media Partners section - showcases media partners */}
-      <section className={styles.MediaPartner}>
-        <h2>OUR MEDIA PARTNERS</h2>
-        <hr />
+      <section className={styles.MediaPartner} id='MedPar'>
+        <div className={styles.mediaPartnerTitleContainer}>
+          <img src="/assets/Group 127.png" alt="Decorative element" className={styles.mediaPartnerTitleLeft} />
+          <div className={styles.mediaPartnerTitleCenter}>
+            <h2>OUR MEDIA PARTNERS</h2>
+            <hr />
+          </div>
+          <img src="/assets/Group 127.png" alt="Decorative element" className={styles.mediaPartnerTitleRight} style={{ transform: 'scaleX(-1)' }} />
+        </div>
         <div className={styles.sponsorGrid}>
           {/* Media partner cards - placeholder for actual partner logos */}
           {Array.from({ length: 16 }, (_, index) => (
@@ -317,7 +324,7 @@ const HomePage = () => {
       </section>
 
       {/* FAQ section - frequently asked questions */}
-      <section className={styles.FAQSection}>
+      <section className={styles.FAQSection} id='Faq'>
         <div className={styles.faqGrid}>
           <div className={styles.faqLeft}>
             <h2>FREQUENTLY ASKED QUESTIONS</h2>

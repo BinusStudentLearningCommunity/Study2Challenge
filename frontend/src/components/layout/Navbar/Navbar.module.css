@@ -6,6 +6,7 @@
   padding: 19px 33px;
   border-bottom: 1px solid #252525;
   border-radius: 50px;
+  position: relative;
 }
 
 .navbarContainer {
@@ -14,7 +15,6 @@
   z-index: 1000;
   padding: 30px 80px 0 80px;
 }
-
 
 .navbarBrand {
   font-weight: bold;
@@ -50,6 +50,9 @@
   transition: color 0.2s ease;
   padding: 0.25rem 0;
   position: relative;
+  background: none;
+  border: none;
+  cursor: pointer;
 }
 
 .navLink:hover {
@@ -64,4 +67,88 @@
   font-size: 14px;
   font-weight: 700;
   box-shadow: 0 0 20px 0 #C48F43;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+}
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 30px;
+  height: 25px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 10;
+}
+
+.hamburger span {
+  width: 30px;
+  height: 3px;
+  background: #fff;
+  border-radius: 10px;
+  transition: all 0.3s linear;
+  position: relative;
+  transform-origin: 1px;
+}
+
+.hamburger.active span:first-child {
+  transform: rotate(45deg);
+}
+
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.active span:last-child {
+  transform: rotate(-45deg);
+}
+
+@media (max-width: 1060px) {
+  .navbarContainer {
+    padding: 20px 20px 0 20px;
+  }
+
+  .navbar {
+    padding: 15px 20px;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+
+  .navbarNav {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    background: radial-gradient(closest-side at center,#151515 0%, #2f2f2f 500%);
+    padding: 20px;
+    border-radius: 0 0 25px 25px;
+    margin-top: 5px;
+  }
+
+  .navbarNav.active {
+    display: flex;
+  }
+
+  .navItem {
+    width: 100%;
+    text-align: center;
+  }
+
+  .navLink {
+    display: block;
+    padding: 10px 0;
+    width: 100%;
+  }
+
+  .navLinkButton {
+    display: none;
+  }
 }

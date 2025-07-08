@@ -3,6 +3,8 @@
     justify-content: center;
     gap: 4rem;
     text-align: center;
+    width: 100%;
+    flex-wrap: wrap;
 }
 
 .time .number {
@@ -25,4 +27,47 @@
 .time {
     display: flex;
     flex-direction: column;
+}
+
+/* Responsive styles for countdown */
+@media (max-width: 1024px) {
+    .countdown {
+        gap: 3rem;
+    }
+    
+    .time .number {
+        font-size: 40px;
+    }
+    
+    .time .label {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 768px) {
+    .countdown {
+        gap: 2rem;
+    }
+    
+    .time .number {
+        font-size: 32px;
+    }
+    
+    .time .label {
+        font-size: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .countdown {
+        gap: 1rem;
+    }
+    
+    .time .number {
+        font-size: 24px;
+    }
+    
+    .time .label {
+        font-size: 9px;
+    }
 }
