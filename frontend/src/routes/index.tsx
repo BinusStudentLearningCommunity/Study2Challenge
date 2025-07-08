@@ -20,10 +20,6 @@ const router = createBrowserRouter([
         index: true,
         element: <HomePage />,
       },
-      {
-        path: 'event-registration',
-        element: <EventRegistrationPage />,
-      },
     ],
   },
   {
@@ -43,6 +39,10 @@ const router = createBrowserRouter([
         element: (
             <ParticipantDashboardPage />
         ),
+      },
+      {
+        path: '/event-registration',
+        element: <EventRegistrationPage />,
       },
     ],
   },

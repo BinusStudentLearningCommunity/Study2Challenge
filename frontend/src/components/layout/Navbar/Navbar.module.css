@@ -70,6 +70,13 @@
   text-decoration: none;
   border: none;
   cursor: pointer;
+
+  transition: transform 0.2s ease-out, filter 0.2s ease-out;
+}
+
+.navLinkButton:hover {
+  transform: scale(1.05);
+  filter: brightness(1.2);
 }
 
 .hamburger {
