@@ -1,3 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+@font-face {
+  font-family: 'Zuume Rough';
+  src: url('/fonts/Fontspring-DEMO-zuumerough-regular.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Zing Rust';
+  src: url('/fonts/zing.rust-demo-base.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 *,
 *::before,
 *::after {
@@ -14,8 +32,8 @@ body {
 }
 
 body {
-  font-family: 'Inter', sans-serif; /* Ganti dengan font pilihan Anda */
-  background-color: #f4f6f8; /* Contoh warna background */
+  font-family: 'DM Sans', sans-serif; /* Ganti dengan font pilihan Anda */
+  background-color: #151515; /* Contoh warna background */
   color: #333; /* Contoh warna teks default */
 }
 
