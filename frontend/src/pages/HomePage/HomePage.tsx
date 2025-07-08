@@ -81,7 +81,7 @@ const HomePage = () => {
         </div>
         <hr />
         <Countdown targetDate="2025-12-31T23:59:59"/>
-        <Link to="/event-registration" className={styles.heroButton}>
+        <Link to="/dashboard" className={styles.heroButton}>
           DAFTAR SEKARANG
         </Link>
         <p className={styles.heroPrice}>(Rp 100.000/Tim) !</p>
