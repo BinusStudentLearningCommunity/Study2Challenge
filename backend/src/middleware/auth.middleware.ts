@@ -16,18 +16,20 @@ declare global {
     }
 }
 
-export const authenticationToken = (req: Request, res: Response, next: NextFunction) => {
+export const authenticationToken = (req: Request, res: Response, next: NextFunction): void => {
     const JWT_SECRET = process.env.JWT_SECRET;
 
     if (!JWT_SECRET) {
-        return res.status(500).json({ message: 'Server error: Konfigurasi JWT secret tidak ditemukan.' });
+        res.status(500).json({ message: 'Server error: Konfigurasi JWT secret tidak ditemukan.' });
+        return;
     }
 
     const authHeader = req.headers['authorization'];
     const token = authHeader?.split(' ')[1];
 
     if (token == null) {
-        return res.status(401).json({ message: 'Unauthorized: Bearer token tidak disediakan.' });
+        res.status(401).json({ message: 'Unauthorized: Bearer token tidak disediakan.' });
+        return
     }
 
     jwt.verify(token, JWT_SECRET, (err, decodedUser) => {
