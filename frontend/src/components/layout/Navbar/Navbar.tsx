@@ -1,57 +1,85 @@
 import { Link } from 'react-router-dom';
-import styles from './Navbar.module.css'; 
+import styles from './Navbar.module.css';
+import { useState } from 'react';
 
-// HANYA CODE CONTOH
 const Navbar = () => {
-  // TODO: Nanti kita akan tambahkan logika untuk menampilkan link berdasarkan status login dari AuthContext
-  const isLoggedIn = false; // Placeholder, ganti dengan status dari AuthContext
+  const isLoggedIn = false;
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+      setIsMenuOpen(false);
+    }
+  };
 
   return (
-    <nav className={styles.navbar}>
-      <div className={styles.navbarBrand}>
-        <Link to="/" className={styles.brandLink}>
-          EventApp
+		<div className={styles.navbarContainer}>
+			<nav className={styles.navbar}>
+				<div className={styles.navbarBrand}>
+					<Link to="/" className={styles.brandLink}>
+						Logo "STUDY 2 CHALLENGE 2025"
+					</Link>
+				</div>
+				<button
+          className={`${styles.hamburger} ${isMenuOpen ? styles.active : ''}`}
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+        <ul className={`${styles.navbarNav} ${isMenuOpen ? styles.active : ''}`}>
+          {isLoggedIn ? (
+            <>
+              <li className={styles.navItem}>
+                <Link to="/dashboard" className={styles.navLink}>
+                  Dashboard
+                </Link>
+              </li>
+              <li className={styles.navItem}>
+                <button className={styles.navLinkButton}>Logout</button>
+              </li>
+            </>
+          ) : (
+            <>
+              <li className={styles.navItem}>
+                <button
+                  onClick={() => scrollToSection('Hero')}
+                  className={styles.navLink}
+                >
+                  Tentang S2C
+                </button>
+              </li>
+              <li className={styles.navItem}>
+                <button
+                  onClick={() => scrollToSection('WhyJoin')}
+                  className={styles.navLink}
+                >
+                  Manfaat
+                </button>
+              </li>
+              <li className={styles.navItem}>
+                <button onClick={() => scrollToSection('Timeline')} className={styles.navLink}>Timeline</button>
+              </li>
+              <li className={styles.navItem}>
+                <button
+                  onClick={() => scrollToSection('Faq')}
+                  className={styles.navLink}
+                >
+                  FAQ
+                </button>
+              </li>
+            </>
+          )}
+        </ul>
+        <Link to="/register" className={styles.navLinkButton}>
+          DAFTAR TIM
         </Link>
-      </div>
-      <ul className={styles.navbarNav}>
-        <li className={styles.navItem}>
-          <Link to="/" className={styles.navLink}>
-            Home
-          </Link>
-        </li>
-        {isLoggedIn ? (
-          <>
-            <li className={styles.navItem}>
-              <Link to="/dashboard" className={styles.navLink}>
-                Dashboard
-              </Link>
-            </li>
-            <li className={styles.navItem}>
-              {/* TODO: Tambahkan fungsi logout */}
-              <button className={styles.navLinkButton}>Logout</button>
-            </li>
-          </>
-        ) : (
-          <>
-            <li className={styles.navItem}>
-              <Link to="/login" className={styles.navLink}>
-                Login
-              </Link>
-            </li>
-            <li className={styles.navItem}>
-              <Link to="/register" className={styles.navLink}>
-                Register
-              </Link>
-            </li>
-          </>
-        )}
-         <li className={styles.navItem}>
-          <Link to="/event-registration" className={styles.navLink}>
-            Daftar Event
-          </Link>
-        </li>
-      </ul>
-    </nav>
+			</nav>
+		</div>
   );
 };
 
