@@ -10,6 +10,7 @@ const RegisterPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const { register } = useAuth();
   const navigate = useNavigate();
 
@@ -19,19 +20,24 @@ const RegisterPage = () => {
       toast.error("Passwords don't match!");
       return;
     }
+    setIsSubmitting(true);
     try {
       await register({ name: `${firstName} ${lastName}`, email, password });
       toast.success('Registration successful! Please log in.');
-      setTimeout(() => navigate('/login'), 2000);
+      setTimeout(() => navigate('/login'), 1500);
     } catch (error) {
       console.error('Registration failed:', error);
       toast.error('Registration failed. Please try again.');
+      setIsSubmitting(false);
     }
   };
 
   return (
     <div className={styles.registerPage}>
       <Toaster position="bottom-right" />
+      <Link to="/" className={styles.backButton}>
+        &larr; Back to Homepage
+      </Link>
       <div className={styles.backgroundElements}>
         {/* Top Left Cluster (2 elements) */}
         <div className={`${styles.decoElement} ${styles.topLeftGalaxy}`}></div>
@@ -62,6 +68,7 @@ const RegisterPage = () => {
               value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
               required
+              disabled={isSubmitting}
             />
           </div>
           <div className={styles.inputGroup}>
@@ -72,6 +79,7 @@ const RegisterPage = () => {
               value={lastName}
               onChange={(e) => setLastName(e.target.value)}
               required
+              disabled={isSubmitting}
             />
           </div>
           <div className={styles.inputGroup}>
@@ -82,6 +90,7 @@ const RegisterPage = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
+              disabled={isSubmitting}
             />
           </div>
           <div className={styles.inputGroup}>
@@ -92,6 +101,7 @@ const RegisterPage = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
+              disabled={isSubmitting}
             />
           </div>
           <div className={styles.inputGroup}>
@@ -102,10 +112,11 @@ const RegisterPage = () => {
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               required
+              disabled={isSubmitting}
             />
           </div>
-          <button type="submit" className={styles.registerButton}>
-            Register
+          <button type="submit" className={styles.registerButton} disabled={isSubmitting}>
+            {isSubmitting ? <div className={styles.spinner}></div> : 'Register'}
           </button>
         </form>
         <p className={styles.loginLink}>
