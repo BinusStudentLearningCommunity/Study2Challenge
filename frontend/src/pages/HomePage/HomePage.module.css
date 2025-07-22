@@ -26,7 +26,8 @@
     position: relative; /* For decorative elements positioning */
     width: 100%;
     box-sizing: border-box;
-    overflow-x: hidden;
+    /* overflow-x: hidden; */
+    overflow-y: hidden;
 }
 
 .Hero h1 {
