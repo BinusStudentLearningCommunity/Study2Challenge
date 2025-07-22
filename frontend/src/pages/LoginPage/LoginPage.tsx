@@ -7,24 +7,30 @@ import { toast, Toaster } from 'react-hot-toast';
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false); 
   const { login } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsSubmitting(true);
     try {
       await login({ email, password });
       toast.success('Login successful!');
-      setTimeout(() => navigate('/dashboard'), 2000);
+      setTimeout(() => navigate('/dashboard'), 1500);
     } catch (error) {
       console.error('Login failed:', error);
       toast.error('Login failed. Please check your credentials.');
+      setIsSubmitting(false);
     }
   };
 
   return (
     <div className={styles.loginPage}>
       <Toaster position="bottom-right" />
+      <Link to="/" className={styles.backButton}>
+        &larr; Back to Homepage
+      </Link>
       <div className={styles.backgroundElements}>
         {/* Top Left Cluster (2 elements) */}
         <div className={`${styles.decoElement} ${styles.topLeftGalaxy}`}></div>
@@ -55,6 +61,7 @@ const LoginPage = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
+              disabled={isSubmitting}
             />
           </div>
           <div className={styles.inputGroup}>
@@ -65,10 +72,11 @@ const LoginPage = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
+              disabled={isSubmitting}
             />
           </div>
-          <button type="submit" className={styles.loginButton}>
-            Login
+          <button type="submit" className={styles.loginButton} disabled={isSubmitting}>
+            {isSubmitting ? <div className={styles.spinner}></div> : 'Login'}
           </button>
         </form>
         <p className={styles.registerLink}>

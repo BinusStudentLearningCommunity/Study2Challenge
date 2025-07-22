@@ -79,6 +79,63 @@
   filter: brightness(1.2);
 }
 
+.navActions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.mobileActions {
+  display: none;
+  width: 100%;
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px solid #333;
+}
+
+.registerButton,
+.dashboardButton,
+.logoutButton {
+  padding: 10px 24px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 700;
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s ease-out;
+  display: inline-block; 
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.registerButton,
+.dashboardButton {
+  background: radial-gradient(closest-side at center, #C48F43 0%, #FFBE61 500%);
+  color: #6C4F26;
+  box-shadow: 0 0 20px 0 rgba(196, 143, 67, 0.7);
+  border-color: #C48F43;
+}
+
+.registerButton:hover,
+.dashboardButton:hover {
+  transform: scale(1.05);
+  filter: brightness(1.15);
+}
+
+.logoutButton {
+  background-color: transparent;
+  border-color: #C48F43;
+  color: #FFBE61;
+}
+
+.logoutButton:hover {
+  background-color: rgba(196, 143, 67, 0.1);
+  color: #fff;
+  border-color: #FFBE61;
+  transform: scale(1.05);
+}
+
 .hamburger {
   display: none;
   flex-direction: column;
@@ -115,6 +172,21 @@
 }
 
 @media (max-width: 1060px) {
+  .navActions {
+    display: none;
+  }
+
+  .mobileActions {
+    display: block;
+  }
+  
+  .navbarNav .navItem .dashboardButton,
+  .navbarNav .navItem .logoutButton {
+    width: 100%;
+    text-align: center;
+    margin-top: 10px;
+  }
+  
   .navbarContainer {
     padding: 20px 20px 0 20px;
   }
@@ -138,6 +210,8 @@
     padding: 20px;
     border-radius: 0 0 25px 25px;
     margin-top: 5px;
+    width: auto; 
+    align-items: center;
   }
 
   .navbarNav.active {
@@ -156,6 +230,10 @@
   }
 
   .navLinkButton {
+    display: none;
+  }
+
+  .navSpacer {
     display: none;
   }
 }

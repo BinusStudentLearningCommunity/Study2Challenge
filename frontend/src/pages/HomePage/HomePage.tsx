@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Countdown from '../../components/Countdown/Countdown';
 import Footer from '../../components/layout/Footer/Footer';
 import styles from './HomePage.module.css';
+import { motion, type Variants } from 'framer-motion';
 
 // FAQ data - commonly asked questions about the competition
 const faqs = [
@@ -35,6 +36,28 @@ const HomePage = () => {
   // Toggle FAQ item open/close
   const handleToggle = (idx: number) => {
     setOpenIndex(openIndex === idx ? -1 : idx);
+  };
+
+  const sectionVariants: Variants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.8,
+        ease: "easeInOut"
+      }
+    }
+  };
+
+  const fadeIn = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
+  };
+
+  const hoverEffect = {
+    hover: { scale: 1.05 },
+    tap: { scale: 0.95 }
   };
 
   return (
@@ -77,10 +100,10 @@ const HomePage = () => {
         <div className={styles.heroText}>
           <h1>STUDY 2 CHALLENGE 2025</h1>
           <h2>BRIDGING GLOBAL PROBLEMS: TECH FOR A BETTER TOMORROW</h2>
-          <p>Hackathon nasional online untuk mahasiswa Indonesia! Ciptakan solusi teknologi <br/>inovatif berbasis website untuk menjawab tantangan SDGs 1-4.</p>
+          <p>Hackathon nasional online untuk siswa SMA dan mahasiswa Indonesia! Ciptakan solusi teknologi <br/>inovatif berbasis website untuk menjawab tantangan SDGs 1-4.</p>
         </div>
         <hr />
-        <Countdown targetDate="2025-12-31T23:59:59"/>
+        <Countdown targetDate="2025-09-21T23:59:59"/>
         <Link to="/dashboard" className={styles.heroButton}>
           DAFTAR SEKARANG
         </Link>
@@ -88,13 +111,43 @@ const HomePage = () => {
       </section>
 
       {/* Why Join section - explains the benefits of participating */}
-      <section className={styles.whyJoinSection} id='WhyJoin'>
-        <h2>Mengapa Bergabung dengan Study 2 Challenge 2025?</h2>
+      <motion.section
+        className={styles.whyJoinSection}
+        id='WhyJoin'
+        variants={sectionVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+      >
+        <motion.h2
+          animate={{
+            textShadow: [
+              "0 0 5px rgba(22, 99, 229, 0.6)",   
+              "0 0 12px rgba(49, 113, 223, 1)",  
+              "0 0 5px rgba(22, 99, 229, 0.6)", 
+            ],
+          }}
+          transition={{
+            duration: 3.5,     
+            repeat: Infinity,  
+            repeatType: "mirror",
+          }}
+        >
+          Mengapa Bergabung dengan Study 2 Challenge 2025?
+        </motion.h2>
         <hr />
         
-        <div className={styles.cardsGrid}>
+        <motion.div 
+          className={styles.cardsGrid}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          variants={{
+            visible: { transition: { staggerChildren: 0.2 } }
+          }}
+        >
           {/* Top row cards */}
-          <div className={`${styles.card} ${styles.card1}`}>
+          <motion.div className={`${styles.card} ${styles.card1}`} variants={{...fadeIn, ...hoverEffect}} whileHover="hover" whileTap="tap">
             <div className={`${styles.cardIcon} ${styles.orange}`}>
               <img src="/assets/public.png" alt="Public icon" />
             </div>
@@ -102,9 +155,9 @@ const HomePage = () => {
               <h3 className={styles.cardTitle}>Kontribusi nyata untuk SDGs (Pengentasan Kemiskinan, Sistem Pangan, Kesehatan, Pendidikan).</h3>
               <p className={styles.cardDescription}>Berkontribusi langsung dalam mendukung tujuan global seperti pengentasan kemiskinan, perbaikan sistem pangan, kesehatan, dan pendidikan melalui proyek dan ide yang berdampak.</p>
             </div>
-          </div>
+          </motion.div>
           
-          <div className={`${styles.card} ${styles.card2}`}>
+          <motion.div className={`${styles.card} ${styles.card2}`} variants={{...fadeIn, ...hoverEffect}} whileHover="hover" whileTap="tap">
             <div className={`${styles.cardIcon} ${styles.blue}`}>
               <img src="/assets/psychology.png" alt="Psychology icon" />
             </div>
@@ -112,11 +165,11 @@ const HomePage = () => {
               <h3 className={styles.cardTitle}>Asah Critical & Creative Thinking serta Global Standard Technical Competencies.</h3>
               <p className={styles.cardDescription}>Mengembangkan kemampuan berpikir kritis dan kreatif sekaligus meningkatkan kompetensi teknis yang diakui secara global.</p>
             </div>
-          </div>
+          </motion.div>
           
           {/* Bottom row cards */}
           <div className={styles.bottomRow}>
-            <div className={styles.card}>
+            <motion.div className={styles.card} variants={{...fadeIn, ...hoverEffect}} whileHover="hover" whileTap="tap">
               <div className={`${styles.cardIcon} ${styles.blue}`}>
                 <img src="/assets/groups.png" alt="Groups icon" />
               </div>
@@ -124,9 +177,9 @@ const HomePage = () => {
                 <h3 className={styles.cardTitle}>Tingkatkan Collaboration & Digital Fluency.</h3>
                 <p className={styles.cardDescription}>Meningkatkan kemampuan bekerja sama dalam tim dan menguasai keterampilan teknologi digital yang penting di era modern.</p>
               </div>
-            </div>
+            </motion.div>
             
-            <div className={`${styles.card} ${styles.cardMiddle}`}>
+            <motion.div className={`${styles.card} ${styles.cardMiddle}`} variants={{...fadeIn, ...hoverEffect}} whileHover="hover" whileTap="tap">
               <div className={`${styles.cardIcon} ${styles.orange}`}>
                 <img src="/assets/military_tech.png" alt="Military tech icon" />
               </div>
@@ -134,9 +187,9 @@ const HomePage = () => {
                 <h3 className={styles.cardTitle}>Pengalaman kompetisi tingkat nasional dari BINUS Student Learning Community.</h3>
                 <p className={styles.cardDescription}>Dapatkan kesempatan untuk merasakan atmosfer kompetisi tingkat nasional yang menantang dan memperluas jaringan.</p>
               </div>
-            </div>
+            </motion.div>
             
-            <div className={styles.card}>
+            <motion.div className={styles.card} variants={{...fadeIn, ...hoverEffect}} whileHover="hover" whileTap="tap">
               <div className={`${styles.cardIcon} ${styles.blue}`}>
                 <img src="/assets/card_giftcard.png" alt="Gift card icon" />
               </div>
@@ -144,34 +197,79 @@ const HomePage = () => {
                 <h3 className={styles.cardTitle}>Menangkan hadiah menarik & dapatkan sertifikat nasional.</h3>
                 <p className={styles.cardDescription}>Raih penghargaan, hadiah, serta sertifikat resmi sebagai bukti partisipasi dan pencapaian dalam ajang bergengsi ini.</p>
               </div>
-            </div>
+            </motion.div>
           </div>
-        </div>
-      </section>
+        </motion.div>
+      </motion.section>
 
       {/* SDGs section - showcases the sustainable development goals */}
-      <section className={styles.SDGs}>
-        <h2>Sustainable Development Goals</h2>
+      <motion.section
+        className={styles.SDGs}
+        variants={sectionVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+      >
+        <motion.h2
+          animate={{
+            textShadow: [
+              "0 0 15px rgba(196, 143, 67, 0.6)",
+              "0 0 25px rgba(196, 143, 67, 1)",
+              "0 0 15px rgba(196, 143, 67, 0.6)", 
+            ]
+          }}
+          transition={{
+            duration: 3.5,     
+            repeat: Infinity,  
+            repeatType: "mirror",
+          }}
+        >
+          Sustainable Development Goals
+        </motion.h2>
         <hr />
         <div className={styles.sdgContainer}>
-          <img src="/assets/Group 98.png" alt="SDG 1 - No Poverty" />
-          <img src="/assets/Group 99.png" alt="SDG 2 - Zero Hunger" />
-          <img src="/assets/Group 100.png" alt="SDG 3 - Good Health and Well-being" />
-          <img src="/assets/Group 101.png" alt="SDG 4 - Quality Education" />
+          <motion.div variants={{...fadeIn, ...hoverEffect}} whileHover="hover" whileTap="tap"><img src="/assets/Group 98.png" alt="SDG 1 - No Poverty" /></motion.div>
+          <motion.div variants={{...fadeIn, ...hoverEffect}} whileHover="hover" whileTap="tap"><img src="/assets/Group 99.png" alt="SDG 2 - Zero Hunger" /></motion.div>
+          <motion.div variants={{...fadeIn, ...hoverEffect}} whileHover="hover" whileTap="tap"><img src="/assets/Group 100.png" alt="SDG 3 - Good Health and Well-being" /></motion.div>
+          <motion.div variants={{...fadeIn, ...hoverEffect}} whileHover="hover" whileTap="tap"><img src="/assets/Group 101.png" alt="SDG 4 - Quality Education" /></motion.div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Timeline section - shows the competition schedule */}
-      <section className={styles.Timeline} id="Timeline">
-        <h2>Timeline</h2>
+      <motion.section
+        className={styles.Timeline}
+        id="Timeline"
+        variants={sectionVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+      >
+        <motion.h2
+          animate={{
+            textShadow: [
+              "0 0 5px rgba(22, 99, 229, 0.6)",   
+              "0 0 12px rgba(49, 113, 223, 1)",  
+              "0 0 5px rgba(22, 99, 229, 0.6)", 
+            ],
+          }}
+          transition={{
+            duration: 3.5,     
+            repeat: Infinity,  
+            repeatType: "mirror",
+          }}
+        >
+          Timeline
+        </motion.h2>
         <hr />
         <div className={styles.timelineContainer}>
             {/* Registration & Proposal Submission */}
             <div className={styles.timelineItem}>
                 <div className={styles.timelineSide}>
-                    <div className={styles.timelineDate}>
-                        <span>25 Agustus – 21 September 2025</span>
-                    </div>
+                    <motion.div variants={{...fadeIn, ...hoverEffect}} whileHover="hover" whileTap="tap">
+                      <div className={styles.timelineDate}>
+                          <span>25 Agustus – 21 September 2025</span>
+                      </div>
+                    </motion.div>
                 </div>
                 <div className={styles.timelineSide}>
                     <div className={styles.timelineDetails}>
@@ -186,9 +284,11 @@ const HomePage = () => {
             {/* Proposal Selection */}
             <div className={`${styles.timelineItem} ${styles.reverse}`}>
                 <div className={styles.timelineSide}>
-                    <div className={styles.timelineDate}>
-                        <span>22 September – 26 September 2025</span>
-                    </div>
+                    <motion.div variants={{...fadeIn, ...hoverEffect}} whileHover="hover" whileTap="tap">
+                      <div className={styles.timelineDate}>
+                          <span>22 September – 26 September 2025</span>
+                      </div>
+                    </motion.div>
                 </div>
                 <div className={styles.timelineSide}>
                     <div className={styles.timelineDetails}>
@@ -203,9 +303,11 @@ const HomePage = () => {
             {/* Announcement of Selected Participants */}
             <div className={styles.timelineItem}>
                 <div className={styles.timelineSide}>
-                    <div className={styles.timelineDate}>
-                        <span>27 September 2025</span>
-                    </div>
+                    <motion.div variants={{...fadeIn, ...hoverEffect}} whileHover="hover" whileTap="tap">
+                      <div className={styles.timelineDate}>
+                          <span>27 September 2025</span>
+                      </div>
+                    </motion.div>
                 </div>
                 <div className={styles.timelineSide}>
                     <div className={styles.timelineDetails}>
@@ -220,9 +322,11 @@ const HomePage = () => {
             {/* Technical Meeting */}
             <div className={`${styles.timelineItem} ${styles.reverse}`}>
                 <div className={styles.timelineSide}>
-                    <div className={styles.timelineDate}>
-                        <span>28 September 2025</span>
-                    </div>
+                    <motion.div variants={{...fadeIn, ...hoverEffect}} whileHover="hover" whileTap="tap">
+                      <div className={styles.timelineDate}>
+                          <span>28 September 2025</span>
+                      </div>
+                    </motion.div>
                 </div>
                 <div className={styles.timelineSide}>
                     <div className={styles.timelineDetails}>
@@ -237,9 +341,11 @@ const HomePage = () => {
             {/* Implementation Phase */}
             <div className={styles.timelineItem}>
                 <div className={styles.timelineSide}>
-                    <div className={styles.timelineDate}>
-                        <span>29 September – 12 Oktober 2025</span>
-                    </div>
+                    <motion.div variants={{...fadeIn, ...hoverEffect}} whileHover="hover" whileTap="tap">
+                      <div className={styles.timelineDate}>
+                          <span>29 September – 12 Oktober 2025</span>
+                      </div>
+                    </motion.div>
                 </div>
                 <div className={styles.timelineSide}>
                     <div className={styles.timelineDetails}>
@@ -254,9 +360,11 @@ const HomePage = () => {
             {/* Final Judging */}
             <div className={`${styles.timelineItem} ${styles.reverse}`}>
                 <div className={styles.timelineSide}>
-                    <div className={styles.timelineDate}>
-                        <span>13 Oktober – 19 Oktober 2025</span>
-                    </div>
+                    <motion.div variants={{...fadeIn, ...hoverEffect}} whileHover="hover" whileTap="tap">
+                      <div className={styles.timelineDate}>
+                          <span>13 Oktober – 19 Oktober 2025</span>
+                      </div>
+                    </motion.div>
                 </div>
                 <div className={styles.timelineSide}>
                     <div className={styles.timelineDetails}>
@@ -271,9 +379,11 @@ const HomePage = () => {
             {/* Winner Announcement */}
             <div className={styles.timelineItem}>
                 <div className={styles.timelineSide}>
-                    <div className={styles.timelineDate}>
-                        <span>20 Oktober 2025</span>
-                    </div>
+                    <motion.div variants={{...fadeIn, ...hoverEffect}} whileHover="hover" whileTap="tap">
+                      <div className={styles.timelineDate}>
+                          <span>20 Oktober 2025</span>
+                      </div>
+                    </motion.div>
                 </div>
                 <div className={styles.timelineSide}>
                     <div className={styles.timelineDetails}>
@@ -285,14 +395,35 @@ const HomePage = () => {
                 </div>
             </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Sponsors section - showcases competition sponsors */}
-      <section className={styles.Sponsor}>
+      <motion.section
+        className={styles.Sponsor}
+        variants={sectionVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+      >
         <div className={styles.sponsorTitleContainer}>
           <img src="/assets/Group 125.png" alt="Decorative element" className={styles.sponsorTitleLeft} />
           <div className={styles.sponsorTitleCenter}>
-            <h2>OUR SPONSORS</h2>
+            <motion.h2
+              animate={{
+                textShadow: [
+                  "0 0 15px rgba(196, 143, 67, 0.6)",
+                  "0 0 25px rgba(196, 143, 67, 0.9)",
+                  "0 0 15px rgba(196, 143, 67, 0.6)", 
+                ]
+              }}
+              transition={{
+                duration: 3.5,     
+                repeat: Infinity,  
+                repeatType: "mirror",
+              }}
+            >
+              OUR SPONSORS
+            </motion.h2>
             <hr />
           </div>
           <img src="/assets/Group 126.png" alt="Decorative element" className={styles.sponsorTitleRight} />
@@ -303,14 +434,36 @@ const HomePage = () => {
             <div key={index} className={styles.sponsorCard}></div>
           ))}
         </div>
-      </section>
+      </motion.section>
 
       {/* Media Partners section - showcases media partners */}
-      <section className={styles.MediaPartner} id='MedPar'>
+      <motion.section
+        className={styles.MediaPartner}
+        id='MedPar'
+        variants={sectionVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+      >
         <div className={styles.mediaPartnerTitleContainer}>
           <img src="/assets/Group 127.png" alt="Decorative element" className={styles.mediaPartnerTitleLeft} />
           <div className={styles.mediaPartnerTitleCenter}>
-            <h2>OUR MEDIA PARTNERS</h2>
+            <motion.h2
+              animate={{
+                textShadow: [
+                  "0 0 5px rgba(22, 99, 229, 0.6)",   
+                  "0 0 12px rgba(49, 113, 223, 1)",  
+                  "0 0 5px rgba(22, 99, 229, 0.6)", 
+                ],
+              }}
+              transition={{
+                duration: 3.5,     
+                repeat: Infinity,  
+                repeatType: "mirror",
+              }}
+            >
+              OUR MEDIA PARTNERS
+            </motion.h2>
             <hr />
           </div>
           <img src="/assets/Group 127.png" alt="Decorative element" className={styles.mediaPartnerTitleRight} style={{ transform: 'scaleX(-1)' }} />
@@ -321,13 +474,35 @@ const HomePage = () => {
             <div key={index} className={styles.sponsorCard}></div>
           ))}
         </div>
-      </section>
+      </motion.section>
 
       {/* FAQ section - frequently asked questions */}
-      <section className={styles.FAQSection} id='Faq'>
+      <motion.section
+        className={styles.FAQSection}
+        id='Faq'
+        variants={sectionVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+      >
         <div className={styles.faqGrid}>
           <div className={styles.faqLeft}>
-            <h2>FREQUENTLY ASKED QUESTIONS</h2>
+            <motion.h2
+              animate={{
+                textShadow: [
+                  "0 0 15px rgba(196, 143, 67, 0.6)",
+                  "0 0 25px rgba(196, 143, 67, 0.9)",
+                  "0 0 15px rgba(196, 143, 67, 0.6)", 
+                ]
+              }}
+              transition={{
+                duration: 3.5,     
+                repeat: Infinity,  
+                repeatType: "mirror",
+              }}
+            >
+              FREQUENTLY ASKED QUESTIONS
+            </motion.h2>
             <hr />
             <p className={styles.faqIntro}>
               Temukan jawaban atas pertanyaan yang paling sering diajukan mengenai alur, pendaftaran, dan teknis kompetisi. Jika pertanyaan tidak terjawab di sini, jangan ragu untuk menghubungi kami di (nomor wa CP/ig s2c).
@@ -354,10 +529,16 @@ const HomePage = () => {
             ))}
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Organizer section - information about BSLC */}
-      <section className={styles.organizerSection}>
+      <motion.section
+        className={styles.organizerSection}
+        variants={sectionVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+      >
         <div className={styles.organizerGrid}>
           <div className={styles.organizerImagesLeft}>
             <img src="/assets/Group 89.png" alt="BSLC activity" className={styles.organizerSmallImg} />
@@ -368,7 +549,20 @@ const HomePage = () => {
             <img src="/assets/Group 79.png" alt="BSLC Logo" className={styles.organizerBigImg} />
           </div>
           <div className={styles.organizerContent}>
-            <Link className={styles.organizerButton} to={"/check"}>check us out!</Link>
+            <motion.div
+              className={styles.organizerButtonWrapper}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <a
+                href="https://new.bslc.or.id/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.organizerButton}
+              >
+                check us out!
+              </a>
+            </motion.div>
             <h2>
               <span style={{ color: '#3FE0A8' }}>BINUS Student</span><br />
               <span style={{ color: '#C6FF43' }}>Learning Community</span>
@@ -378,7 +572,7 @@ const HomePage = () => {
             </p>
           </div>
         </div>
-      </section>
+     </motion.section>
       <Footer />
     </div>
   );

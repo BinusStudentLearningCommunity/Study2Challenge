@@ -422,9 +422,9 @@
     display: flex;
     align-items: center;
     margin-bottom: 60px;
-    opacity: 1;
+    /* opacity: 1;
     transform: translateY(30px);
-    animation: fadeInUp 0.8s ease forwards;
+    animation: fadeInUp 0.8s ease forwards; */
 }
 
 /* Timeline dot */
@@ -1010,9 +1010,6 @@
 }
 
 .organizerButton {
-    position: absolute;
-    top: 0;
-    right: 0;
     background: linear-gradient(90deg, #F9FF43 0%, #A6FF43 100%);
     color: #232323;
     font-weight: 700;
@@ -1022,8 +1019,14 @@
     padding: 10px 28px;
     box-shadow: 0 0 16px #F9FF4388;
     cursor: pointer;
-    transition: background 0.2s, color 0.2s;
-    z-index: 2;
+}
+
+.organizerButtonWrapper {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 2;
+  transition: transform 0.2s ease-in-out; 
 }
 
 .organizerContent h2 {
@@ -1273,9 +1276,9 @@ html, body {
 }
 
 /* Animation for timeline items */
-@keyframes fadeInUp {
+/* @keyframes fadeInUp {
     to {
         opacity: 1;
         transform: translateY(0);
     }
-}
+} */
