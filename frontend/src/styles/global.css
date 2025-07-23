@@ -33,15 +33,15 @@
 
 html,
 body {
-  height: 100%;
+  min-height: 100vh;
   line-height: 1.5;
-  -webkit-font-smoothing: antialiased; /* Font lebih halus di Webkit */
+  -webkit-font-smoothing: antialiased;
+  overflow: visible;
 }
-
 body {
-  font-family: 'DM Sans', sans-serif; /* Ganti dengan font pilihan Anda */
-  background-color: #151515; /* Contoh warna background */
-  color: #333; /* Contoh warna teks default */
+  font-family: 'DM Sans', sans-serif;
+  background-color: #151515;
+  color: #333;
 }
 
 img,
@@ -73,9 +73,9 @@ a {
 #root {
   display: flex;
   flex-direction: column;
-  min-height: 100vh; /* Pastikan root element mengambil tinggi penuh */
+  min-height: 100vh;
 }
 
 main {
-  flex-grow: 1; /* Biarkan konten utama mengisi ruang yang tersedia */
+  flex-grow: 1;
 }
