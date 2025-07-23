@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Countdown from '../../components/Countdown/Countdown';
-import Footer from '../../components/layout/Footer/Footer';
 import styles from './HomePage.module.css';
 import { motion, type Variants } from 'framer-motion';
 
@@ -74,25 +73,9 @@ const HomePage = () => {
         <img src="/assets/code_background 3.png" alt="Decorative element" className={`${styles.decorativeImage} ${styles.whyJoinSectionCode}`} />
         <img src="/assets/astrounotFall_black 3.png" alt="Decorative element" className={`${styles.decorativeImage} ${styles.whyJoinSectionTopRight}`} />
 
-        {/* SDGs section decoration */}
-        <img src="/assets/galaxy_black 1.png" alt="Decorative element" className={`${styles.decorativeImage} ${styles.sdgLeftBottom}`} />
-
         {/* Timeline section decorations */}
         <img src="/assets/Clip path group.png" alt="Decorative element" className={`${styles.decorativeImage} ${styles.timelineClip1}`} />
         <img src="/assets/Clip path group (1).png" alt="Decorative element" className={`${styles.decorativeImage} ${styles.timelineClip2}`} />
-
-        {/* Sponsors section decorations */}
-        <img src="/assets/galaxy_black 2.png" alt="Decorative element" className={`${styles.decorativeImage} ${styles.sponsorBottomLeft}`} />
-
-        {/* Media Partner section decorations */}
-        <img src="/assets/Clip path group (2).png" alt="Decorative element" className={`${styles.decorativeImage} ${styles.mediaMiddle}`} />
-
-        {/* FAQ section decoration */}
-        <img src="/assets/astrounot_black 1.png" alt="Decorative element" className={`${styles.decorativeImage} ${styles.faqLeftTop}`} />
-
-        {/* Organizer section decorations */}
-        <img src="/assets/Clip path group.png" alt="Decorative element" className={`${styles.decorativeImage} ${styles.organizerMiddle}`} />
-        <img src="/assets/code_background 3.png" alt="Decorative element" className={`${styles.decorativeImage} ${styles.organizerCode}`} />
       </div>
 
       {/* Hero section - main landing area with countdown and registration */}
@@ -406,33 +389,51 @@ const HomePage = () => {
         viewport={{ once: true, amount: 0.2 }}
       >
         <div className={styles.sponsorTitleContainer}>
-          <img src="/assets/Group 125.png" alt="Decorative element" className={styles.sponsorTitleLeft} />
+          <img src="/assets/sparkle-gold-1.png" alt="Sparkle left" className={styles.sponsorTitleLeft} />
           <div className={styles.sponsorTitleCenter}>
             <motion.h2
               animate={{
                 textShadow: [
-                  "0 0 15px rgba(196, 143, 67, 0.6)",
-                  "0 0 25px rgba(196, 143, 67, 0.9)",
-                  "0 0 15px rgba(196, 143, 67, 0.6)", 
-                ]
+                  "0 0 5px rgba(196, 143, 67, 0.6)",
+                  "0 0 12px rgba(196, 143, 67, 1)",
+                  "0 0 5px rgba(196, 143, 67, 0.6)",
+                ],
               }}
               transition={{
-                duration: 3.5,     
-                repeat: Infinity,  
+                duration: 3.5,
+                repeat: Infinity,
                 repeatType: "mirror",
               }}
             >
-              OUR SPONSORS
+              Sponsor
             </motion.h2>
             <hr />
           </div>
-          <img src="/assets/Group 126.png" alt="Decorative element" className={styles.sponsorTitleRight} />
+          <img src="/assets/sparkle-gold-2.png" alt="Sparkle right" className={styles.sponsorTitleRight} />
         </div>
+
+        {/* Gold Tier */}
+        <h3>Gold Sponsors</h3>
         <div className={styles.sponsorGrid}>
-          {/* Sponsor cards - placeholder for actual sponsor logos */}
-          {Array.from({ length: 16 }, (_, index) => (
-            <div key={index} className={styles.sponsorCard}></div>
-          ))}
+          <div className={styles.sponsorCard}></div>
+          <div className={styles.sponsorCard}></div>
+        </div>
+
+        {/* Silver Tier */}
+        <h3>Silver Sponsors</h3>
+        <div className={styles.sponsorGrid}>
+          <div className={styles.sponsorCard}></div>
+          <div className={styles.sponsorCard}></div>
+          <div className={styles.sponsorCard}></div>
+        </div>
+
+        {/* Bronze Tier */}
+        <h3>Bronze Sponsors</h3>
+        <div className={styles.sponsorGrid}>
+          <div className={styles.sponsorCard}></div>
+          <div className={styles.sponsorCard}></div>
+          <div className={styles.sponsorCard}></div>
+          <div className={styles.sponsorCard}></div>
         </div>
       </motion.section>
 
@@ -573,7 +574,6 @@ const HomePage = () => {
           </div>
         </div>
      </motion.section>
-      <Footer />
     </div>
   );
 };
