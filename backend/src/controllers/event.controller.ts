@@ -52,14 +52,14 @@ export const registerForEvent = async (req: Request, res: Response) => {
         await newTeam.save({ session });
 
         const teamMembership = new TeamMembership({
-            teamCode: newTeam._id,
+            teamId: newTeam._id,
             userId: userId
         });
         await teamMembership.save({ session });
 
         const membersToInsert = teamMembers.map((member: any) => ({
             ...member,
-            teamCode: newTeam._id
+            teamId: newTeam._id
         }));
         await Member.insertMany(membersToInsert, { session });
 
@@ -113,27 +113,27 @@ export const joinTeam = async (req: Request, res: Response) => {
             return res.status(409).json({ message: 'Anda sudah terdaftar di tim lain.' });
         }
 
-        const existingTeamMember = await Member.findOne({ teamCode: team._id, email: userEmail }).session(session);
+        const existingTeamMember = await Member.findOne({ teamId: team._id, email: userEmail }).session(session);
         if (existingTeamMember) {
              await session.abortTransaction();
              return res.status(409).json({ message: 'Anda sudah menjadi anggota tim ini.' });
         }
 
         const newTeamMembership = new TeamMembership({
-            teamCode: team._id,
+            teamId: team._id,
             userId: userId
         });
         await newTeamMembership.save({ session });
 
         const newMember = new Member({
-            teamCode: team._id,
+            teamId: team._id,
             email: userEmail,
         });
         await newMember.save({ session });
         
         // auto lock jika sudah 3 anggota
         const MAX_TEAM_MEMBERS = 3;
-        const memberCounter = await Member.countDocuments({ teamCode: team._id }).session(session);
+        const memberCounter = await Member.countDocuments({ teamId: team._id }).session(session);
 
         if (memberCounter >= MAX_TEAM_MEMBERS) {
             if (!team.isLock) {

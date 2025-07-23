@@ -1,7 +1,7 @@
 import mongoose, {Document, Schema} from "mongoose";
 
 export interface IMember extends Document{
-    teamCode: mongoose.Types.ObjectId,
+    teamId: mongoose.Types.ObjectId,
     fullName?: string,
     email: string,
     dateOfBirth?: Date,
@@ -14,7 +14,7 @@ export interface IMember extends Document{
 }
 
 const memberSchema = new Schema<IMember>({
-    teamCode: { type: Schema.Types.ObjectId, ref: 'Team', required: true},
+    teamId: { type: Schema.Types.ObjectId, ref: 'Team', required: true},
     fullName: { type: String},
     email: { type: String, required: true },
     dateOfBirth: { type: Date },
@@ -26,7 +26,7 @@ const memberSchema = new Schema<IMember>({
     role: { type: String }
 })
 
-memberSchema.index({ teamCode: 1, email: 1 }, { unique: true });
+memberSchema.index({ teamId: 1, email: 1 }, { unique: true });
 
 const Member = mongoose.model<IMember>('Member', memberSchema);
 export default Member;
