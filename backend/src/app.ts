@@ -21,7 +21,7 @@ app.use(morgan('dev'));
 app.use('/api', authRoutes);
 
 app.use('/api/dashboard', dashboardRoutes);
-app.use('/api/events', eventRoutes);
+app.use('/api/event', eventRoutes);
 
 app.get('/', (req: Request, res: Response) => {
   res.status(200).json({ message: 'Berhasil masuk API BSLC' });

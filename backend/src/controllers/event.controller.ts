@@ -5,41 +5,57 @@ import TeamMembership from "../models/team.membership.model";
 import mongoose from "mongoose";
 import User from "../models/user.model";
 
-// generate code
+
 const generateUniqueTeamCode = async (): Promise<string> => {
     let teamCode: string = '';
-    let isExsits = false;
+    let isExisting = true;
 
-    while (!isExsits) {
+    while (isExisting) {
         const randomNumber = Math.floor(100000 + Math.random() * 900000);
         teamCode = randomNumber.toString();
         
         const existingTeam = await Team.findOne({ teamCode });
         
         if (!existingTeam) {
-            isExsits = true;
+            isExisting = false;
         }
     }
     return teamCode;
 };
+
 
 export const registerForEvent = async (req: Request, res: Response) => {
     const session = await mongoose.startSession();
     session.startTransaction();
 
     try {
-        const { teamName, paymentProofUrl, teamMembers } = req.body;
-        const userId = req.user?.userId;
-        const userEmail = req.user?.email;
+        const { teamName, paymentProofUrl, teamMembers } = req.body; 
+        const creatorUserId = req.user?.userId;
+        const creatorEmail = req.user?.email;
 
-        const existingMembership = await TeamMembership.findOne({ userId }).session(session);
-        if (existingMembership) {
+        const allMemberEmails = [...new Set([creatorEmail, ...teamMembers.map((m: any) => m.email)])];
+
+        const users = await User.find({ email: { $in: allMemberEmails } }).select('_id email name').session(session);
+
+        if (users.length !== allMemberEmails.length) {
+            const foundEmails = users.map(u => u.email);
+            const notFoundEmails = allMemberEmails.filter(email => !foundEmails.includes(email as string));
             await session.abortTransaction();
-            return res.status(409).json({ message: 'User sudah terdaftar di tim lain' });
+            return res.status(404).json({
+                message: `User dengan email berikut tidak ditemukan: ${notFoundEmails.join(', ')}. Pastikan semua anggota telah mendaftar.`,
+            });
+        }
+
+        const allUserIds = users.map(user => user._id);
+
+        const existingMembership = await TeamMembership.findOne({ userId: { $in: allUserIds } }).session(session);
+        if (existingMembership) {
+            const memberInTeam = users.find(u => String(u._id) === String(existingMembership.userId));
+            await session.abortTransaction();
+            return res.status(409).json({ message: `User ${memberInTeam?.email} sudah terdaftar di tim lain.` });
         }
 
         const newTeamCode = await generateUniqueTeamCode();
-
         const newTeam = new Team({
             teamCode: newTeamCode,
             teamName,
@@ -47,25 +63,32 @@ export const registerForEvent = async (req: Request, res: Response) => {
             isPay: false,
             isLock: false,
             isQualified: false,
-            email: userEmail
+            email: creatorEmail 
         });
         await newTeam.save({ session });
 
-        const teamMembership = new TeamMembership({
+        const membershipsToCreate = allUserIds.map(userId => ({
             teamId: newTeam._id,
             userId: userId
-        });
-        await teamMembership.save({ session });
+        }));
+        await TeamMembership.insertMany(membershipsToCreate, { session });
 
-        const membersToInsert = teamMembers.map((member: any) => ({
-            ...member,
+        const membersToInsert = users.map(user => ({
+            name: user.name,
+            email: user.email,
             teamId: newTeam._id
         }));
         await Member.insertMany(membersToInsert, { session });
+        
+        const MAX_TEAM_MEMBERS = 3;
+        if (allUserIds.length >= MAX_TEAM_MEMBERS) {
+            newTeam.isLock = true;
+            await newTeam.save({ session });
+        }
 
         await session.commitTransaction();
-        res.status(201).json({ 
-            message: 'Berhasil mendaftar untuk event', 
+        res.status(201).json({
+            message: 'Berhasil mendaftar untuk event',
             teamId: newTeam._id,
             teamCode: newTeam.teamCode
         });
@@ -78,6 +101,7 @@ export const registerForEvent = async (req: Request, res: Response) => {
     }
 };
 
+
 export const joinTeam = async (req: Request, res: Response) => {
     const session = await mongoose.startSession();
     session.startTransaction();
@@ -87,15 +111,17 @@ export const joinTeam = async (req: Request, res: Response) => {
         const userId = req.user?.userId;
         const userEmail = req.user?.email;
 
-        // dapetin data user
-        const user = await User.findOne({ email: userEmail }).session(session);
+        const user = await User.findById(userId).session(session);
+        if (!user) {
+            await session.abortTransaction();
+            return res.status(404).json({ message: 'User tidak ditemukan.' });
+        }
 
         if (!teamCode) {
             await session.abortTransaction();
             return res.status(400).json({ message: 'Kode tim harus disediakan.' });
         }
 
-        // dapetin data team
         const team = await Team.findOne({ teamCode }).session(session);
         if (!team) {
             await session.abortTransaction();
@@ -127,11 +153,11 @@ export const joinTeam = async (req: Request, res: Response) => {
 
         const newMember = new Member({
             teamId: team._id,
+            name: user.name, 
             email: userEmail,
         });
         await newMember.save({ session });
         
-        // auto lock jika sudah 3 anggota
         const MAX_TEAM_MEMBERS = 3;
         const memberCounter = await Member.countDocuments({ teamId: team._id }).session(session);
 
@@ -154,5 +180,30 @@ export const joinTeam = async (req: Request, res: Response) => {
         res.status(500).json({ message: 'Gagal bergabung ke tim', error: error.message });
     } finally {
         session.endSession();
+    }
+};
+
+export const getMyTeam = async (req: Request, res: Response) => {
+    try {
+        const userId = req.user?.userId;
+
+        const membership = await TeamMembership.findOne({ userId });
+        if (!membership) {
+            return res.status(404).json({ message: 'Kamu belum tergabung dalam tim manapun.' });
+        }
+
+        const team = await Team.findById(membership.teamId);
+        if (!team) {
+            return res.status(404).json({ message: 'Data tim tidak ditemukan.' });
+        }
+
+        const members = await Member.find({ teamId: team._id });
+
+        res.status(200).json({
+            team,
+            members
+        });
+    } catch (error: any) {
+        res.status(500).json({ message: 'Gagal mengambil data tim', error: error.message });
     }
 };
