@@ -1,0 +1,40 @@
+.teamName {
+    display: flex;
+    flex-direction: column;
+    border-radius: 15px;
+    padding: 0.8rem 1rem;
+}
+
+.teamTitle {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.teamButton {
+    margin-top: 0.7rem;
+    padding: 8px 15px;
+    font-weight: 600;
+    font-size: 12px;
+    border: none;
+    border-radius: 10px;
+    width: 100%;
+}
+
+@media screen and (max-width: 1060px) {
+    .teamTitle {
+        font-size: 12px;
+    }
+
+    .teamButton {
+        padding: 8px 12px;
+        font-size: 10px;
+    }
+}
+
+@media screen and (max-width: 900px) {
+     .teamButton {
+        padding: 8px 12px;
+        font-size: 12px;
+    }   
+}
