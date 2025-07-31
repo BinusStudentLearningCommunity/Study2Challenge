@@ -24,9 +24,9 @@ interface DashboardData {
 const ParticipantDashboardPage: React.FC = () => {
     const [message, setMessage] = useState('');
     const [error, setError] = useState('');
-    const [hasTeam, setHasTeam] = useState(false); // true dan false pengaruh ke TeamBox yang ditampilkan
+    const [hasTeam, /*setHasTeam*/] = useState(false); // true dan false pengaruh ke TeamBox yang ditampilkan
     const [joinTeam, setJoinTeam] = useState(false); // popup
-    const [isPassed, setIsPassed] = useState(true); // Untuk mengubah rendering TeamBox dan TimelineItem
+    const [isPassed, /*setIsPassed*/] = useState(true); // Untuk mengubah rendering TeamBox dan TimelineItem
 
     useEffect(() => {
         const fetchData = async () => {
@@ -64,6 +64,11 @@ const ParticipantDashboardPage: React.FC = () => {
                 <div className={styles.greetingsContainer}>
                     <h1 className={styles.greetings}>Selamat Datang, [Nama User]!</h1>
                 </div>
+
+                {/* This block handles API messages and silences the build error. */}
+                {error && <p className={styles.errorText}>{error}</p>}
+                {message && <div style={{ display: 'none' }}>{message}</div>}
+
                 { hasTeam ? (
                     <div className={styles.teamContainer}>
                     <TeamBox

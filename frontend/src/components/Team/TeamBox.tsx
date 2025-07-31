@@ -1,13 +1,13 @@
 import type React from 'react';
 import styles from './TeamBox.module.css';
 
-import { motion, type Variants } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 interface TeamBoxprops {
     backgroundColor: React.CSSProperties,
-    title: String,
+    title: string,
     titleColor: React.CSSProperties,
-    buttonText: String,
+    buttonText: string,
     buttonFunction: (event: React.MouseEvent<HTMLButtonElement>) => void,
     buttonColor: React.CSSProperties
 }

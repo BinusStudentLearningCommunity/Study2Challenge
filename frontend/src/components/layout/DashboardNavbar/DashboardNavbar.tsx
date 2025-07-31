@@ -13,7 +13,7 @@ const DashboardNavbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const location = useLocation();
 
-    const isSelected = (path: String) => location.pathname === path ? styles.active : '';
+    const isSelected = (path: string) => location.pathname === path ? styles.active : '';
 
     return(
         <>
