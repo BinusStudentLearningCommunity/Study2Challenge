@@ -1,0 +1,124 @@
+
+.menuToggle {
+    display: none;
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    font-size: 2rem;
+    background: none;
+    border: none;
+    color: white;
+    z-index: 50;
+    cursor: pointer;
+}
+
+.dashboardNavbarContainer {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    margin: 0;
+    z-index: 100;
+    isolation: isolate;
+}
+
+.dashboardNavbar {
+    margin: 15px;
+    padding: 15px;
+    border-radius: 15px;
+    background: #1f1f1f;
+    height: 100vh;
+    width: 300px;
+}
+
+.logo {
+    
+}
+
+.menuContainer {
+    margin-top: 1.5rem;
+    padding: 1rem 0.3rem;
+}
+
+.icon {
+    margin-right: 1rem;
+    width: 24px;
+    height: 24px;
+}
+
+.menu {
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    font-size: 17px;
+    cursor: pointer;
+}
+
+.menuItem {
+    display: flex;
+    margin: 5px 0;
+    padding: 10px 15px;
+    color: #FFFFFF99;
+    border-radius: 10px;
+}
+
+.menuItem:hover {
+    background-color: #353535;
+}
+
+.menuItem.active {
+    background: radial-gradient(#C48F43, #FFBE61);
+    filter: drop-shadow(0 0 20px #C48F43);
+    color: #6C4F26;
+    font-weight: 600;
+}
+
+@media screen and (max-width: 1024px) {
+    .dashboardNavbar {
+        margin: 10px;
+        padding: 10px;
+        width: 250px;
+    }
+
+    .menu {
+        font-size: 13px;
+    }
+
+    .icon {
+        margin-right: 1rem;
+        width: 20px;
+        height: 20px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .dashboardNavbarContainer {
+        top: 0;
+        left: 0;
+        margin: 0;
+    }
+
+    .dashboardNavbar {
+        width: 220px;
+    }
+
+    .menuToggle {
+        display: block;
+    }
+
+    .dashboardNavbarContainer {
+        transition: transform 0.3s ease-in-out;
+        transform: translateX(-100%);
+    }
+
+    .dashboardNavbarContainer.open {
+        transform: translateX(0);
+    }
+
+    .dashboardNavbarContainer.closed {
+        transform: translateX(-100%);
+    }
+
+    .logo {
+        margin-top: 2.5rem;
+    }
+}
