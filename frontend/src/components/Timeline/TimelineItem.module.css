@@ -1,0 +1,127 @@
+.activeTitle {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: bold;
+    color: #3F86FF;
+}
+
+.activeSubtitle {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 400;
+    font-style: italic;
+    color: #A2C5FF;    
+}
+
+.activeDate {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 400;
+    font-style: italic;
+    color: #A2C5FF80;
+}
+
+.title {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: bold;
+    color: white;
+}
+
+.subtitle {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 400;
+    color: #FFFFFFB2;
+}
+
+.date {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 400;
+    color: #FFFFFF80;
+}
+
+.timelineTitle {
+    font-size: 20px;
+}
+
+.timelineDate {
+    font-size: 10px;
+}
+
+.timelineSubtitle {
+    font-size: 14px;
+}
+
+.timelineItem {
+  position: relative;
+  padding-left: 40px;
+  margin-left: 20px;
+  margin-bottom: 3.5rem;
+}
+
+.timelineDot {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background-color: #838383;
+  transform: translateX(-50%);
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 10px rgba(189, 189, 189, 0.5);
+}
+
+.activeDot {
+  background: radial-gradient(#0B3D91, #155DD7);
+  box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+}
+
+.dotAsset {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 22px;
+  height: 22px;
+  background-color: transparent;
+}
+
+.activeDotAsset {
+  color: #3F86FF;
+  filter: drop-shadow()
+}
+
+/* CONNECTING LINE (from this dot to the next) */
+.timelineItem::after {
+  content: '';
+  position: absolute;
+  top: 10px;
+  left: 0;
+  width: 3px;
+  height: calc(100% + 3.5rem - 10px);
+  transform: translateX(-50%);
+  background-color: #A2C5FF80;
+  z-index: 1;
+}
+
+.timelineItem.active::after {
+  background-color: #3F86FF;
+}
+
+/* Hide the line after the LAST item */
+.timelineItem:last-child::after {
+  display: none;
+}
+
+@media screen and (max-width: 900px) {
+  .timelineTitle {
+      font-size: 16px;
+  }
+
+  .timelineDate {
+      font-size: 8px;
+  }
+
+  .timelineSubtitle {
+      font-size: 10px;
+  }
+}

@@ -10,6 +10,7 @@ import ParticipantDashboardPage from '../pages/ParticipantDashboardPage/Particip
 import EventRegistrationPage from '../pages/EventRegistrationPage/EventRegistrationPage';
 import RegisterPage from '../pages/RegisterPage/RegisterPage';
 import ProtectedRoute from './protectedRoutes';
+import ProfilePage from '../pages/ProfilePage/ProfilePage';
 
 const router = createBrowserRouter([
   {
@@ -30,6 +31,14 @@ const router = createBrowserRouter([
     path: '/register',
     element: <RegisterPage />,
   },
+  // {
+  //   path: '/dashboard',
+  //   element: <ParticipantDashboardPage />
+  // },
+  // {
+  //   path: '/profile',
+  //   element: <ProfilePage/>
+  // }
   {
     element: <ProtectedRoute />, 
     children: [
@@ -38,6 +47,12 @@ const router = createBrowserRouter([
         path: '/dashboard',
         element: (
             <ParticipantDashboardPage />
+        ),
+      },
+      {
+        path: '/profile',
+        element: (
+          <ProfilePage/>
         ),
       },
       {
