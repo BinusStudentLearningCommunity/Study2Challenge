@@ -1,16 +1,55 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-
+import { useAuth } from "../../contexts/AuthContext.tsx";
+import { toast, Toaster } from 'react-hot-toast';
 import DashboardNavbar from "../../components/layout/DashboardNavbar/DashboardNavbar.tsx";
-
 import styles from './ProfilePage.module.css';
 
 const ProfilePage: React.FC = () => {
     const [editProfile, setEditProfile] = useState(false); // popup
+    const { user, updateUser } = useAuth();
+    const [formData, setFormData] = useState({ name: '', email: '' });
+    const [isSubmitting, setIsSubmitting] = useState(false);
+
+    useEffect(() => {
+        if (user) {
+            setFormData({ name: user.name, email: user.email });
+        }
+    }, [user, editProfile]);
 
     const handleEditProfile = () => {
         setEditProfile(!editProfile);
     }
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+    };
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        if (formData.name === user?.name && formData.email === user?.email) {
+            toast.error("No changes were made.");
+            setEditProfile(false);
+            return;
+        }
+        setIsSubmitting(true);
+        try {
+            await updateUser(formData);
+            toast.success("Profile updated successfully!");
+            setEditProfile(false);
+        } catch (error: unknown) {
+            const axiosError = error as { response?: { status?: number; data?: { message?: string } } };
+
+            if (axiosError.response?.status === 409) {
+                toast.error(axiosError.response.data?.message || 'This email is already taken.');
+            } else {
+                toast.error("Failed to update profile. Please try again.");
+            }
+            console.error(error);
+        } finally {
+            setIsSubmitting(false);
+        }
+    };
 
     const hoverEffect = {
         hover: { scale: 1.03 },
@@ -19,6 +58,7 @@ const ProfilePage: React.FC = () => {
 
     return(
         <>
+            <Toaster position="bottom-right" />
             <DashboardNavbar/>        
             <div>
                 <img src="/assets/galaxy-orbit-2.png" alt="Yellow Galaxy" className={styles.yellowGalaxy} />
@@ -34,11 +74,11 @@ const ProfilePage: React.FC = () => {
                     <h2>Personal Information</h2>
                     <div className={styles.userDataField}>
                         <h3>Full Name</h3>
-                        <p>"Your Full Name"</p>
+                         <p>{user?.name || "Loading..."}</p>
                     </div>
                     <div className={styles.userDataField}>
                         <h3>Email</h3>
-                        <p>"emailaddress@gmail.com"</p>
+                        <p>{user?.email || "Loading..."}</p>
                     </div>
                     <motion.div variants={{ ...hoverEffect}} whileHover="hover" whileTap="tap">
                         <button className={styles.editButton} onClick={handleEditProfile}>Edit</button>                    
@@ -46,25 +86,41 @@ const ProfilePage: React.FC = () => {
 
                     {editProfile &&
                         <div className={styles.editProfilePopupContainer}>
-                            <div className={styles.editProfilePopup}>
+                            <form onSubmit={handleSubmit} className={styles.editProfilePopup}>
                                 <h4 className={styles.popupHeader}>Personal Information</h4>
                                 <div className={styles.popupFieldContainer}>
                                     <p>Full Name</p>
-                                    <input type="text" placeholder='Enter Your Full Name..'/>
+                                    <input
+                                        type="text"
+                                        name="name"
+                                        placeholder='Enter Your Full Name..'
+                                        value={formData.name}
+                                        onChange={handleChange}
+                                        required
+                                    />
                                 </div>
                                 <div className={styles.popupFieldContainer}>
                                     <p>Email</p>
-                                    <input type="text" placeholder='Enter Your Email..'/>
+                                    <input
+                                        type="email"
+                                        name="email"
+                                        placeholder='Enter Your Email..'
+                                        value={formData.email}
+                                        onChange={handleChange}
+                                        required
+                                    />
                                 </div>
                                 <div className={styles.popupButtonContainer}>
                                     <motion.div variants={{ ...hoverEffect}} whileHover="hover" whileTap="tap">
-                                        <button className={styles.cancelButton} onClick={handleEditProfile}>Cancel</button>
+                                        <button type="button" className={styles.cancelButton} onClick={handleEditProfile}>Cancel</button>
                                     </motion.div>
                                     <motion.div variants={{ ...hoverEffect}} whileHover="hover" whileTap="tap">
-                                        <button className={styles.joinButton}>Join</button>
+                                        <button type="submit" className={styles.joinButton} disabled={isSubmitting}>
+                                            {isSubmitting ? 'Saving...' : 'Save Changes'}
+                                        </button>
                                     </motion.div>
                                 </div>
-                            </div>
+                            </form>
                         </div>
                     }
                 </div>

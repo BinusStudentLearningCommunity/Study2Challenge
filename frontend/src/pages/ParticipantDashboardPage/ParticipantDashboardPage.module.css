@@ -172,6 +172,23 @@
     z-index: -1000;
 }
 
+/* Add this for the registration closed message */
+.registrationClosedContainer {
+    text-align: center;
+    padding: 4rem 2rem;
+    background-color: rgba(217, 217, 217, 0.05);
+    border-radius: 15px;
+    margin-top: 2rem;
+    color: #FFE1B7;
+}
+
+.registrationClosedContainer h2 {
+    color: #C48F43;
+    font-family: "Zing Rust", sans-serif;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
 @media screen and (max-width: 1060px) {
     .greetings {
         font-size: 45px;

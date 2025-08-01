@@ -5,7 +5,7 @@ import React, {
   useEffect,
   type ReactNode,
 } from 'react';
-import { loginUser, registerUser } from '../features/auth/authService';
+import { loginUser, registerUser, updateUser as updateUserService} from '../features/auth/authService';
 import apiClient from '../services/apiClient';
 
 export interface User {
@@ -36,6 +36,7 @@ interface AuthContextType extends AuthState {
   login: (credentials: LoginCredentials) => Promise<void>;
   logout: () => void;
   register: (userData: RegistrationData) => Promise<void>;
+  updateUser: (userData: { name: string; email: string }) => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -43,6 +44,12 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 interface AuthProviderProps {
   children: ReactNode;
 }
+
+const LOGOUT_EVENT = 'app-logout-event';
+
+export const triggerLogout = () => {
+    window.dispatchEvent(new Event(LOGOUT_EVENT));
+};
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [authState, setAuthState] = useState<AuthState>({
@@ -127,6 +134,20 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   };
 
+  const updateUser = async (userData: { name: string; email: string }) => {
+      try {
+          const { user } = await updateUserService(userData);
+          localStorage.setItem('authUser', JSON.stringify(user));
+          setAuthState(prev => ({
+              ...prev,
+              user,
+          }));
+      } catch (error) {
+          console.error("Failed to update user:", error);
+          throw error;
+      }
+  };
+
   const logout = () => {
     localStorage.removeItem('authToken');
     localStorage.removeItem('authUser');
@@ -140,8 +161,21 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     });
   };
 
+  useEffect(() => {
+    const handleLogoutEvent = () => {
+        logout();
+        window.location.href = '/login';
+    };
+
+    window.addEventListener(LOGOUT_EVENT, handleLogoutEvent);
+
+    return () => {
+        window.removeEventListener(LOGOUT_EVENT, handleLogoutEvent);
+    };
+  }, []);
+
   return (
-    <AuthContext.Provider value={{ ...authState, login, logout, register }}>
+    <AuthContext.Provider value={{ ...authState, login, logout, register, updateUser }}>
       {children}
     </AuthContext.Provider>
   );

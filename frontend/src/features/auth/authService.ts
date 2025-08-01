@@ -15,3 +15,13 @@ export const registerUser = async (userData: RegistrationData) => {
   const response = await apiClient.post('/register', userData);
   return response.data;
 };
+
+interface UpdateUserResponse {
+  message: string;
+  user: User;
+}
+
+export const updateUser = async (userData: { name: string; email: string }): Promise<UpdateUserResponse> => {
+  const response = await apiClient.patch<UpdateUserResponse>('/user/profile', userData);
+  return response.data;
+};
