@@ -4,14 +4,24 @@ import { Link } from "react-router-dom";
 
 import Person from '../../../../public/assets/dashboard/person.svg?react';
 import Dashboard from '../../../../public/assets/dashboard/dashboard.svg?react';
-import Application from '../../../../public/assets/dashboard/settings_applications.svg?react';
+// import Application from '../../../../public/assets/dashboard/settings_applications.svg?react';
 import Logout from '../../../../public/assets/dashboard/exit_to_app.svg?react';
+
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../../contexts/AuthContext';
 
 import styles from './DashboardNavbar.module.css';
 
 const DashboardNavbar = () => {
+    const { logout } = useAuth();
+    const navigate = useNavigate();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const location = useLocation();
+
+    const handleLogout = () => {
+        logout();
+        navigate('/');
+    };
 
     const isSelected = (path: string) => location.pathname === path ? styles.active : '';
 
@@ -35,14 +45,14 @@ const DashboardNavbar = () => {
                                 <Dashboard className={`${styles.icon} ${isSelected('/dashboard')}`}/>            
                                 Dashboard
                             </Link>
-                            <Link to='/app' className={`${styles.menuItem} ${isSelected('/app')}`}>
+                            {/* <Link to='/event-registration' className={`${styles.menuItem} ${isSelected('/app')}`}>
                                 <Application className={`${styles.icon} ${isSelected('/app')}`}/>                          
                                 Aplikasi
-                            </Link>
-                            <Link to='/' className={`${styles.menuItem} ${isSelected('/')}`}>
-                                <Logout className={`${styles.icon} ${isSelected('/')}`}/>     
+                            </Link> */}
+                            <div className={`${styles.menuItem}`} onClick={handleLogout}>
+                                <Logout className={styles.icon} />
                                 Log Out
-                            </Link>
+                            </div>
                         </ul>
                     </div>
                 </nav>

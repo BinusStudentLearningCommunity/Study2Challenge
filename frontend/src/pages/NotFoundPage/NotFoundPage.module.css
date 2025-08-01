@@ -1,0 +1,53 @@
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    text-align: center;
+    color: #e0e0e0; /* A soft white for text */
+    padding: 2rem;
+    background-color: #151515; /* Matching your global background */
+}
+
+.content {
+    max-width: 500px;
+}
+
+.title {
+    font-family: "Zing Rust", sans-serif;
+    font-size: clamp(5rem, 15vw, 9rem);
+    color: #C48F43; /* Primary gold color */
+    text-shadow: 0 0 30px rgba(196, 143, 67, 0.4);
+    line-height: 1;
+    margin: 0;
+}
+
+.subtitle {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.description {
+    font-size: 1rem;
+    color: #a0a0c0; /* A softer, secondary text color */
+    margin-bottom: 2.5rem;
+}
+
+.homeButton {
+    background: #2a2a4e;
+    padding: 12px 32px;
+    border-radius: 8px;
+    color: #e0e0e0;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: background-color 0.2s ease-out;
+    text-decoration: none;
+}
+
+.homeButton:hover {
+    background-color: #3a3a5e;
+}

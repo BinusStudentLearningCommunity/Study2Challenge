@@ -11,6 +11,7 @@ import EventRegistrationPage from '../pages/EventRegistrationPage/EventRegistrat
 import RegisterPage from '../pages/RegisterPage/RegisterPage';
 import ProtectedRoute from './protectedRoutes';
 import ProfilePage from '../pages/ProfilePage/ProfilePage';
+import NotFoundPage from '../pages/NotFoundPage/NotFoundPage';
 
 const router = createBrowserRouter([
   {
@@ -31,18 +32,9 @@ const router = createBrowserRouter([
     path: '/register',
     element: <RegisterPage />,
   },
-  // {
-  //   path: '/dashboard',
-  //   element: <ParticipantDashboardPage />
-  // },
-  // {
-  //   path: '/profile',
-  //   element: <ProfilePage/>
-  // }
   {
     element: <ProtectedRoute />, 
     children: [
-      // Semua rute di dalam children ini akan memerlukan autentikasi
       {
         path: '/dashboard',
         element: (
@@ -61,6 +53,10 @@ const router = createBrowserRouter([
       },
     ],
   },
+  {
+      path: '*',
+      element: <NotFoundPage />,
+    }
 ]);
 
 const AppRoutes = () => <RouterProvider router={router} />;
