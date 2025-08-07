@@ -47,6 +47,7 @@ export interface MemberDetails {
     institution: string;
     idCardUrl: string;
     twibbonLink?: string;
+    role?: string;
 }
 
 export interface RegisterTeamPayload {
