@@ -14,10 +14,17 @@ apiClient.interceptors.response.use(
     return response;
   },
   (error) => {
-    if (error.response && (error.response.status === 401 || error.response.status === 403)) {
-      console.log('Authentication error detected. Triggering logout.');
+    const isLoginRoute = window.location.pathname === '/login';
+    
+    if (
+      !isLoginRoute &&
+      error.response && 
+      (error.response.status === 401 || error.response.status === 403)
+    ) {
+      console.log('Authentication error on a protected route. Triggering logout.');
       triggerLogout();
     }
+    
     return Promise.reject(error);
   }
 );
