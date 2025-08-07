@@ -98,7 +98,7 @@ const ParticipantDashboardPage: React.FC = () => {
             } catch (err) {
                 console.error("Error fetching page data:", err);
                 setTeamData(null);
-                setIsPassed(false);
+                setIsPassed(true);
             } finally {
                 setIsLoading(false);
             }
@@ -323,8 +323,8 @@ const ParticipantDashboardPage: React.FC = () => {
                                         />
                                         <TimelineItem
                                             icon={<Medal/>} 
-                                            title='Pengumuman pemenang kompetisi.' 
-                                            subtitle='Akan Datang' 
+                                            title='Pengumuman Pemenang' 
+                                            subtitle='Pengumuman pemenang STUDY 2 CHALLENGE 2025.' 
                                             date='19 Oktober 2025' 
                                             active={isActiveDate('19 Oktober 2025')}
                                         />

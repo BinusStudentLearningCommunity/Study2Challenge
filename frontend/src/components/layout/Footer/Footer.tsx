@@ -1,6 +1,25 @@
 import styles from './Footer.module.css';
+import { useNavigate } from 'react-router-dom';
 
 const Footer = () => {
+  const navigate = useNavigate();
+
+  const scrollToSection = (sectionId: string) => {
+    if (window.location.pathname !== '/') {
+      navigate('/');
+      setTimeout(() => {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100); // Small delay to allow navigation to complete
+    } else {
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  };
   return (
     <footer className={styles.footer}>
       <div className={styles.footerContent}>
@@ -12,9 +31,9 @@ const Footer = () => {
             </em>
           </p>
           <div className={styles.footerSocials}>
-            <a href="#" aria-label="Instagram"><span className={styles.socialIcon}><img src="/assets/Group 30.png" alt="" /></span></a>
-            <a href="#" aria-label="Facebook"><span className={styles.socialIcon}><img src="/assets/Group 32.png" alt="" /></span></a>
-            <a href="#" aria-label="Link"><span className={styles.socialIcon}><img src="/assets/facebook.png" alt="" /></span></a>
+            <a href="https://www.instagram.com/study2challenge/" target="_blank" aria-label="Instagram"><span className={styles.socialIcon}><img src="/assets/Group 30.png" alt="" /></span></a>
+            <a href="#" target="_blank" aria-label="Facebook"><span className={styles.socialIcon}><img src="/assets/Group 32.png" alt="" /></span></a>
+            <a href="#" target="_blank" aria-label="Link"><span className={styles.socialIcon}><img src="/assets/facebook.png" alt="" /></span></a>
           </div>
         </div>
         <div className={styles.footerLinks}>
@@ -25,16 +44,10 @@ const Footer = () => {
           </div>
           <div className={styles.footerCol}>
             <div className={styles.footerColTitle}>SITE MAP</div>
-            <a href="/login">Tentang S2C</a>
-            <a href="/login">Jadwal</a>
-            <a href="/register">Manfaat</a>
-            <a href="/register">Timeline</a>
-            <a href="/register">FAQ</a>
-          </div>
-          <div className={styles.footerCol}>
-            <div className={styles.footerColTitle}>LEGAL</div>
-            <a href="#">Privacy Policy</a>
-            <a href="#">Terms of Services</a>
+            <button onClick={() => scrollToSection('Hero')} className={styles.footerLinkButton}>Tentang S2C</button>
+            <button onClick={() => scrollToSection('WhyJoin')} className={styles.footerLinkButton}>Manfaat</button>
+            <button onClick={() => scrollToSection('Timeline')} className={styles.footerLinkButton}>Timeline</button>
+            <button onClick={() => scrollToSection('Faq')} className={styles.footerLinkButton}>FAQ</button>
           </div>
         </div>
       </div>

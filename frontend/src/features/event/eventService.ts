@@ -46,6 +46,7 @@ export interface MemberDetails {
     whatsappNumber: string;
     institution: string;
     idCardUrl: string;
+    idCardPreviewUrl?: string;
     twibbonLink?: string;
     role?: string;
 }

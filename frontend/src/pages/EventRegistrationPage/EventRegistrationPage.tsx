@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import type { ChangeEvent } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Toaster, toast } from 'react-hot-toast';
 
 import { useAuth } from '../../contexts/AuthContext';
@@ -12,7 +12,7 @@ import { FileText, Pencil, PlusCircle, Upload, UsersRound } from 'lucide-react';
 
 const blankMember: MemberDetails = {
     fullName: '', email: '', dateOfBirth: '', gender: '',
-    whatsappNumber: '', institution: '', idCardUrl: '', twibbonLink: '', role: ''
+    whatsappNumber: '', institution: '', idCardUrl: '', idCardPreviewUrl: '', twibbonLink: '', role: ''
 };
 
 type FormStep = 'team-name' | 'members-info' | 'payment';
@@ -46,7 +46,9 @@ const EventRegistrationPage: React.FC = () => {
             try {
                 await getMyTeam();
                 toast.error('You are already registered in a team.');
-                navigate('/dashboard');
+                setTimeout(() => {
+                    navigate('/dashboard');
+                }, 2000);
             } catch {
                 console.log("User does not have a team. Displaying registration form.");
                 if (user?.name) {
@@ -93,7 +95,8 @@ const EventRegistrationPage: React.FC = () => {
         return true;
     };
     
-    const goToNextStep = () => {
+    const goToNextStep = (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
         if (currentStep === 'team-name') {
             if (!validateTeamName(true)) { // Show error toasts when trying to proceed
                 return;
@@ -149,7 +152,7 @@ const EventRegistrationPage: React.FC = () => {
         }
         
         if (step === 'payment') {
-            if (canNavigate('members-info', 'payment')) {
+            if (currentStep === 'members-info' && canNavigate('members-info', 'payment')) {
                 setCurrentStep('payment');
                 return;
             }
@@ -175,32 +178,45 @@ const EventRegistrationPage: React.FC = () => {
     };
 
     // Validation for team member info
-    const validateMemberInfo = (member: MemberDetails, showErrors: boolean = false): boolean => {
-        const requiredFields = ['fullName', 'email', 'dateOfBirth', 'gender', 'whatsappNumber', 'institution', 'idCardUrl'];
-        
-        if (currentStep === 'members-info') {
-            for (const field of requiredFields) {
-                if (!member[field as keyof MemberDetails]) {
-                    if (showErrors) toast.error(`Mohon lengkapi semua data untuk ${member.fullName || 'anggota tim'}`);
-                    return false;
-                }
-            }
-            
-            // Validate email format
-            if (!/\S+@\S+\.\S+/.test(member.email)) {
-                if (showErrors) toast.error(`Email untuk ${member.fullName} tidak valid`);
-                return false;
-            }
-            
-            // Validate WhatsApp number (must be numeric and at least 10 digits)
-            if (!/^\d{10,}$/.test(member.whatsappNumber)) {
-                if (showErrors) toast.error(`Nomor WhatsApp untuk ${member.fullName} tidak valid`);
-                return false;
-            }
-        }
-        
-        return true;
+const validateMemberInfo = (member: MemberDetails, showErrors: boolean = false): boolean => {
+    const requiredFields = ['fullName', 'email', 'dateOfBirth', 'gender', 'whatsappNumber', 'institution', 'idCardUrl', 'twibbonLink'];
+    
+    // A map to get user-friendly names for each field
+    const fieldLabels: { [key: string]: string } = {
+        fullName: 'Nama Lengkap',
+        email: 'Email',
+        dateOfBirth: 'Tanggal Lahir',
+        gender: 'Jenis Kelamin',
+        whatsappNumber: 'Nomor WhatsApp',
+        institution: 'Institusi / Asal Sekolah',
+        idCardUrl: 'Kartu Mahasiswa / Pelajar',
+        twibbonLink: 'Link Instagram Post (Twibbon)'
     };
+
+    for (const field of requiredFields) {
+        if (!member[field as keyof MemberDetails]) {
+            if (showErrors) {
+                const label = fieldLabels[field] || 'A required field';
+                toast.error(`Mohon lengkapi kolom "${label}" untuk ${member.fullName || 'anggota tim'}`);
+            }
+            return false;
+        }
+    }
+    
+    // Validate email format
+    if (!/\S+@\S+\.\S+/.test(member.email)) {
+        if (showErrors) toast.error(`Email untuk ${member.fullName} tidak valid`);
+        return false;
+    }
+    
+    // Validate WhatsApp number (must be numeric and at least 10 digits)
+    if (!/^\d{10,}$/.test(member.whatsappNumber)) {
+        if (showErrors) toast.error(`Nomor WhatsApp untuk ${member.fullName} tidak valid`);
+        return false;
+    }
+    
+    return true;
+};
 
     // Handlers for state changes
     const handleCreatorChange = (field: keyof MemberDetails, value: string) => {
@@ -227,12 +243,16 @@ const EventRegistrationPage: React.FC = () => {
 
     // File upload handlers
     const handleFileSelect = (e: ChangeEvent<HTMLInputElement>) => {
-        if (e.target.files && e.target.files[0]) {
-            const file = e.target.files[0];
+    if (e.target.files && e.target.files[0]) {
+        const file = e.target.files[0];
+        if (validateFile(file)) {
             setPaymentFile(file);
             setPaymentProofUrl(URL.createObjectURL(file));
+        } else {
+            e.target.value = '';
         }
-    };
+    }
+};
 
     const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
         e.preventDefault();
@@ -249,14 +269,22 @@ const EventRegistrationPage: React.FC = () => {
         
         if (e.dataTransfer.files && e.dataTransfer.files[0]) {
             const file = e.dataTransfer.files[0];
-            setPaymentFile(file);
-            setPaymentProofUrl(URL.createObjectURL(file));
+            if (validateFile(file)) { // Add validation
+                setPaymentFile(file);
+                setPaymentProofUrl(URL.createObjectURL(file));
+            }
         }
     };
 
     // Form submission
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+
+        if (!paymentFile) {
+            toast.error("Please upload your payment proof before submitting.");
+            return;
+        }
+
         setIsSubmitting(true);
         
         // In a real implementation, you would upload the file first and then get the URL
@@ -288,6 +316,25 @@ const EventRegistrationPage: React.FC = () => {
         }
     };
 
+    const handleKeyDown = (e: React.KeyboardEvent) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+        }
+    };
+
+    const validateFile = (file: File): boolean => {
+        const fiveMB = 5 * 1024 * 1024;
+        if (!file.type.startsWith('image/')) {
+            toast.error("File must be an image (PNG, JPG, etc.).");
+            return false;
+        }
+        if (file.size > fiveMB) {
+            toast.error("File size cannot exceed 5MB.");
+            return false;
+        }
+        return true;
+    };
+
     if (isLoading) {
         return <div className={styles.container}>
             <div className={styles.spinner}></div>
@@ -298,6 +345,10 @@ const EventRegistrationPage: React.FC = () => {
     return (
         <div className={styles.container}>
             <Toaster position="bottom-right" />
+
+            <Link to="/dashboard" className={styles.backButton}>
+                &larr; Back to Dashboard
+            </Link>
             
             <div className={styles.backgroundElements}>
                 <div className={`${styles.decoElement} ${styles.topLeftGalaxy}`}></div>
@@ -335,7 +386,7 @@ const EventRegistrationPage: React.FC = () => {
                     {currentStep === 'payment' && (
                         <>
                             <h2 className={styles.formTitle}>PEMBAYARAN</h2>
-                            <p className={styles.formSubtitle}>Lakukan pembayaran Rp”000000” dan unggah bukti transfer untuk menyelesaikan pendaftaran tim.</p>
+                            <p className={styles.formSubtitle}>Lakukan pembayaran sebesar Rp 100.000,00 dan unggah bukti transfer untuk menyelesaikan pendaftaran tim.</p>
                         </>
                     )}
                 </div>
@@ -360,15 +411,15 @@ const EventRegistrationPage: React.FC = () => {
                     <div className={`${styles.progressLine} ${currentStep === 'payment' ? styles.completed : ''}`}></div>
                     <div 
                         className={`${styles.progressStep} ${currentStep === 'payment' ? styles.active : ''}`}
-                        onClick={() => canNavigate('members-info', 'payment') && handleNavigateToStep('payment')}
-                        style={{ cursor: canNavigate('members-info', 'payment') ? 'pointer' : 'not-allowed' }}
+                        onClick={() => currentStep === 'members-info' && canNavigate('members-info', 'payment') && handleNavigateToStep('payment')}
+                        style={{ cursor: currentStep === 'members-info' && canNavigate('members-info', 'payment') ? 'pointer' : 'not-allowed' }}
                     >
                         <FileText style={{ width: '16px', height: '16px' }} />
                     </div>
                 </div>
                 
                 {/* Multi-step Form */}
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit} onKeyDown={handleKeyDown}>
                     {/* Step 1: Team Name with validations */}
                     {currentStep === 'team-name' && (
                         <div className={styles.formContent}>
@@ -387,11 +438,11 @@ const EventRegistrationPage: React.FC = () => {
                             <div className={styles.validationContainer}>
                                 <div className={styles.validationItem}>
                                     <div className={`${styles.validationCheckbox} ${teamName.length >= 5 && teamName.length <= 30 ? styles.valid : ''}`}></div>
-                                    <span>5-30 karakter</span>
+                                    <span>5 - 30 karakter</span>
                                 </div>
                                 <div className={styles.validationItem}>
                                     <div className={`${styles.validationCheckbox} ${!/[^\w\s]/.test(teamName) ? styles.valid : ''}`}></div>
-                                    <span>Tidak ada special character (., dll)</span>
+                                    <span>Tidak ada spesial karakter</span>
                                 </div>
                                 <div className={styles.validationItem}>
                                     <div className={`${styles.validationCheckbox} ${!/^\d+$/.test(teamName) ? styles.valid : ''}`}></div>
@@ -501,29 +552,27 @@ const EventRegistrationPage: React.FC = () => {
                                     />
                                 </div>
                                 <div className={styles.formGroup}>
-                                    <label htmlFor="leaderRole">Peran dalam Tim <span className={styles.required}>*</span></label>
-                                    <input 
-                                        type="text" 
-                                        id="leaderRole" 
-                                        value={creatorDetails.role || ''} 
-                                        onChange={(e) => handleCreatorChange('role', e.target.value)} 
-                                        required 
-                                    />
-                                </div>
-                                <div className={styles.formGroup}>
                                     <label htmlFor="leaderIdCard">Upload Kartu Mahasiswa / Pelajar <span className={styles.required}>*</span></label>
                                     <div className={styles.fileUploadContainer}>
                                         <input 
                                             type="file" 
                                             id="leaderIdCard" 
-                                            onChange={(e) => {
-                                                if (e.target.files && e.target.files[0]) {
-                                                    handleCreatorChange('idCardUrl', URL.createObjectURL(e.target.files[0]));
-                                                }
-                                            }} 
+                                            accept="image/*"
                                             className={styles.fileInput}
                                             required
                                             ref={leaderFileRef}
+                                            onChange={(e) => {
+                                                if (e.target.files && e.target.files[0]) {
+                                                    const file = e.target.files[0];
+                                                    if (validateFile(file)) {
+                                                        const previewUrl = URL.createObjectURL(file);
+                                                        handleCreatorChange('idCardUrl', previewUrl);
+                                                        setCreatorDetails(prev => ({...prev, idCardPreviewUrl: previewUrl}));
+                                                    } else {
+                                                        e.target.value = '';
+                                                    }
+                                                }
+                                            }} 
                                         />
                                         <label htmlFor="leaderIdCard" className={styles.uploadBtn} onClick={(e) => {
                                             e.preventDefault();
@@ -533,14 +582,20 @@ const EventRegistrationPage: React.FC = () => {
                                             Add File
                                         </label>
                                     </div>
+                                    {creatorDetails.idCardPreviewUrl && (
+                                        <div className={styles.previewContainer}>
+                                            <img src={creatorDetails.idCardPreviewUrl} alt="Leader ID Card Preview" className={styles.previewImage} />
+                                        </div>
+                                    )}
                                 </div>
                                 <div className={styles.formGroup}>
-                                    <label htmlFor="leaderTwibbon">Link Instagram Post (Twibbon)</label>
+                                    <label htmlFor="leaderTwibbon">Link Instagram Post (Twibbon) <span className={styles.required}>*</span></label>
                                     <input 
                                         type="text" 
                                         id="leaderTwibbon" 
                                         value={creatorDetails.twibbonLink || ''} 
                                         onChange={(e) => handleCreatorChange('twibbonLink', e.target.value)} 
+                                        required
                                     />
                                 </div>
                             </div>
@@ -651,13 +706,30 @@ const EventRegistrationPage: React.FC = () => {
                                             <input 
                                                 type="file" 
                                                 id={`member${index}IdCard`} 
-                                                onChange={(e) => {
-                                                    if (e.target.files && e.target.files[0]) {
-                                                        handleMemberChange(index, 'idCardUrl', URL.createObjectURL(e.target.files[0]));
-                                                    }
-                                                }}
+                                                accept="image/*"
                                                 className={styles.fileInput}
                                                 required
+                                               onChange={(e) => {
+                                                if (e.target.files && e.target.files[0]) {
+                                                    const file = e.target.files[0];
+                                                    if (validateFile(file)) {
+                                                        const previewUrl = URL.createObjectURL(file);
+                                                        
+                                                        const updatedMembers = [...teamMembers];
+
+                                                        updatedMembers[index] = {
+                                                            ...updatedMembers[index],
+                                                            idCardUrl: previewUrl,       
+                                                            idCardPreviewUrl: previewUrl
+                                                        };
+
+                                                        setTeamMembers(updatedMembers);
+
+                                                    } else {
+                                                        e.target.value = '';
+                                                    }
+                                                }
+                                            }}
                                             />
                                             <label htmlFor={`member${index}IdCard`} className={styles.uploadBtn} onClick={(e) => {
                                                 e.preventDefault();
@@ -667,13 +739,19 @@ const EventRegistrationPage: React.FC = () => {
                                                 Add File
                                             </label>
                                         </div>
+                                        {member.idCardPreviewUrl && (
+                                            <div className={styles.previewContainer}>
+                                                <img src={member.idCardPreviewUrl} alt={`Member ${index + 1} ID Card Preview`} className={styles.previewImage} />
+                                            </div>
+                                        )}
                                     </div>
                                     <div className={styles.formGroup}>
-                                        <label>Link Instagram Post (Twibbon)</label>
+                                        <label>Link Instagram Post (Twibbon) <span className={styles.required}>*</span></label>
                                         <input 
                                             type="text" 
                                             value={member.twibbonLink || ''} 
-                                            onChange={(e) => handleMemberChange(index, 'twibbonLink', e.target.value)} 
+                                            onChange={(e) => handleMemberChange(index, 'twibbonLink', e.target.value)}
+                                            required 
                                         />
                                     </div>
                                     </div>
@@ -697,8 +775,8 @@ const EventRegistrationPage: React.FC = () => {
                     {currentStep === 'payment' && (
                         <>
                             <div className={styles.paymentInfo}>
-                                <p className={styles.paymentAmount}>Please make a payment of Rp 100.000,00</p>
-                                <p className={styles.paymentAccount}>to account <p>“XXXXXXXXX”.</p></p>
+                                <p className={styles.paymentAccount}>Silahkan lakukan pembayaran sebesar <span>Rp 100.000,00</span></p>
+                                <p className={styles.paymentAccount}>ke rekening BCA <span>“XXXXXXXXX”.</span></p>
                             </div>
                             
                             <div 
@@ -708,8 +786,11 @@ const EventRegistrationPage: React.FC = () => {
                                 onDragLeave={handleDragLeave}
                                 onDrop={handleDrop}
                             >
-                                {paymentFile ? (
-                                    <p>Selected file: {paymentFile.name}</p>
+                                {paymentProofUrl ? (
+                                    <div className={styles.previewContainer}>
+                                        <img src={paymentProofUrl} alt="Payment Proof Preview" className={styles.previewImage} />
+                                        <p>Selected file: {paymentFile?.name}</p>
+                                    </div>
                                 ) : (
                                     <>
                                         <p className={styles.dragDropText}>Drag and drop your file here or click to select from device.</p>
@@ -733,7 +814,7 @@ const EventRegistrationPage: React.FC = () => {
                         {currentStep !== 'payment' ? (
                             <button 
                                 type="button" 
-                                onClick={goToNextStep} 
+                                onClick={(e) => goToNextStep(e)} 
                                 className={styles.nextButton}
                             >
                                 Next

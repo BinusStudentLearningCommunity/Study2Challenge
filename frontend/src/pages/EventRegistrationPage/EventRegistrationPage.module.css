@@ -476,23 +476,19 @@
 }
 
 .paymentAmount {
-    font-size: 24px;
+    font-size: 22px;
     font-weight: 700;
     color: #C48F43;
     margin-bottom: 0.5rem;
 }
 
 .paymentAccount {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    font-size: 18px;
+    font-size: 22px;
     color: rgba(255, 255, 255, 0.6);
+    text-align: center;
 }
 
-.paymentAccount p {
-    font-size: 24px;
+.paymentAccount span {
     font-weight: 700;
     color: #C48F43;
 }
@@ -583,6 +579,23 @@
     margin-left: 4px;
 }
 
+.previewContainer {
+    margin-top: 1rem;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.previewImage {
+    max-width: 400px;
+    max-height: 400px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    margin-bottom: 0.5rem;
+}
+
 @media (max-width: 768px) {
     .formGrid {
         grid-template-columns: 1fr;
@@ -590,6 +603,10 @@
   
     .formContainer {
         padding: 2rem 1.5rem;
+    }
+
+    .title {
+        margin-top: 3rem;
     }
 }
 
