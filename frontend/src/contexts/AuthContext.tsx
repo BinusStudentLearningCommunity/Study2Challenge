@@ -59,41 +59,48 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     isLoading: true,
   });
 
-  useEffect(() => {
-    const attemptAutoLogin = async () => {
-      const storedToken = localStorage.getItem('authToken');
-      const storedUserString = localStorage.getItem('authUser');
+useEffect(() => {
+    const verifyUserSession = async () => {
+        const storedToken = localStorage.getItem('authToken');
+        const storedUserString = localStorage.getItem('authUser');
 
-      if (storedToken && storedUserString) {
-        try {
-          const storedUser: User = JSON.parse(storedUserString);
-          apiClient.defaults.headers.common[
-            'Authorization'
-          ] = `Bearer ${storedToken}`;
-          setAuthState({
-            user: storedUser,
-            token: storedToken,
-            isAuthenticated: true,
-            isLoading: false,
-          });
-        } catch (error) {
-          console.error('Failed to parse stored user data:', error);
-          localStorage.removeItem('authToken');
-          localStorage.removeItem('authUser');
-          setAuthState({
-            user: null,
-            token: null,
-            isAuthenticated: false,
-            isLoading: false,
-          });
+        if (storedToken && storedUserString) {
+            try {
+                apiClient.defaults.headers.common['Authorization'] = `Bearer ${storedToken}`;
+                
+                await apiClient.get('/dashboard'); 
+
+                const storedUser: User = JSON.parse(storedUserString);
+                setAuthState({
+                    user: storedUser,
+                    token: storedToken,
+                    isAuthenticated: true,
+                    isLoading: false,
+                });
+            } catch (error) {
+                console.error("Session verification failed, logging out.", error);
+                localStorage.removeItem('authToken');
+                localStorage.removeItem('authUser');
+                delete apiClient.defaults.headers.common['Authorization'];
+                setAuthState({
+                    user: null,
+                    token: null,
+                    isAuthenticated: false,
+                    isLoading: false,
+                });
+            }
+        } else {
+            setAuthState({
+                user: null,
+                token: null,
+                isAuthenticated: false,
+                isLoading: false,
+            });
         }
-      } else {
-        setAuthState((prev) => ({ ...prev, isLoading: false }));
-      }
     };
 
-    attemptAutoLogin();
-  }, []);
+    verifyUserSession();
+}, []);
 
   const login = async (credentials: LoginCredentials) => {
     setAuthState((prev) => ({ ...prev, isLoading: true }));

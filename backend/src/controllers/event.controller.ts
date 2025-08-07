@@ -39,7 +39,7 @@ export const registerForEvent = async (req: Request, res: Response) => {
         }
 
         const newTeamCode = await generateUniqueTeamCode();
-        const newTeam = new Team({ teamName, teamCode: newTeamCode, paymentProofUrl });
+        const newTeam = new Team({ teamName, teamCode: newTeamCode, paymentProofUrl, isQualified: true });
         await newTeam.save();
 
         const creatorMembership = new TeamMembership({ teamId: newTeam._id, userId: creator._id });
@@ -93,16 +93,22 @@ export const joinTeam = async (req: Request, res: Response) => {
 
         const team = await Team.findOne({ teamCode });
         if (!team) { return res.status(404).json({ message: 'Team code not found.' }); }
-        if (team.isLock) { return res.status(403).json({ message: 'This team is locked.' }); }
+
 
         const existingMembership = await TeamMembership.findOne({ userId: user._id });
         if (existingMembership) { return res.status(409).json({ message: 'You are already in another team.' }); }
+        
+        const membershipCount = await TeamMembership.countDocuments({ teamId: team._id });
+        if (team.isLock || membershipCount >= 3) {
+            // Use 409 Conflict to indicate the team is full, which won't trigger a logout.
+            return res.status(409).json({ message: 'This team is already full and cannot accept new members.' });
+        }
+
 
         const newMembership = new TeamMembership({ teamId: team._id, userId: user._id });
         await newMembership.save();
 
-        const membershipCount = await TeamMembership.countDocuments({ teamId: team._id });
-        if (membershipCount >= 3) {
+        if (membershipCount + 1 >= 3) {
             await Team.updateOne({ _id: team._id }, { $set: { isLock: true } });
         }
 
