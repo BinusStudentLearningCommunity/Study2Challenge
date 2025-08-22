@@ -3,6 +3,8 @@ import styles from './Navbar.module.css';
 import { useState } from 'react';
 import { useAuth } from '../../../contexts/AuthContext';
 
+import Logo from '../../../../public/assets/Study2Challenge-logo-dark.png';
+
 const Navbar = () => {
   const { isAuthenticated, logout } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -49,7 +51,7 @@ const Navbar = () => {
 			<nav className={styles.navbar}>
 				<div className={styles.navbarBrand}>
 					<Link to="/" className={styles.brandLink}>
-						Logo Study2Challenge
+						<img src={Logo} alt="Study2Challenge" className={styles.logo}/>
 					</Link>
 				</div>
 				<button
