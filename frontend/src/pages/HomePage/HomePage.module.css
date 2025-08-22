@@ -657,6 +657,20 @@
 }
 
 .sponsorCard {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: white;
+    width: 160px;
+    overflow: hidden;
+    border-radius: 5px;
+    max-width: 180px;
+    margin: 0;
+    flex-shrink: 0;
+}
+
+/* ==== RESTORE IF NEEDED ======
+/* .sponsorCard {
     background: #555;
     width: 160px;
     aspect-ratio: 2/1;
@@ -665,6 +679,11 @@
     max-width: 180px;
     margin: 0;
     flex-shrink: 0;
+} */
+
+.sponsor {
+    width: fit-content;
+    height: auto;
 }
 
 /* Sponsors section decorative images */

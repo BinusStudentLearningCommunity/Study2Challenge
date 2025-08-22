@@ -4,6 +4,9 @@ import Countdown from '../../components/Countdown/Countdown';
 import styles from './HomePage.module.css';
 import { motion, type Variants } from 'framer-motion';
 
+import Cakap from '../../../public/assets/sponsors/cakap-logo.png';
+import DewaWeb from '../../../public/assets/sponsors/dewaweb.png';
+
 // FAQ data - commonly asked questions about the competition
 const faqs = [
   {
@@ -415,8 +418,12 @@ const HomePage = () => {
         {/* Gold Tier */}
         <h3>Gold Sponsors</h3>
         <div className={styles.sponsorGrid}>
-          <div className={styles.sponsorCard}></div>
-          <div className={styles.sponsorCard}></div>
+          <div className={styles.sponsorCard}>
+            <img src={DewaWeb} alt="Dewa Web" className={styles.sponsor} />
+          </div>
+          <div className={styles.sponsorCard}>
+            <img src={Cakap} alt="Cakap" className={styles.sponsor} />
+          </div>
         </div>
 
         {/* Silver Tier */}
