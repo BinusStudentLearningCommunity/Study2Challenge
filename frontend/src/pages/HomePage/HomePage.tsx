@@ -422,14 +422,16 @@ const HomePage = () => {
             <img src={DewaWeb} alt="Dewa Web" className={styles.sponsor} />
           </div>
           <div className={styles.sponsorCard}>
-            <img src={Cakap} alt="Cakap" className={styles.sponsor} />
+
           </div>
         </div>
 
         {/* Silver Tier */}
         <h3>Silver Sponsors</h3>
         <div className={styles.sponsorGrid}>
-          <div className={styles.sponsorCard}></div>
+          <div className={styles.sponsorCard}>
+            <img src={Cakap} alt="Cakap" className={styles.sponsor} />
+          </div>
           <div className={styles.sponsorCard}></div>
           <div className={styles.sponsorCard}></div>
         </div>
