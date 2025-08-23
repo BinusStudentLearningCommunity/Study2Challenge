@@ -45,20 +45,14 @@ export interface MemberDetails {
     gender: string;
     whatsappNumber: string;
     institution: string;
-    idCardUrl: string;
+    idCardUrl: string | File;
     idCardPreviewUrl?: string;
     twibbonLink?: string;
     role?: string;
 }
 
-export interface RegisterTeamPayload {
-  teamName: string;
-  paymentProofUrl?: string;
-  creatorDetails: MemberDetails;
-  teamMembers: MemberDetails[];
-}
-
-export const registerTeam = async (data: RegisterTeamPayload) => {
+export const registerTeam = async (data: FormData) => {
   const response = await apiClient.post('/event/register', data);
+  // Axios automatically handles the 'multipart/form-data' header
   return response.data;
 };

@@ -6,7 +6,6 @@ import { Toaster, toast } from "react-hot-toast";
 import { useAuth } from "../../contexts/AuthContext";
 import { registerTeam, getMyTeam } from "../../features/event/eventService";
 import type {
-  RegisterTeamPayload,
   MemberDetails,
 } from "../../features/event/eventService";
 
@@ -329,29 +328,44 @@ const EventRegistrationPage: React.FC = () => {
   };
 
   // Form submission
-  const handleSubmit = async (e: React.FormEvent) => {
+const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!paymentFile) {
       toast.error("Please upload your payment proof before submitting.");
       return;
     }
+    if (!validateMemberInfo(creatorDetails, true) || teamMembers.some(m => !validateMemberInfo(m, true))) {
+        return;
+    }
 
     setIsSubmitting(true);
 
-    // In a real implementation, you would upload the file first and then get the URL
-    // For simplicity, we're using the local URL or just the file name
-    const fileUrl = paymentProofUrl || (paymentFile ? paymentFile.name : "");
+    const formData = new FormData();
 
-    const payload: RegisterTeamPayload = {
-      teamName,
-      paymentProofUrl: fileUrl,
-      creatorDetails,
-      teamMembers,
-    };
+    // 1. Append all the files
+    formData.append('paymentProof', paymentFile);
+    if (creatorDetails.idCardUrl instanceof File) {
+      formData.append('creatorIdCard', creatorDetails.idCardUrl);
+    }
+    teamMembers.forEach((member) => {
+      if (member.idCardUrl instanceof File) {
+        formData.append('memberIdCards', member.idCardUrl);
+      }
+    });
+
+    // 2. Clean file data from the JSON details to avoid sending unnecessary data
+    const cleanCreatorDetails = { ...creatorDetails, idCardUrl: '', idCardPreviewUrl: '' };
+    const cleanTeamMembers = teamMembers.map(member => ({ ...member, idCardUrl: '', idCardPreviewUrl: '' }));
+
+    // 3. Append the rest of the form data as JSON strings
+    formData.append('teamName', teamName);
+    formData.append('creatorDetails', JSON.stringify(cleanCreatorDetails));
+    formData.append('teamMembers', JSON.stringify(cleanTeamMembers));
 
     try {
-      const response = (await registerTeam(payload)) as { message?: string };
+      // The service now accepts FormData directly
+      const response = (await registerTeam(formData)) as { message?: string };
       toast.success(response.message || "Team registered successfully!");
       setTimeout(() => navigate("/dashboard"), 2000);
     } catch (error: unknown) {
@@ -753,6 +767,7 @@ const EventRegistrationPage: React.FC = () => {
                             handleCreatorChange("idCardUrl", previewUrl);
                             setCreatorDetails((prev) => ({
                               ...prev,
+                              idCardUrl: file,
                               idCardPreviewUrl: previewUrl,
                             }));
                           } else {
@@ -991,7 +1006,7 @@ const EventRegistrationPage: React.FC = () => {
 
                                 updatedMembers[index] = {
                                   ...updatedMembers[index],
-                                  idCardUrl: previewUrl,
+                                  idCardUrl: file,
                                   idCardPreviewUrl: previewUrl,
                                 };
 
