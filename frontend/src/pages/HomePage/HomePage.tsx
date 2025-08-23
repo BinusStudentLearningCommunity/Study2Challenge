@@ -7,6 +7,20 @@ import { motion, type Variants } from 'framer-motion';
 import Cakap from '../../../public/assets/sponsors/cakap-logo.png';
 import DewaWeb from '../../../public/assets/sponsors/dewaweb.png';
 
+import PartnerLomba from '../../../public/assets/medpar/2.png';
+import BeritaLomba from '../../../public/assets/medpar/berita_lomba.jpg';
+import CSRelatedCompetitions from '../../../public/assets/medpar/csrelatedcompetitions.png';
+import DSC from '../../../public/assets/medpar/dsc.png';
+import Himmat from '../../../public/assets/medpar/HIMMAT.png';
+import Himti from '../../../public/assets/medpar/himti.png';
+import CSC from '../../../public/assets/medpar/IMG-20250418-WA0025.jpg';
+import InfoLombaBeasiswa from '../../../public/assets/medpar/info_lomba_beasiswa.png';
+import InfoLomba from '../../../public/assets/medpar/info_lomba.png';
+import KabarLomba from '../../../public/assets/medpar/kabarlomba.jpg';
+import NC from '../../../public/assets/medpar/Logo-NC.png';
+import LombaSMA from '../../../public/assets/medpar/logolombasma.png';
+import LombaTekno from '../../../public/assets/medpar/LombaTekno.png';
+
 // FAQ data - commonly asked questions about the competition
 const faqs = [
   {
@@ -29,6 +43,25 @@ const faqs = [
     question: "Apa saja manfaat yang didapatkan?", 
     answer: "Peserta akan mendapatkan pengalaman kompetisi nasional, meningkatkan kemampuan berpikir kritis, kreatif, dan kolaborasi. Setiap peserta akan mendapatkan sertifikat partisipasi, dan para pemenang akan memperoleh hadiah yang telah ditetapkan." 
   }
+];
+
+// ... (imports remain the same)
+
+// Media Partner data
+const mediaPartners = [
+  { src: PartnerLomba, alt: "Partner Lomba" },
+  { src: BeritaLomba, alt: "Berita Lomba" },
+  { src: CSRelatedCompetitions, alt: "CS Related Competitions" },
+  { src: DSC, alt: "DSC" },
+  { src: Himmat, alt: "Himmat" },
+  { src: Himti, alt: "Himti" },
+  { src: CSC, alt: "CSC" },
+  { src: InfoLombaBeasiswa, alt: "Info Lomba Beasiswa" },
+  { src: InfoLomba, alt: "Info Lomba" },
+  { src: KabarLomba, alt: "Kabar Lomba" },
+  { src: NC, alt: "NC" },
+  { src: LombaSMA, alt: "Lomba SMA" },
+  { src: LombaTekno, alt: "Lomba Tekno" },
 ];
 
 const HomePage = () => {
@@ -408,7 +441,7 @@ const HomePage = () => {
                 repeatType: "mirror",
               }}
             >
-              Sponsor
+              Sponsors
             </motion.h2>
             <hr />
           </div>
@@ -418,32 +451,36 @@ const HomePage = () => {
         {/* Gold Tier */}
         <h3>Gold Sponsors</h3>
         <div className={styles.sponsorGrid}>
-          <div className={styles.sponsorCard}>
-            <img src={DewaWeb} alt="Dewa Web" className={styles.sponsor} />
-          </div>
-          <div className={styles.sponsorCard}>
+          <motion.div variants={{...fadeIn, ...hoverEffect}} whileHover="hover">
+            <div className={`${styles.sponsorCard} ${styles.goldSponsor}`}>
+              <img src={DewaWeb} alt="Dewa Web" className={styles.sponsor} />
+            </div>
+          </motion.div>
+          {/* <div className={styles.sponsorCard}>
 
-          </div>
+          </div> */}
         </div>
 
         {/* Silver Tier */}
         <h3>Silver Sponsors</h3>
         <div className={styles.sponsorGrid}>
-          <div className={styles.sponsorCard}>
-            <img src={Cakap} alt="Cakap" className={styles.sponsor} />
-          </div>
-          <div className={styles.sponsorCard}></div>
-          <div className={styles.sponsorCard}></div>
+          <motion.div variants={{...fadeIn, ...hoverEffect}} whileHover="hover">
+            <div className={styles.sponsorCard}>
+              <img src={Cakap} alt="Cakap" className={styles.sponsor} />
+            </div>
+          </motion.div>
+          {/* <div className={styles.sponsorCard}></div>
+          <div className={styles.sponsorCard}></div> */}
         </div>
 
         {/* Bronze Tier */}
-        <h3>Bronze Sponsors</h3>
+        {/* <h3>Bronze Sponsors</h3>
         <div className={styles.sponsorGrid}>
           <div className={styles.sponsorCard}></div>
           <div className={styles.sponsorCard}></div>
           <div className={styles.sponsorCard}></div>
           <div className={styles.sponsorCard}></div>
-        </div>
+        </div> */}
       </motion.section>
 
       {/* Media Partners section - showcases media partners */}
@@ -479,9 +516,12 @@ const HomePage = () => {
           <img src="/assets/Group 127.png" alt="Decorative element" className={styles.mediaPartnerTitleRight} style={{ transform: 'scaleX(-1)' }} />
         </div>
         <div className={styles.sponsorGrid}>
-          {/* Media partner cards - placeholder for actual partner logos */}
-          {Array.from({ length: 16 }, (_, index) => (
-            <div key={index} className={styles.sponsorCard}></div>
+          {mediaPartners.map((partner, index) => (
+            <motion.div variants={{...fadeIn, ...hoverEffect}} whileHover="hover">
+              <div key={index} className={styles.sponsorCard}>
+                <img src={partner.src} alt={partner.alt} className={styles.sponsor} />
+              </div>
+            </motion.div>
           ))}
         </div>
       </motion.section>
@@ -515,7 +555,7 @@ const HomePage = () => {
             </motion.h2>
             <hr />
             <p className={styles.faqIntro}>
-              Temukan jawaban atas pertanyaan yang paling sering diajukan mengenai alur, pendaftaran, dan teknis kompetisi. Jika pertanyaan tidak terjawab di sini, jangan ragu untuk menghubungi kami di (nomor wa CP/ig s2c).
+              Temukan jawaban atas pertanyaan yang paling sering diajukan mengenai alur, pendaftaran, dan teknis kompetisi.
             </p>
             <div className={styles.faqStars}>
               <img src="/assets/Group 126.png" alt="Decorative stars" />
@@ -551,9 +591,9 @@ const HomePage = () => {
       >
         <div className={styles.organizerGrid}>
           <div className={styles.organizerImagesLeft}>
-            <img src="/assets/Group 89.png" alt="BSLC activity" className={styles.organizerSmallImg} />
-            <img src="/assets/Group 90.png" alt="BSLC activity" className={styles.organizerSmallImg} />
-            <img src="/assets/Group 91.png" alt="BSLC activity" className={styles.organizerSmallImg} />
+            <img src="/assets/Group 89.jpeg" alt="BSLC activity" className={styles.organizerSmallImg} />
+            <img src="/assets/Group 90.jpg" alt="BSLC activity" className={styles.organizerSmallImg} />
+            <img src="/assets/Group 91.jpeg" alt="BSLC activity" className={styles.organizerSmallImg} />
           </div>
           <div className={styles.organizerImageMain}>
             <img src="/assets/Group 79.png" alt="BSLC Logo" className={styles.organizerBigImg} />
@@ -570,7 +610,7 @@ const HomePage = () => {
                 rel="noopener noreferrer"
                 className={styles.organizerButton}
               >
-                check us out!
+                Check us out!
               </a>
             </motion.div>
             <h2>
