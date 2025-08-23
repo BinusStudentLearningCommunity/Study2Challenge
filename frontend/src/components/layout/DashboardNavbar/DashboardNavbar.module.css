@@ -1,3 +1,13 @@
+.logoWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo {
+    width: 160px;
+    height: auto;
+}
 
 .menuToggle {
     display: none;
@@ -69,6 +79,10 @@
 }
 
 @media screen and (max-width: 1024px) {
+    .logo {
+        width: 125px;
+    }
+
     .dashboardNavbar {
         margin: 10px;
         padding: 10px;
@@ -87,6 +101,10 @@
 }
 
 @media screen and (max-width: 768px) {
+    .logo {
+        width: 110px;
+    }
+    
     .dashboardNavbarContainer {
         top: 0;
         left: 0;
@@ -114,7 +132,7 @@
         transform: translateX(-100%);
     }
 
-    .logo {
+    .logoWrapper {
         margin-top: 2.5rem;
     }
 }

@@ -24,7 +24,6 @@ const Footer = () => {
     <footer className={styles.footer}>
       <div className={styles.footerContent}>
         <div className={styles.footerLeft}>
-          <div className={styles.footerLogo}>Logo "STUDY 2 CHALLENGE 2025"</div>
           <p className={styles.footerDesc}>
             <em>
                 STUDY 2 CHALLENGE 2025 adalah kompetisi hackathon tingkat nasional dari BINUS Student Learning Community (BSLC) yang menjadi wadah bagi siswa dan mahasiswa seluruh Indonesia untuk berinovasi.
