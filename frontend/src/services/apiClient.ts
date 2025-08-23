@@ -4,9 +4,6 @@ import { triggerLogout } from '../contexts/AuthContext';
 
 const apiClient = axios.create({
   baseURL: config.apiBaseUrl,
-  headers: {
-    'Content-Type': 'application/json',
-  },
 });
 
 apiClient.interceptors.response.use(

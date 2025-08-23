@@ -26,7 +26,15 @@ const generateUniqueTeamCode = async (): Promise<string> => {
 
 export const registerForEvent = async (req: Request, res: Response) => {
     try {
-        const { teamName, paymentProofUrl, creatorDetails, teamMembers } = req.body;
+        const files = req.files as { [fieldname: string]: Express.Multer.File[] };
+        const creatorIdCardFile = files['creatorIdCard']?.[0];
+        const memberIdCardFiles = files['memberIdCards'] || [];
+        const paymentProofFile = files['paymentProof']?.[0];
+
+        const { teamName, creatorDetails, teamMembers } = req.body;
+        const parsedCreatorDetails = JSON.parse(creatorDetails);
+        const parsedTeamMembers = JSON.parse(teamMembers);
+
         const creator = await User.findById(req.user!.userId);
 
         if (!creator) {
@@ -39,7 +47,7 @@ export const registerForEvent = async (req: Request, res: Response) => {
         }
 
         const newTeamCode = await generateUniqueTeamCode();
-        const newTeam = new Team({ teamName, teamCode: newTeamCode, paymentProofUrl, isQualified: true });
+        const newTeam = new Team({ teamName, teamCode: newTeamCode, paymentProofUrl: paymentProofFile?.path, isQualified: true });
         await newTeam.save();
 
         const creatorMembership = new TeamMembership({ teamId: newTeam._id, userId: creator._id });
@@ -47,26 +55,28 @@ export const registerForEvent = async (req: Request, res: Response) => {
 
         const creatorMember = new Member({
             teamId: newTeam._id,
-            email: creatorDetails.email,
-            fullName: creatorDetails.fullName,
-            dateOfBirth: creatorDetails.dateOfBirth,
-            gender: creatorDetails.gender,
-            whatsappNumber: creatorDetails.whatsappNumber,
-            institution: creatorDetails.institution,
-            idCardUrl: creatorDetails.idCardUrl,
-            twibbonLink: creatorDetails.twibbonLink,
+            // Use the PARSED object
+            email: parsedCreatorDetails.email,
+            fullName: parsedCreatorDetails.fullName,
+            dateOfBirth: parsedCreatorDetails.dateOfBirth,
+            gender: parsedCreatorDetails.gender,
+            whatsappNumber: parsedCreatorDetails.whatsappNumber,
+            institution: parsedCreatorDetails.institution,
+            idCardUrl: creatorIdCardFile?.path,
+            twibbonLink: parsedCreatorDetails.twibbonLink,
             role: 'LEADER'
         });
 
-        const otherMembersToInsert = teamMembers.map((memberData: any) => ({
+
+        const otherMembersToInsert = parsedTeamMembers.map((memberData: any, index: number) => ({
             teamId: newTeam._id,
-            email: memberData.email, // Email is now for info only
+            email: memberData.email,
             fullName: memberData.fullName,
             dateOfBirth: memberData.dateOfBirth,
             gender: memberData.gender,
             whatsappNumber: memberData.whatsappNumber,
             institution: memberData.institution,
-            idCardUrl: memberData.idCardUrl,
+            idCardUrl: memberIdCardFiles[index]?.path,
             twibbonLink: memberData.twibbonLink,
             role: 'MEMBER'
         }));
