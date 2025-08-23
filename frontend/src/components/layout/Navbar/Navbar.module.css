@@ -93,6 +93,11 @@
   border-top: 1px solid #333;
 }
 
+.logo {
+  width: 110px;
+  height: auto;
+}
+
 .registerButton,
 .dashboardButton,
 .logoutButton {

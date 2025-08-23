@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
 
+import Logo from '../../../../public/assets/Study2Challenge-logo-dark.png';
+
 import Person from '../../../../public/assets/dashboard/person.svg?react';
 import Dashboard from '../../../../public/assets/dashboard/dashboard.svg?react';
 // import Application from '../../../../public/assets/dashboard/settings_applications.svg?react';
@@ -32,8 +34,8 @@ const DashboardNavbar = () => {
             </button>
             <div className={`${styles.dashboardNavbarContainer} ${isMenuOpen ? styles.open : styles.closed}`}>
                 <nav className={styles.dashboardNavbar}>
-                    <div className={styles.logo}>
-                        <h1>Logo Study2Challenge 2025</h1>
+                    <div className={styles.logoWrapper}>
+                        <img src={Logo} alt="Study2Challenge Logo" className={styles.logo}/>
                     </div>
                     <div className={styles.menuContainer}>
                         <ul className={styles.menu}>
