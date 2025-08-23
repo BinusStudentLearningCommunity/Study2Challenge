@@ -6,6 +6,7 @@ import Logo from '../../../../public/assets/Study2Challenge-logo-dark.png';
 
 import Person from '../../../../public/assets/dashboard/person.svg?react';
 import Dashboard from '../../../../public/assets/dashboard/dashboard.svg?react';
+import MenuBook from '../../../../public/assets/dashboard/guideline.svg?react';
 // import Application from '../../../../public/assets/dashboard/settings_applications.svg?react';
 import Logout from '../../../../public/assets/dashboard/exit_to_app.svg?react';
 
@@ -47,6 +48,10 @@ const DashboardNavbar = () => {
                                 <Dashboard className={`${styles.icon} ${isSelected('/dashboard')}`}/>            
                                 Dashboard
                             </Link>
+                            <a href="https://bit.ly/GuidebookS2C2025" target="_blank" rel="noopener noreferrer" className={styles.menuItem}>
+                                <MenuBook className={styles.icon}/> 
+                                Guidebook
+                            </a>
                             {/* <Link to='/event-registration' className={`${styles.menuItem} ${isSelected('/app')}`}>
                                 <Application className={`${styles.icon} ${isSelected('/app')}`}/>                          
                                 Aplikasi
