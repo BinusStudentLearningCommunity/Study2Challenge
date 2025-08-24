@@ -821,6 +821,22 @@ const EventRegistrationPage: React.FC = () => {
                     }
                     required
                   />
+                  <div style={{ marginTop: 6 }}>
+                    <span style={{ fontSize: 14 }}>
+                      Twibbon Template:{" "}
+                      <a
+                        href="https://docs.google.com/document/d/1vr7fmakCXN67JawOgAoohW-d1qcmNdwAU2Vd5zucC5U/edit?usp=sharing"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{
+                          color: "#4e9cff",
+                          textDecoration: "underline",
+                        }}
+                      >
+                        Link Twibbon S2C
+                      </a>
+                    </span>
+                  </div>
                 </div>
               </div>
 
@@ -1067,6 +1083,22 @@ const EventRegistrationPage: React.FC = () => {
                         }
                         required
                       />
+                      <div style={{ marginTop: 6 }}>
+                        <span style={{ fontSize: 14 }}>
+                          Twibbon Template:{" "}
+                          <a
+                            href="https://docs.google.com/document/d/1vr7fmakCXN67JawOgAoohW-d1qcmNdwAU2Vd5zucC5U/edit?usp=sharing"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            style={{
+                              color: "#4e9cff",
+                              textDecoration: "underline",
+                            }}
+                          >
+                            Link Twibbon S2C
+                          </a>
+                        </span>
+                      </div>
                     </div>
                   </div>
                 </div>
