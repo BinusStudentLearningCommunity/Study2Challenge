@@ -5,9 +5,7 @@ import { Toaster, toast } from "react-hot-toast";
 
 import { useAuth } from "../../contexts/AuthContext";
 import { registerTeam, getMyTeam } from "../../features/event/eventService";
-import type {
-  MemberDetails,
-} from "../../features/event/eventService";
+import type { MemberDetails } from "../../features/event/eventService";
 
 import styles from "./EventRegistrationPage.module.css";
 import { FileText, Pencil, PlusCircle, Upload, UsersRound } from "lucide-react";
@@ -328,15 +326,18 @@ const EventRegistrationPage: React.FC = () => {
   };
 
   // Form submission
-const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!paymentFile) {
       toast.error("Please upload your payment proof before submitting.");
       return;
     }
-    if (!validateMemberInfo(creatorDetails, true) || teamMembers.some(m => !validateMemberInfo(m, true))) {
-        return;
+    if (
+      !validateMemberInfo(creatorDetails, true) ||
+      teamMembers.some((m) => !validateMemberInfo(m, true))
+    ) {
+      return;
     }
 
     setIsSubmitting(true);
@@ -344,24 +345,32 @@ const handleSubmit = async (e: React.FormEvent) => {
     const formData = new FormData();
 
     // 1. Append all the files
-    formData.append('paymentProof', paymentFile);
+    formData.append("paymentProof", paymentFile);
     if (creatorDetails.idCardUrl instanceof File) {
-      formData.append('creatorIdCard', creatorDetails.idCardUrl);
+      formData.append("creatorIdCard", creatorDetails.idCardUrl);
     }
     teamMembers.forEach((member) => {
       if (member.idCardUrl instanceof File) {
-        formData.append('memberIdCards', member.idCardUrl);
+        formData.append("memberIdCards", member.idCardUrl);
       }
     });
 
     // 2. Clean file data from the JSON details to avoid sending unnecessary data
-    const cleanCreatorDetails = { ...creatorDetails, idCardUrl: '', idCardPreviewUrl: '' };
-    const cleanTeamMembers = teamMembers.map(member => ({ ...member, idCardUrl: '', idCardPreviewUrl: '' }));
+    const cleanCreatorDetails = {
+      ...creatorDetails,
+      idCardUrl: "",
+      idCardPreviewUrl: "",
+    };
+    const cleanTeamMembers = teamMembers.map((member) => ({
+      ...member,
+      idCardUrl: "",
+      idCardPreviewUrl: "",
+    }));
 
     // 3. Append the rest of the form data as JSON strings
-    formData.append('teamName', teamName);
-    formData.append('creatorDetails', JSON.stringify(cleanCreatorDetails));
-    formData.append('teamMembers', JSON.stringify(cleanTeamMembers));
+    formData.append("teamName", teamName);
+    formData.append("creatorDetails", JSON.stringify(cleanCreatorDetails));
+    formData.append("teamMembers", JSON.stringify(cleanTeamMembers));
 
     try {
       // The service now accepts FormData directly
@@ -1084,7 +1093,7 @@ const handleSubmit = async (e: React.FormEvent) => {
                   Silahkan lakukan pembayaran sebesar <span>Rp 100.000,00</span>
                 </p>
                 <p className={styles.paymentAccount}>
-                  ke rekening BCA <span>5726023731</span> a.n. Gusti Ayu Shanti
+                  ke rekening BCA <span>5726023731</span> A.n. Gusti Ayu Shanti
                   W
                 </p>
               </div>

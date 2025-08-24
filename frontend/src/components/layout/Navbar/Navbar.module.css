@@ -1,5 +1,5 @@
 .navbar {
-  background: radial-gradient(closest-side at center,#151515 0%, #2f2f2f 500%);
+  background: radial-gradient(closest-side at center, #151515 0%, #2f2f2f 500%);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -60,13 +60,13 @@
 }
 
 .navLinkButton {
-  background: radial-gradient(closest-side at center,#C48F43 0%, #FFBE61 500%);
+  background: radial-gradient(closest-side at center, #c48f43 0%, #ffbe61 500%);
   padding: 11px 24px;
   border-radius: 20px;
-  color: #6C4F26;
+  color: #6c4f26;
   font-size: 14px;
   font-weight: 700;
-  box-shadow: 0 0 20px 0 #C48F43;
+  box-shadow: 0 0 20px 0 #c48f43;
   text-decoration: none;
   border: none;
   cursor: pointer;
@@ -94,7 +94,7 @@
 }
 
 .logo {
-  width: 110px;
+  width: 80px;
   height: auto;
 }
 
@@ -109,17 +109,17 @@
   cursor: pointer;
   text-decoration: none;
   transition: all 0.2s ease-out;
-  display: inline-block; 
+  display: inline-block;
   width: 100%;
   box-sizing: border-box;
 }
 
 .registerButton,
 .dashboardButton {
-  background: radial-gradient(closest-side at center, #C48F43 0%, #FFBE61 500%);
-  color: #6C4F26;
+  background: radial-gradient(closest-side at center, #c48f43 0%, #ffbe61 500%);
+  color: #6c4f26;
   box-shadow: 0 0 20px 0 rgba(196, 143, 67, 0.7);
-  border-color: #C48F43;
+  border-color: #c48f43;
 }
 
 .registerButton:hover,
@@ -130,14 +130,14 @@
 
 .logoutButton {
   background-color: transparent;
-  border-color: #C48F43;
-  color: #FFBE61;
+  border-color: #c48f43;
+  color: #ffbe61;
 }
 
 .logoutButton:hover {
   background-color: rgba(196, 143, 67, 0.1);
   color: #fff;
-  border-color: #FFBE61;
+  border-color: #ffbe61;
   transform: scale(1.05);
 }
 
@@ -184,14 +184,14 @@
   .mobileActions {
     display: block;
   }
-  
+
   .navbarNav .navItem .dashboardButton,
   .navbarNav .navItem .logoutButton {
     width: 100%;
     text-align: center;
     margin-top: 10px;
   }
-  
+
   .navbarContainer {
     padding: 20px 20px 0 20px;
   }
@@ -211,11 +211,15 @@
     left: 0;
     right: 0;
     flex-direction: column;
-    background: radial-gradient(closest-side at center,#151515 0%, #2f2f2f 500%);
+    background: radial-gradient(
+      closest-side at center,
+      #151515 0%,
+      #2f2f2f 500%
+    );
     padding: 20px;
     border-radius: 0 0 25px 25px;
     margin-top: 5px;
-    width: auto; 
+    width: auto;
     align-items: center;
   }
 
