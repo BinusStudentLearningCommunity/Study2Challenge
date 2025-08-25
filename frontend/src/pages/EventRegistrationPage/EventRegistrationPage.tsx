@@ -1068,7 +1068,7 @@ const EventRegistrationPage: React.FC = () => {
                     </div>
                     <div className={styles.formGroup}>
                       <label>
-                        Link Instagram Post (Twibbon){" "}
+                        Link Instagram Post / Google Drive (Twibbon){" "}
                         <span className={styles.required}>*</span>
                       </label>
                       <input
