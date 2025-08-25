@@ -125,6 +125,12 @@
   box-sizing: border-box;
 }
 
+/* Tambah padding atas-bawah lebih besar jika input tanggal lahir masih kosong (placeholder) */
+.dateInput input[type="date"]:placeholder-shown {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
 .dateInput input[type="date"]::-webkit-calendar-picker-indicator {
   opacity: 0;
   position: absolute;
