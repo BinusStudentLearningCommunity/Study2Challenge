@@ -809,7 +809,7 @@ const EventRegistrationPage: React.FC = () => {
                 </div>
                 <div className={styles.formGroup}>
                   <label htmlFor="leaderTwibbon">
-                    Link Instagram Post (Twibbon){" "}
+                    Link Instagram Post / Google Drive (Twibbon){" "}
                     <span className={styles.required}>*</span>
                   </label>
                   <input
@@ -1184,6 +1184,56 @@ const EventRegistrationPage: React.FC = () => {
                   accept="image/*"
                 />
               </div>
+
+              {/* WhatsApp Group Join Section */}
+              {paymentProofUrl && (
+                <div
+                  style={{
+                    marginTop: 32,
+                    padding: 24,
+                    background: "rgba(44, 130, 201, 0.10)",
+                    borderRadius: 16,
+                    textAlign: "center",
+                    boxShadow: "0 2px 16px 0 rgba(44,130,201,0.10)",
+                  }}
+                >
+                  <h3
+                    style={{
+                      color: "#25D366",
+                      fontWeight: 700,
+                      fontSize: 22,
+                      marginBottom: 8,
+                    }}
+                  >
+                    Join WhatsApp Group!
+                  </h3>
+                  <p style={{ color: "#fff", fontSize: 15, marginBottom: 18 }}>
+                    Setelah mengunggah bukti pembayaran, silakan gabung ke grup
+                    WhatsApp peserta Study2Challenge 2025 untuk info
+                    selanjutnya.
+                  </p>
+                  <a
+                    href="https://chat.whatsapp.com/L8vVtcAfMC0Lx6dFYrMOiG"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      display: "inline-block",
+                      background: "#25D366",
+                      color: "#222",
+                      fontWeight: 700,
+                      fontSize: 17,
+                      padding: "12px 32px",
+                      borderRadius: 30,
+                      textDecoration: "none",
+                      boxShadow: "0 2px 8px 0 #25D36644",
+                      transition: "background 0.2s, color 0.2s",
+                      marginBottom: 8,
+                    }}
+                  >
+                    Gabung Grup WhatsApp
+                  </a>
+                </div>
+              )}
             </>
           )}
 
