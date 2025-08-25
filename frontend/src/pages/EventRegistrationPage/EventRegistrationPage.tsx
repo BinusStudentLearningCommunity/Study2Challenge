@@ -822,7 +822,14 @@ const EventRegistrationPage: React.FC = () => {
                     required
                   />
                   <div style={{ marginTop: 6 }}>
-                    <span style={{ fontSize: 14 }}>
+                    <span
+                      style={{
+                        fontSize: 14,
+                        color: "#fff",
+                        fontWeight: 500,
+                        textShadow: "0 0 4px #4e9cff, 0 0 2px #000",
+                      }}
+                    >
                       Twibbon Template:{" "}
                       <a
                         href="https://docs.google.com/document/d/1vr7fmakCXN67JawOgAoohW-d1qcmNdwAU2Vd5zucC5U/edit?usp=sharing"
@@ -1084,7 +1091,14 @@ const EventRegistrationPage: React.FC = () => {
                         required
                       />
                       <div style={{ marginTop: 6 }}>
-                        <span style={{ fontSize: 14 }}>
+                        <span
+                          style={{
+                            fontSize: 14,
+                            color: "#fff",
+                            fontWeight: 500,
+                            textShadow: "0 0 4px #4e9cff, 0 0 2px #000",
+                          }}
+                        >
                           Twibbon Template:{" "}
                           <a
                             href="https://docs.google.com/document/d/1vr7fmakCXN67JawOgAoohW-d1qcmNdwAU2Vd5zucC5U/edit?usp=sharing"
