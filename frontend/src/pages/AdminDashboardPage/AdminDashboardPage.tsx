@@ -37,9 +37,11 @@ const AdminDashboardPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [selectedTeam, setSelectedTeam] = useState<Team | null>(null);
 
+  console.log(user);
+
   useEffect(() => {
     if (user?.email !== "s2cadmin@gmail.com") {
-      navigate("/");
+      navigate("/dashboard");
       return;
     }
     fetchTeams();

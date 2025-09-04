@@ -12,7 +12,7 @@ import RegisterPage from "../pages/RegisterPage/RegisterPage";
 import ProtectedRoute from "./protectedRoutes";
 import ProfilePage from "../pages/ProfilePage/ProfilePage";
 import NotFoundPage from "../pages/NotFoundPage/NotFoundPage";
-import AdminDashboardPage from "../pages/AdminDashboardPage";
+import AdminDashboardPage from "../pages/AdminDashboardPage/AdminDashboardPage";
 
 const router = createBrowserRouter([
   {
