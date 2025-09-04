@@ -10,6 +10,7 @@ import dashboardRoutes from "./routes/dashboard.route";
 import eventRoutes from "./routes/event.route";
 import userRoutes from "./routes/user.route";
 import adminRoutes from "./routes/admin.route";
+import emailBlastRoutes from "./routes/email.blast.route";
 import connectDB from "./config/database";
 
 const app: Application = express();
@@ -83,6 +84,7 @@ app.use("/api/dashboard", dashboardRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/event", eventRoutes); // Keep this after JSON parser if events need JSON
 app.use("/api/admin", adminRoutes);
+app.use("/api/blast", emailBlastRoutes);
 
 app.get("/", (req: Request, res: Response) => {
   res.status(200).json({ message: "Berhasil masuk API BSLC" });
