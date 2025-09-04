@@ -27,6 +27,7 @@ const corsOptions = {
     const allowedOrigins = [
       process.env.FRONTEND_URL, // Your main frontend URL
       "http://localhost:3000", // Local development
+      "http://localhost:5173", // Local development
       "https://www.study2challenge.bslc.or.id",
       "https://study2-challenge.vercel.app",
     ].filter(Boolean) as string[];

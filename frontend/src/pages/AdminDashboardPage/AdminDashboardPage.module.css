@@ -303,3 +303,11 @@
     grid-template-columns: 1fr;
   }
 }
+
+.paymentProof {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  margin-top: 0;
+  color: white;
+}

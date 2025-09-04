@@ -14,20 +14,19 @@ interface Team {
   isPay: boolean;
   isQualified: boolean;
   isLock: boolean;
+  paymentProofUrl: string;
   members: Array<{
     _id: string;
-    name: string;
-    nim: string;
+    fullName: string;
     email: string;
-    campus: string;
-    major: string;
-    phone: string;
+    dateOfBirth: string;
+    gender: string;
+    whatsappNumber: string;
+    institution: string;
+    idCardUrl: string;
+    twibbonLink: string;
     role: string;
   }>;
-}
-
-interface TeamResponse {
-  teams: Team[];
 }
 
 const AdminDashboardPage = () => {
@@ -36,8 +35,6 @@ const AdminDashboardPage = () => {
   const [teams, setTeams] = useState<Team[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [selectedTeam, setSelectedTeam] = useState<Team | null>(null);
-
-  console.log(user);
 
   useEffect(() => {
     if (user?.email !== "s2cadmin@gmail.com") {
@@ -49,8 +46,8 @@ const AdminDashboardPage = () => {
 
   const fetchTeams = async () => {
     try {
-      const response = await apiClient.get<TeamResponse>("/admin/teams");
-      setTeams(response.data.teams);
+      const response = await apiClient.get<Team[]>("/admin/teams");
+      setTeams(response.data);
     } catch (error) {
       console.error("Error fetching teams:", error);
       toast.error("Failed to fetch teams");
@@ -87,6 +84,8 @@ const AdminDashboardPage = () => {
     return <div className={styles.loadingContainer}>Loading dashboard...</div>;
   }
 
+  console.log(teams);
+
   return (
     <>
       <Toaster position="bottom-right" />
@@ -121,7 +120,7 @@ const AdminDashboardPage = () => {
         <div className={styles.teamsContainer}>
           <h2 className={styles.sectionTitle}>Registered Teams</h2>
           <div className={styles.teamGrid}>
-            {teams.map((team) => (
+            {teams?.map((team) => (
               <motion.div
                 key={team._id}
                 className={styles.teamCard}
@@ -185,27 +184,69 @@ const AdminDashboardPage = () => {
           >
             <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
               <h2>{selectedTeam.teamName} - Details</h2>
+              <div className={styles.paymentProof}>
+                <h3>Payment Proof</h3>
+                <img
+                  src={selectedTeam.paymentProofUrl}
+                  alt="Payment Proof"
+                  style={{
+                    maxWidth: "300px",
+                    maxHeight: "300px",
+                    objectFit: "contain",
+                    marginBottom: "20px",
+                    cursor: "pointer",
+                  }}
+                  onClick={() =>
+                    window.open(selectedTeam.paymentProofUrl, "_blank")
+                  }
+                />
+              </div>
               <div className={styles.membersGrid}>
                 {selectedTeam.members.map((member) => (
                   <div key={member._id} className={styles.memberCard}>
-                    <h4>{member.name}</h4>
+                    <h4>{member.fullName}</h4>
+                    <div className={styles.memberImage}>
+                      <img
+                        src={member.idCardUrl}
+                        alt="ID Card"
+                        style={{
+                          maxWidth: "200px",
+                          maxHeight: "150px",
+                          objectFit: "contain",
+                          marginBottom: "10px",
+                          cursor: "pointer",
+                        }}
+                        onClick={() => window.open(member.idCardUrl, "_blank")}
+                      />
+                    </div>
                     <p>
                       <strong>Role:</strong> {member.role}
                     </p>
                     <p>
-                      <strong>NIM:</strong> {member.nim}
+                      <strong>Gender:</strong> {member.gender}
+                    </p>
+                    <p>
+                      <strong>Date of Birth:</strong>{" "}
+                      {new Date(member.dateOfBirth).toLocaleDateString()}
                     </p>
                     <p>
                       <strong>Email:</strong> {member.email}
                     </p>
                     <p>
-                      <strong>Campus:</strong> {member.campus}
+                      <strong>Institution:</strong> {member.institution}
                     </p>
                     <p>
-                      <strong>Major:</strong> {member.major}
+                      <strong>WhatsApp:</strong> {member.whatsappNumber}
                     </p>
                     <p>
-                      <strong>Phone:</strong> {member.phone}
+                      <strong>Twibbon:</strong>
+                      <a
+                        href={member.twibbonLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        View Twibbon
+                      </a>
                     </p>
                   </div>
                 ))}
