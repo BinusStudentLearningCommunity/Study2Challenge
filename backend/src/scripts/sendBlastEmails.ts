@@ -22,26 +22,34 @@ const sendBlastEmails = async () => {
     });
 
     // Get limit from env or use default 800
-    const emailLimit = parseInt(process.env.EMAIL_BLAST_LIMIT || "800");
+    const emailLimit = parseInt(process.env.EMAIL_BLAST_LIMIT || "450");
     console.log(`Email limit set to: ${emailLimit}`);
 
-    // Get limited number of unsent emails
-    const unsentEmails = await EmailBlast.find({ isEmailSent: false }).limit(
-      emailLimit
-    );
+    // Get binusian angkatan from command line args or use all
+    const targetAngkatan = process.argv.slice(2).map(Number);
+
+    // Build query
+    const query: any = { isEmailSent: false };
+    if (targetAngkatan.length > 0) {
+      query.binusianAngkatan = { $in: targetAngkatan };
+    } // Get limited number of unsent emails
+    const unsentEmails = await EmailBlast.find(query).limit(emailLimit);
+
     console.log(
-      `Found ${unsentEmails.length} unsent emails (limited to ${emailLimit})`
+      `Found ${unsentEmails.length} unsent emails` +
+        (targetAngkatan ? ` for Binusian ${targetAngkatan.join(", ")}` : "") +
+        ` (limited to ${emailLimit})`
     );
 
     // Email content with embedded image
     const emailContent = {
-      subject: "🚀 BSLC Study2Challenge Hackathon 2025 - Open Registration!",
+      subject: "Hackathon BSLC Study2Challenge 2025 - Open Registration!",
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
           <!-- Poster Image -->
           <img src="cid:posterImage" alt="Study2Challenge Poster" style="width: 100%; height: auto; margin-bottom: 20px;">
 
-          <h1 style="color: #1a237e;">🚨 STUDY2CHALLENGE NOW OPEN REGISTRATION!!</h1>
+          <h2 style="color: #1a237e;">🚨 STUDY2CHALLENGE NOW OPEN REGISTRATION!!</h2>
 
           <p>Hi IT Hunters 👋 Bosan rutinitas yang gitu-gitu aja?<br/>
           Saatnya upgrade skill & buktiin ide brilianmu di Study2Challenge Hackathon 2025! 🌍💡</p>
@@ -49,13 +57,10 @@ const sendBlastEmails = async () => {
           <p>Kompetisi ini mengusung tema <strong>"Bridging Global Problems: Tech for a Better Tomorrow"</strong>, mengajak generasi muda menjawab tantangan global lewat teknologi inovatif.</p>
 
           <h2 style="color: #1a237e;">⚡ WHY YOU SHOULD JOIN??</h2>
-
-          <ul>
-            <li>🏆 Total hadiah spektakuler hingga Rp24.000.000</li>
-            <li>🎁 Voucher kelas bahasa senilai Rp150.000 (TERBATAS untuk seluruh peserta)</li>
-            <li>📜 Sertifikat partisipasi untuk semua peserta</li>
-            <li>🧑‍💻 Pengalaman membangun website nyata dari ide timmu</li>
-          </ul>
+            🏆 Total hadiah spektakuler hingga <strong>Rp24.000.000</strong><br/>
+            🎁 Voucher kelas bahasa senilai <strong>Rp150.000</strong> (TERBATAS untuk seluruh peserta)<br/>
+            📜 <strong>Sertifikat partisipasi</strong> untuk semua peserta<br/>
+            🧑‍💻 Pengalaman membangun website nyata dari ide timmu<br/>
 
           <div style="background-color: #f5f5f5; padding: 15px; border-radius: 5px; margin: 20px 0;">
             <p>📅 <strong>Pendaftaran:</strong> 25 Agustus - 21 September 2025<br/>
@@ -97,6 +102,13 @@ const sendBlastEmails = async () => {
 
     for (const emailDoc of unsentEmails) {
       try {
+        // Double check if email was already sent (in case of concurrent runs)
+        const freshDoc = await EmailBlast.findById(emailDoc._id);
+        if (freshDoc?.isEmailSent) {
+          console.log(`⏭️  Skipping ${emailDoc.email} - already sent`);
+          continue;
+        }
+
         await transporter.sendMail({
           from: process.env.GMAIL_USER,
           to: emailDoc.email,

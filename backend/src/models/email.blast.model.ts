@@ -6,6 +6,10 @@ const emailBlastSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
+  binusianAngkatan: {
+    type: Number,
+    required: false,
+  },
   isEmailSent: {
     type: Boolean,
     default: false,
