@@ -11,12 +11,12 @@ import eventRoutes from "./routes/event.route";
 import userRoutes from "./routes/user.route";
 import adminRoutes from "./routes/admin.route";
 import emailBlastRoutes from "./routes/email.blast.route";
+import teamRoutes from "./routes/team.route";
 import connectDB from "./config/database";
 
 const app: Application = express();
 
-// Cors
-
+// CORS configuration
 const corsOptions = {
   origin: function (
     origin: string | undefined,
@@ -28,6 +28,7 @@ const corsOptions = {
     const allowedOrigins = [
       process.env.FRONTEND_URL, // Your main frontend URL
       "http://localhost:3000", // Local development
+      "http://localhost:3001", // Local development
       "http://localhost:5173", // Local development
       "https://www.study2challenge.bslc.or.id",
       "https://study2-challenge.vercel.app",
@@ -85,6 +86,8 @@ app.use("/api/user", userRoutes);
 app.use("/api/event", eventRoutes); // Keep this after JSON parser if events need JSON
 app.use("/api/admin", adminRoutes);
 app.use("/api/blast", emailBlastRoutes);
+app.use("/api/teams", teamRoutes);
+app.use("/api/teams", teamRoutes);
 
 app.get("/", (req: Request, res: Response) => {
   res.status(200).json({ message: "Berhasil masuk API BSLC" });

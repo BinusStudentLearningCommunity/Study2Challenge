@@ -19,7 +19,12 @@ const LoginPage = () => {
     try {
       await login({ email, password });
       toast.success("Login successful!");
-      setTimeout(() => navigate("/dashboard"), 1500);
+      // Redirect based on email
+      if (email === "s2cadmin@gmail.com") {
+        navigate("/admin");
+      } else {
+        navigate("/dashboard");
+      }
     } catch (error) {
       console.error("Login failed:", error);
       toast.error("Login failed. Please check your credentials.");

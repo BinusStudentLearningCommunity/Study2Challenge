@@ -24,8 +24,93 @@
   font-size: 40px;
   font-family: "DM Sans", sans-serif;
   color: #ffc673;
-  margin-bottom: 2rem;
+  /* margin-bottom: 2rem; */
   text-align: center;
+}
+
+.teamsHeader {
+  margin-bottom: 2rem;
+}
+
+.titleSection {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.teamCount {
+  font-size: 1rem;
+  color: #a2c5ff;
+  background: rgba(63, 134, 255, 0.1);
+  padding: 0.25rem 0.75rem;
+  border-radius: 1rem;
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.filterSection {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.searchBar input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid rgba(63, 134, 255, 0.1);
+  border-radius: 0.5rem;
+  background: rgba(217, 217, 217, 0.05);
+  color: white;
+  font-size: 1rem;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.searchBar input:focus {
+  outline: none;
+  border-color: #3f86ff;
+  background: rgba(63, 134, 255, 0.1);
+}
+
+.searchBar input::placeholder {
+  color: rgba(162, 197, 255, 0.5);
+}
+
+.filters {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.filters select {
+  padding: 0.5rem 1rem;
+  border: 1px solid rgba(63, 134, 255, 0.1);
+  border-radius: 0.5rem;
+  background: rgba(217, 217, 217, 0.05);
+  color: white;
+  font-size: 0.9rem;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+  min-width: 150px;
+}
+
+.filters select:hover {
+  background: rgba(63, 134, 255, 0.1);
+}
+
+.filters select:focus {
+  outline: none;
+  border-color: #3f86ff;
+}
+
+.filters option {
+  background: #1e1e1e;
+  color: white;
 }
 
 .teamsContainer {

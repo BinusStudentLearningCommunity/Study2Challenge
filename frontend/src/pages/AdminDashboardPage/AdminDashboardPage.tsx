@@ -33,8 +33,62 @@ const AdminDashboardPage = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
   const [teams, setTeams] = useState<Team[]>([]);
+  const [filteredTeams, setFilteredTeams] = useState<Team[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [selectedTeam, setSelectedTeam] = useState<Team | null>(null);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filterStatus, setFilterStatus] = useState({
+    payment: "all", // all, paid, unpaid
+    qualification: "all", // all, qualified, unqualified
+  });
+  const [sortBy, setSortBy] = useState("teamName"); // teamName, members, status
+
+  // Filter and sort teams
+  useEffect(() => {
+    let result = [...teams];
+
+    // Apply search filter
+    if (searchQuery) {
+      result = result.filter(
+        (team) =>
+          team.teamName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          team.teamCode.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          team.members.some((member) =>
+            member.fullName.toLowerCase().includes(searchQuery.toLowerCase())
+          )
+      );
+    }
+
+    // Apply status filters
+    if (filterStatus.payment !== "all") {
+      result = result.filter((team) =>
+        filterStatus.payment === "paid" ? team.isPay : !team.isPay
+      );
+    }
+    if (filterStatus.qualification !== "all") {
+      result = result.filter((team) =>
+        filterStatus.qualification === "qualified"
+          ? team.isQualified
+          : !team.isQualified
+      );
+    }
+
+    // Apply sorting
+    result.sort((a, b) => {
+      switch (sortBy) {
+        case "teamName":
+          return a.teamName.localeCompare(b.teamName);
+        case "members":
+          return b.members.length - a.members.length;
+        case "status":
+          return (b.isPay ? 1 : 0) - (a.isPay ? 1 : 0);
+        default:
+          return 0;
+      }
+    });
+
+    setFilteredTeams(result);
+  }, [teams, searchQuery, filterStatus, sortBy]);
 
   useEffect(() => {
     if (user?.email !== "s2cadmin@gmail.com") {
@@ -84,8 +138,6 @@ const AdminDashboardPage = () => {
     return <div className={styles.loadingContainer}>Loading dashboard...</div>;
   }
 
-  console.log(teams);
-
   return (
     <>
       <Toaster position="bottom-right" />
@@ -118,9 +170,67 @@ const AdminDashboardPage = () => {
         </div>
 
         <div className={styles.teamsContainer}>
-          <h2 className={styles.sectionTitle}>Registered Teams</h2>
+          <div className={styles.teamsHeader}>
+            <div className={styles.titleSection}>
+              <h2 className={styles.sectionTitle}>Registered Teams</h2>
+              <span className={styles.teamCount}>
+                Total: {teams.length} teams
+              </span>
+            </div>
+
+            <div className={styles.filterSection}>
+              <div className={styles.searchBar}>
+                <input
+                  type="text"
+                  placeholder="Search teams or members..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                />
+              </div>
+
+              <div className={styles.filters}>
+                <select
+                  value={filterStatus.payment}
+                  onChange={(e) =>
+                    setFilterStatus((prev) => ({
+                      ...prev,
+                      payment: e.target.value,
+                    }))
+                  }
+                >
+                  <option value="all">All Payments</option>
+                  <option value="paid">Paid</option>
+                  <option value="unpaid">Unpaid</option>
+                </select>
+
+                <select
+                  value={filterStatus.qualification}
+                  onChange={(e) =>
+                    setFilterStatus((prev) => ({
+                      ...prev,
+                      qualification: e.target.value,
+                    }))
+                  }
+                >
+                  <option value="all">All Qualifications</option>
+                  <option value="qualified">Qualified</option>
+                  <option value="unqualified">Not Qualified</option>
+                </select>
+
+                <select
+                  value={sortBy}
+                  onChange={(e) => setSortBy(e.target.value)}
+                >
+                  <option value="teamName">Sort by Name</option>
+                  <option value="members">Sort by Members</option>
+                  <option value="status">Sort by Status</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
           <div className={styles.teamGrid}>
-            {teams?.map((team) => (
+            {filteredTeams.map((team) => (
               <motion.div
                 key={team._id}
                 className={styles.teamCard}
