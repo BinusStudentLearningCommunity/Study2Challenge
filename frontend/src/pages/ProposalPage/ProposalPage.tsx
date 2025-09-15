@@ -161,8 +161,7 @@ const ProposalPage = () => {
                 </div>
 
                 <div className={styles.leaderOnlyMessage}>
-                  ⚠️ Only team leader can submit the proposal. Please contact
-                  your team leader.
+                  ⚠️ Only team leader can submit the proposal.
                 </div>
 
                 <div className={styles.buttonGroup}>
