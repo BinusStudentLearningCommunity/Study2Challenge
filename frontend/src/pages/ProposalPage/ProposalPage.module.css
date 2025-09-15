@@ -1,0 +1,423 @@
+.pageContainer {
+  min-height: 100vh;
+  padding: 2rem 2rem 2rem calc(280px + 2rem); /* Added left padding to account for navbar */
+  background-color: var(--background);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.loadingContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding-left: 280px; /* Added left padding for loading state */
+  font-size: 1.5rem;
+  color: var(--text-primary);
+}
+
+/* Background Elements */
+.yellowGalaxy,
+.blueAstronaut,
+.yellowClipPath,
+.blueClipPath {
+  position: absolute;
+  pointer-events: none;
+}
+
+.yellowGalaxy {
+  top: 10%;
+  left: -5%;
+  width: 30%;
+  opacity: 0.6;
+  animation: float 6s ease-in-out infinite;
+}
+
+.blueAstronaut {
+  bottom: 5%;
+  right: -5%;
+  width: 25%;
+  opacity: 0.8;
+  animation: float 8s ease-in-out infinite;
+}
+
+.yellowClipPath {
+  top: 20%;
+  right: 5%;
+  width: 15%;
+  opacity: 0.4;
+  animation: rotate 20s linear infinite;
+}
+
+.blueClipPath {
+  bottom: 15%;
+  left: 8%;
+  width: 12%;
+  opacity: 0.4;
+  animation: rotate 25s linear infinite reverse;
+}
+
+/* Content Styling */
+.contentContainer {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 2.5rem;
+  background: #d9d9d90d;
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+  z-index: 1;
+}
+
+.title {
+  font-family: "Fontspring-DEMO-zuumerough-bold", sans-serif;
+  text-align: center;
+  color: white;
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  text-transform: uppercase;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* No Team Section */
+.noTeamSection {
+  text-align: center;
+  padding: 3rem;
+  color: white;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.noTeamSection h2 {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  color: white;
+  font-weight: bold;
+}
+
+.noTeamSection p {
+  font-size: 1.2rem;
+  margin-bottom: 3rem;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.6;
+}
+
+.buttonGroup {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.primaryButton,
+.secondaryButton,
+.submitButton {
+  padding: 1rem 2.5rem;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.primaryButton {
+  background: #25d366;
+  color: white;
+}
+
+.primaryButton:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.secondaryButton {
+  background: white;
+  border: 2px solid var(--primary);
+  color: black;
+}
+
+.secondaryButton:hover {
+  background: rgba(var(--primary-rgb), 0.05);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  color: white;
+}
+
+/* Proposal Section */
+.proposalSection {
+  color: var(--text-primary);
+}
+
+.teamInfo {
+  text-align: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.teamInfo h2 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  color: white;
+}
+
+.teamCode {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 1.1rem;
+}
+
+.rulesContainer {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.rulesContainer h3 {
+  font-size: 1.5rem;
+  margin: 1.5rem 0 1rem;
+  color: white;
+  text-shadow: 0 0 10px rgba(var(--primary-rgb), 0.3);
+}
+
+.rulesList {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 1.5rem;
+  border-radius: 12px;
+  margin-bottom: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.rulesList p {
+  margin-bottom: 0.8rem;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.formatRules {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 1.5rem;
+  border-radius: 12px;
+  margin-bottom: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.formatRules ul {
+  list-style: none;
+  padding: 0;
+}
+
+.formatRules h3 {
+  color: white;
+}
+
+.formatRules li {
+  margin-bottom: 0.8rem;
+  line-height: 1.5;
+  padding-left: 1.5rem;
+  position: relative;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.formatRules li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: var(--primary);
+  text-shadow: 0 0 8px rgba(var(--primary-rgb), 0.5);
+}
+
+.resources {
+  text-align: center;
+  margin: 2rem 0;
+}
+
+.templateLink {
+  display: inline-block;
+  padding: 1rem 2rem;
+  background: rgba(var(--primary-rgb), 0.1);
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.templateLink:hover {
+  background: rgba(var(--primary-rgb), 0.2);
+  transform: translateY(-2px);
+}
+
+.leaderOnlyMessage {
+  text-align: center;
+  color: #ff6b6b;
+  padding: 1rem;
+  background: rgba(255, 107, 107, 0.1);
+  border-radius: 8px;
+  margin: 2rem 0;
+}
+
+.submitButton {
+  display: block;
+  width: 100%;
+  max-width: 300px;
+  margin: 2rem auto;
+  background: var(--primary);
+  color: white;
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+}
+
+/* Animations */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Responsive Styles */
+@media screen and (max-width: 768px) {
+  .pageContainer {
+    padding: 1rem;
+    padding-top: 80px; /* Account for mobile navbar */
+  }
+
+  .contentContainer {
+    padding: 1.5rem;
+  }
+
+  .title {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .noTeamSection {
+    padding: 1.5rem;
+  }
+
+  .noTeamSection h2 {
+    font-size: 1.6rem;
+  }
+
+  .buttonGroup {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .primaryButton,
+  .secondaryButton,
+  .submitButton {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1rem;
+  }
+
+  .teamInfo h2 {
+    font-size: 1.6rem;
+  }
+
+  .rulesContainer {
+    padding: 0;
+  }
+
+  .rulesList,
+  .formatRules {
+    padding: 1rem;
+  }
+
+  .rulesContainer h3 {
+    font-size: 1.3rem;
+  }
+
+  .rulesList p,
+  .formatRules li {
+    font-size: 0.95rem;
+  }
+
+  /* Adjust background elements for mobile */
+  .yellowGalaxy {
+    width: 50%;
+    top: 5%;
+    left: -20%;
+  }
+
+  .blueAstronaut {
+    width: 40%;
+    bottom: 2%;
+    right: -15%;
+  }
+
+  .yellowClipPath,
+  .blueClipPath {
+    display: none; /* Hide smaller decorative elements on mobile */
+  }
+
+  .templateLink {
+    padding: 0.8rem 1.5rem;
+    font-size: 0.95rem;
+    width: 100%;
+  }
+}
+
+/* Extra small devices */
+@media screen and (max-width: 480px) {
+  .pageContainer {
+    padding: 0.8rem;
+    padding-top: 70px;
+  }
+
+  .contentContainer {
+    padding: 1.2rem;
+  }
+
+  .title {
+    font-size: 1.8rem;
+  }
+
+  .noTeamSection h2 {
+    font-size: 1.4rem;
+  }
+
+  .noTeamSection p {
+    font-size: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .teamInfo h2 {
+    font-size: 1.4rem;
+  }
+
+  .teamCode {
+    font-size: 1rem;
+  }
+
+  .rulesContainer h3 {
+    font-size: 1.2rem;
+  }
+
+  .rulesList p,
+  .formatRules li {
+    font-size: 0.9rem;
+  }
+}

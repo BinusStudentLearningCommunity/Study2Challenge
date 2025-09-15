@@ -14,6 +14,7 @@ import ProfilePage from "../pages/ProfilePage/ProfilePage";
 import NotFoundPage from "../pages/NotFoundPage/NotFoundPage";
 import AdminDashboardPage from "../pages/AdminDashboardPage/AdminDashboardPage";
 import TeamPage from "../pages/TeamPage/TeamPage";
+import ProposalPage from "../pages/ProposalPage/ProposalPage";
 
 const router = createBrowserRouter([
   {
@@ -56,6 +57,10 @@ const router = createBrowserRouter([
       {
         path: "/team",
         element: <TeamPage />,
+      },
+      {
+        path: "/proposal",
+        element: <ProposalPage />,
       },
     ],
   },
