@@ -144,13 +144,14 @@
 .secondaryButton {
   background: white;
   border: 2px solid var(--primary);
-  color: var(--primary);
+  color: black;
 }
 
 .secondaryButton:hover {
   background: rgba(var(--primary-rgb), 0.05);
   transform: translateY(-3px);
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  color: white;
 }
 
 /* Proposal Section */
