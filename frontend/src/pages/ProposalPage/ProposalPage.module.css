@@ -1,0 +1,263 @@
+.pageContainer {
+  min-height: 100vh;
+  padding: 2rem 2rem 2rem calc(280px + 2rem); /* Added left padding to account for navbar */
+  background-color: var(--background);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.loadingContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding-left: 280px; /* Added left padding for loading state */
+  font-size: 1.5rem;
+  color: var(--text-primary);
+}
+
+/* Background Elements */
+.yellowGalaxy,
+.blueAstronaut,
+.yellowClipPath,
+.blueClipPath {
+  position: absolute;
+  pointer-events: none;
+}
+
+.yellowGalaxy {
+  top: 10%;
+  left: -5%;
+  width: 30%;
+  opacity: 0.6;
+  animation: float 6s ease-in-out infinite;
+}
+
+.blueAstronaut {
+  bottom: 5%;
+  right: -5%;
+  width: 25%;
+  opacity: 0.8;
+  animation: float 8s ease-in-out infinite;
+}
+
+.yellowClipPath {
+  top: 20%;
+  right: 5%;
+  width: 15%;
+  opacity: 0.4;
+  animation: rotate 20s linear infinite;
+}
+
+.blueClipPath {
+  bottom: 15%;
+  left: 8%;
+  width: 12%;
+  opacity: 0.4;
+  animation: rotate 25s linear infinite reverse;
+}
+
+/* Content Styling */
+.contentContainer {
+  width: 100%;
+  max-width: 1000px; /* Slightly reduced to look better with padding */
+  margin: 0 auto;
+  padding: 2.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  position: relative;
+  z-index: 1;
+}
+
+.title {
+  font-family: "Fontspring-DEMO-zuumerough-bold", sans-serif;
+  text-align: center;
+  color: var(--text-primary);
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  text-transform: uppercase;
+}
+
+/* No Team Section */
+.noTeamSection {
+  text-align: center;
+  padding: 2rem;
+  color: var(--text-primary);
+}
+
+.noTeamSection h2 {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+}
+
+.noTeamSection p {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  color: var(--text-secondary);
+}
+
+.buttonGroup {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.primaryButton,
+.secondaryButton,
+.submitButton {
+  padding: 0.8rem 2rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+}
+
+.primaryButton {
+  background: var(--primary);
+  color: white;
+}
+
+.secondaryButton {
+  background: transparent;
+  border: 2px solid var(--primary);
+  color: var(--primary);
+}
+
+/* Proposal Section */
+.proposalSection {
+  color: var(--text-primary);
+}
+
+.teamInfo {
+  text-align: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.teamInfo h2 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.teamCode {
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+}
+
+.rulesContainer {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.rulesContainer h3 {
+  font-size: 1.5rem;
+  margin: 1.5rem 0 1rem;
+  color: var(--primary);
+}
+
+.rulesList {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 1.5rem;
+  border-radius: 12px;
+  margin-bottom: 1.5rem;
+}
+
+.rulesList p {
+  margin-bottom: 0.8rem;
+  line-height: 1.5;
+}
+
+.formatRules {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 1.5rem;
+  border-radius: 12px;
+  margin-bottom: 1.5rem;
+}
+
+.formatRules ul {
+  list-style: none;
+  padding: 0;
+}
+
+.formatRules li {
+  margin-bottom: 0.8rem;
+  line-height: 1.5;
+  padding-left: 1.5rem;
+  position: relative;
+}
+
+.formatRules li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: var(--primary);
+}
+
+.resources {
+  text-align: center;
+  margin: 2rem 0;
+}
+
+.templateLink {
+  display: inline-block;
+  padding: 1rem 2rem;
+  background: rgba(var(--primary-rgb), 0.1);
+  color: var(--primary);
+  text-decoration: none;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.templateLink:hover {
+  background: rgba(var(--primary-rgb), 0.2);
+  transform: translateY(-2px);
+}
+
+.leaderOnlyMessage {
+  text-align: center;
+  color: #ff6b6b;
+  padding: 1rem;
+  background: rgba(255, 107, 107, 0.1);
+  border-radius: 8px;
+  margin: 2rem 0;
+}
+
+.submitButton {
+  display: block;
+  width: 100%;
+  max-width: 300px;
+  margin: 2rem auto;
+  background: var(--primary);
+  color: white;
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+}
+
+/* Animations */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

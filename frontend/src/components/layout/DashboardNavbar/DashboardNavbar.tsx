@@ -4,11 +4,10 @@ import { Link } from "react-router-dom";
 
 import Logo from "../../../../public/assets/Study2Challenge-logo-dark.png";
 
-import Person from "../../../../public/assets/dashboard/person.svg?react";
-import Dashboard from "../../../../public/assets/dashboard/dashboard.svg?react";
-import MenuBook from "../../../../public/assets/dashboard/guideline.svg?react";
-// import Groups from "../../../../public/assets/dashboard/groups.svg?react";
-import Logout from "../../../../public/assets/dashboard/exit_to_app.svg?react";
+import { FaUser } from "react-icons/fa";
+import { MdDashboard, MdMenuBook, MdLogout } from "react-icons/md";
+import { HiUserGroup } from "react-icons/hi";
+import { TbFileReport } from "react-icons/tb";
 
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../../contexts/AuthContext";
@@ -56,19 +55,32 @@ const DashboardNavbar = () => {
                 to="/profile"
                 className={`${styles.menuItem} ${isSelected("/profile")}`}
               >
-                <Person
+                <FaUser
                   className={`${styles.icon} ${isSelected("/profile")}`}
                 />
                 Profile
               </Link>
               {user?.email !== "s2cadmin@gmail.com" && (
-                <Link
-                  to="/team"
-                  className={`${styles.menuItem} ${isSelected("/team")}`}
-                >
-                  <Person className={`${styles.icon} ${isSelected("/team")}`} />
-                  Team
-                </Link>
+                <>
+                  <Link
+                    to="/team"
+                    className={`${styles.menuItem} ${isSelected("/team")}`}
+                  >
+                    <HiUserGroup
+                      className={`${styles.icon} ${isSelected("/team")}`}
+                    />
+                    Team
+                  </Link>
+                  <Link
+                    to="/proposal"
+                    className={`${styles.menuItem} ${isSelected("/proposal")}`}
+                  >
+                    <TbFileReport
+                      className={`${styles.icon} ${isSelected("/proposal")}`}
+                    />
+                    Proposal
+                  </Link>
+                </>
               )}
               <Link
                 to={
@@ -78,7 +90,7 @@ const DashboardNavbar = () => {
                   user?.email === "s2cadmin@gmail.com" ? "/admin" : "/dashboard"
                 )}`}
               >
-                <Dashboard
+                <MdDashboard
                   className={`${styles.icon} ${isSelected(
                     user?.email === "s2cadmin@gmail.com"
                       ? "/admin"
@@ -93,15 +105,11 @@ const DashboardNavbar = () => {
                 rel="noopener noreferrer"
                 className={styles.menuItem}
               >
-                <MenuBook className={styles.icon} />
+                <MdMenuBook className={styles.icon} />
                 Guidebook
               </a>
-              {/* <Link to='/event-registration' className={`${styles.menuItem} ${isSelected('/app')}`}>
-                                <Application className={`${styles.icon} ${isSelected('/app')}`}/>                          
-                                Aplikasi
-                            </Link> */}
               <div className={`${styles.menuItem}`} onClick={handleLogout}>
-                <Logout className={styles.icon} />
+                <MdLogout className={styles.icon} />
                 Log Out
               </div>
             </ul>
