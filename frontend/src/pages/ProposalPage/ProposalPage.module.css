@@ -66,11 +66,11 @@
   max-width: 1000px;
   margin: 0 auto;
   padding: 2.5rem;
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(0, 0, 0, 0.2);
   backdrop-filter: blur(10px);
   border-radius: 20px;
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   position: relative;
   z-index: 1;
 }
@@ -78,34 +78,34 @@
 .title {
   font-family: "Fontspring-DEMO-zuumerough-bold", sans-serif;
   text-align: center;
-  color: #1a1a1a;
+  color: white;
   font-size: 2.5rem;
   margin-bottom: 2rem;
   text-transform: uppercase;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 /* No Team Section */
 .noTeamSection {
   text-align: center;
   padding: 3rem;
-  color: #1a1a1a;
-  background: rgba(0, 0, 0, 0.02);
+  color: white;
+  background: rgba(255, 255, 255, 0.1);
   border-radius: 16px;
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .noTeamSection h2 {
   font-size: 2rem;
   margin-bottom: 1.5rem;
-  color: #1a1a1a;
+  color: white;
   font-weight: bold;
 }
 
 .noTeamSection p {
   font-size: 1.2rem;
   margin-bottom: 3rem;
-  color: #666;
+  color: rgba(255, 255, 255, 0.8);
   line-height: 1.6;
 }
 
@@ -168,10 +168,11 @@
 .teamInfo h2 {
   font-size: 2rem;
   margin-bottom: 0.5rem;
+  color: white;
 }
 
 .teamCode {
-  color: var(--text-secondary);
+  color: rgba(255, 255, 255, 0.7);
   font-size: 1.1rem;
 }
 
@@ -184,28 +185,29 @@
   font-size: 1.5rem;
   margin: 1.5rem 0 1rem;
   color: var(--primary);
+  text-shadow: 0 0 10px rgba(var(--primary-rgb), 0.3);
 }
 
 .rulesList {
-  background: rgba(0, 0, 0, 0.03);
+  background: rgba(255, 255, 255, 0.1);
   padding: 1.5rem;
   border-radius: 12px;
   margin-bottom: 1.5rem;
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .rulesList p {
   margin-bottom: 0.8rem;
   line-height: 1.5;
-  color: #333;
+  color: rgba(255, 255, 255, 0.9);
 }
 
 .formatRules {
-  background: rgba(0, 0, 0, 0.03);
+  background: rgba(255, 255, 255, 0.1);
   padding: 1.5rem;
   border-radius: 12px;
   margin-bottom: 1.5rem;
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .formatRules ul {
@@ -218,6 +220,7 @@
   line-height: 1.5;
   padding-left: 1.5rem;
   position: relative;
+  color: rgba(255, 255, 255, 0.9);
 }
 
 .formatRules li::before {
@@ -225,6 +228,7 @@
   position: absolute;
   left: 0;
   color: var(--primary);
+  text-shadow: 0 0 8px rgba(var(--primary-rgb), 0.5);
 }
 
 .resources {
