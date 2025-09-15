@@ -24,7 +24,6 @@ const ProposalPage = () => {
   const navigate = useNavigate();
   const [team, setTeam] = useState<Team | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [isLeader, setIsLeader] = useState(false);
 
   useEffect(() => {
     fetchTeamData();
@@ -34,12 +33,6 @@ const ProposalPage = () => {
     try {
       const response = await apiClient.get<Team>("/teams/me");
       setTeam(response.data);
-
-      // Check if current user is team leader
-      const currentUserMember = response.data.members.find(
-        (member) => member.email === user?.email
-      );
-      setIsLeader(currentUserMember?.role === "Ketua Tim");
     } catch (error) {
       console.error("Error fetching team data:", error);
     } finally {
