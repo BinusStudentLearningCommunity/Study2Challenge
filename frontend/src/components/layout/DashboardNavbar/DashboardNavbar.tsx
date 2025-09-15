@@ -7,7 +7,7 @@ import Logo from "../../../../public/assets/Study2Challenge-logo-dark.png";
 import Person from "../../../../public/assets/dashboard/person.svg?react";
 import Dashboard from "../../../../public/assets/dashboard/dashboard.svg?react";
 import MenuBook from "../../../../public/assets/dashboard/guideline.svg?react";
-// import Application from '../../../../public/assets/dashboard/settings_applications.svg?react';
+// import Groups from "../../../../public/assets/dashboard/groups.svg?react";
 import Logout from "../../../../public/assets/dashboard/exit_to_app.svg?react";
 
 import { useNavigate } from "react-router-dom";
@@ -61,6 +61,15 @@ const DashboardNavbar = () => {
                 />
                 Profile
               </Link>
+              {user?.email !== "s2cadmin@gmail.com" && (
+                <Link
+                  to="/team"
+                  className={`${styles.menuItem} ${isSelected("/team")}`}
+                >
+                  <Person className={`${styles.icon} ${isSelected("/team")}`} />
+                  Team
+                </Link>
+              )}
               <Link
                 to={
                   user?.email === "s2cadmin@gmail.com" ? "/admin" : "/dashboard"

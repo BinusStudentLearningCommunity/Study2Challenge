@@ -13,6 +13,7 @@ import ProtectedRoute from "./protectedRoutes";
 import ProfilePage from "../pages/ProfilePage/ProfilePage";
 import NotFoundPage from "../pages/NotFoundPage/NotFoundPage";
 import AdminDashboardPage from "../pages/AdminDashboardPage/AdminDashboardPage";
+import TeamPage from "../pages/TeamPage/TeamPage";
 
 const router = createBrowserRouter([
   {
@@ -51,6 +52,10 @@ const router = createBrowserRouter([
       {
         path: "/admin",
         element: <AdminDashboardPage />,
+      },
+      {
+        path: "/team",
+        element: <TeamPage />,
       },
     ],
   },
