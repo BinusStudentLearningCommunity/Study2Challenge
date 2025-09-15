@@ -60,6 +60,23 @@ const DashboardNavbar = () => {
                 />
                 Profile
               </Link>
+              <Link
+                to={
+                  user?.email === "s2cadmin@gmail.com" ? "/admin" : "/dashboard"
+                }
+                className={`${styles.menuItem} ${isSelected(
+                  user?.email === "s2cadmin@gmail.com" ? "/admin" : "/dashboard"
+                )}`}
+              >
+                <MdDashboard
+                  className={`${styles.icon} ${isSelected(
+                    user?.email === "s2cadmin@gmail.com"
+                      ? "/admin"
+                      : "/dashboard"
+                  )}`}
+                />
+                Dashboard
+              </Link>
               {user?.email !== "s2cadmin@gmail.com" && (
                 <>
                   <Link
@@ -82,23 +99,6 @@ const DashboardNavbar = () => {
                   </Link>
                 </>
               )}
-              <Link
-                to={
-                  user?.email === "s2cadmin@gmail.com" ? "/admin" : "/dashboard"
-                }
-                className={`${styles.menuItem} ${isSelected(
-                  user?.email === "s2cadmin@gmail.com" ? "/admin" : "/dashboard"
-                )}`}
-              >
-                <MdDashboard
-                  className={`${styles.icon} ${isSelected(
-                    user?.email === "s2cadmin@gmail.com"
-                      ? "/admin"
-                      : "/dashboard"
-                  )}`}
-                />
-                Dashboard
-              </Link>
               <a
                 href="https://bit.ly/GuidebookS2C2025"
                 target="_blank"

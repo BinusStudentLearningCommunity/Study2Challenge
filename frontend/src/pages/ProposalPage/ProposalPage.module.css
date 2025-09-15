@@ -63,10 +63,10 @@
 /* Content Styling */
 .contentContainer {
   width: 100%;
-  max-width: 1000px; /* Slightly reduced to look better with padding */
+  max-width: 1000px;
   margin: 0 auto;
   padding: 2.5rem;
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(10px);
   border-radius: 20px;
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
@@ -78,57 +78,79 @@
 .title {
   font-family: "Fontspring-DEMO-zuumerough-bold", sans-serif;
   text-align: center;
-  color: var(--text-primary);
+  color: #1a1a1a;
   font-size: 2.5rem;
   margin-bottom: 2rem;
   text-transform: uppercase;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 /* No Team Section */
 .noTeamSection {
   text-align: center;
-  padding: 2rem;
-  color: var(--text-primary);
+  padding: 3rem;
+  color: #1a1a1a;
+  background: rgba(0, 0, 0, 0.02);
+  border-radius: 16px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .noTeamSection h2 {
-  font-size: 1.8rem;
-  margin-bottom: 1rem;
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  color: #1a1a1a;
+  font-weight: bold;
 }
 
 .noTeamSection p {
   font-size: 1.2rem;
-  margin-bottom: 2rem;
-  color: var(--text-secondary);
+  margin-bottom: 3rem;
+  color: #666;
+  line-height: 1.6;
 }
 
 .buttonGroup {
   display: flex;
-  gap: 1rem;
+  gap: 1.5rem;
   justify-content: center;
+  margin-top: 2rem;
 }
 
 .primaryButton,
 .secondaryButton,
 .submitButton {
-  padding: 0.8rem 2rem;
-  border-radius: 8px;
-  font-size: 1rem;
+  padding: 1rem 2.5rem;
+  border-radius: 12px;
+  font-size: 1.1rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
   border: none;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 .primaryButton {
-  background: var(--primary);
+  background: linear-gradient(45deg, var(--primary), #4a90e2);
   color: white;
 }
 
+.primaryButton:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
 .secondaryButton {
-  background: transparent;
+  background: white;
   border: 2px solid var(--primary);
   color: var(--primary);
+}
+
+.secondaryButton:hover {
+  background: rgba(var(--primary-rgb), 0.05);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
 }
 
 /* Proposal Section */
@@ -165,22 +187,25 @@
 }
 
 .rulesList {
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(0, 0, 0, 0.03);
   padding: 1.5rem;
   border-radius: 12px;
   margin-bottom: 1.5rem;
+  border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .rulesList p {
   margin-bottom: 0.8rem;
   line-height: 1.5;
+  color: #333;
 }
 
 .formatRules {
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(0, 0, 0, 0.03);
   padding: 1.5rem;
   border-radius: 12px;
   margin-bottom: 1.5rem;
+  border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .formatRules ul {
