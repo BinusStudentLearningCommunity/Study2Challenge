@@ -145,8 +145,8 @@ const ProposalPage = () => {
                   </p>
                 </div>
 
+                <h3>📝 Writing Format</h3>
                 <div className={styles.formatRules}>
-                  <h3>📝 Writing Format</h3>
                   <ul>
                     <li>Font: Times New Roman</li>
                     <li>Font Size: Title (14pt), Content (12pt)</li>
@@ -167,21 +167,21 @@ const ProposalPage = () => {
                   </a>
                 </div>
 
-                {!isLeader ? (
-                  <div className={styles.leaderOnlyMessage}>
-                    ⚠️ Only team leader can submit the proposal. Please contact
-                    your team leader.
-                  </div>
-                ) : (
+                <div className={styles.leaderOnlyMessage}>
+                  ⚠️ Only team leader can submit the proposal. Please contact
+                  your team leader.
+                </div>
+
+                <div className={styles.buttonGroup}>
                   <motion.button
-                    className={styles.submitButton}
+                    className={styles.primaryButton}
                     onClick={handleSubmitProposal}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >
                     Submit Proposal
                   </motion.button>
-                )}
+                </div>
               </div>
             </div>
           )}
