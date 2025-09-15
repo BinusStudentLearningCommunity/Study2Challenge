@@ -49,7 +49,7 @@ const ProposalPage = () => {
   };
 
   const handleSubmitProposal = () => {
-    window.open("https://bit.ly/ProposalPesertaS2C", "_blank");
+    window.open("https://forms.gle/69WrHJSxcPaDeFKCA", "_blank");
   };
 
   if (isLoading) {
