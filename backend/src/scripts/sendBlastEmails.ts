@@ -43,34 +43,45 @@ const sendBlastEmails = async () => {
 
     // Email content with embedded image
     const emailContent = {
-      subject: "Hackathon BSLC Study2Challenge 2025 - Open Registration!",
+      subject: "⚠️ Hackathon Study2Challenge Registration Closes in 6 Days!",
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
           <!-- Poster Image -->
           <img src="cid:posterImage" alt="Study2Challenge Poster" style="width: 100%; height: auto; margin-bottom: 20px;">
 
-          <h2 style="color: #1a237e;">🚨 STUDY2CHALLENGE NOW OPEN REGISTRATION!!</h2>
+          <h2 style="color: #FF3B30;">🚨 H-6 PENUTUPAN PENDAFTARAN HACKATHON STUDY2CHALLENGE!!</h2>
 
-          <p>Hi IT Hunters 👋 Bosan rutinitas yang gitu-gitu aja?<br/>
-          Saatnya upgrade skill & buktiin ide brilianmu di Study2Challenge Hackathon 2025! 🌍💡</p>
+          <p>Hi IT Hunters! 👋<br/>
+          Waktu semakin menipis! ⏰ Jangan sampai kamu melewatkan kesempatan emas ini untuk jadi bagian dari hackathon Study2Challenge 2025! 🌟</p>
 
-          <p>Kompetisi ini mengusung tema <strong>"Bridging Global Problems: Tech for a Better Tomorrow"</strong>, mengajak generasi muda menjawab tantangan global lewat teknologi inovatif.</p>
-
-          <h2 style="color: #1a237e;">⚡ WHY YOU SHOULD JOIN??</h2>
-            🏆 Total hadiah spektakuler hingga <strong>Rp24.000.000</strong><br/>
-            🎁 Voucher kelas bahasa senilai <strong>Rp150.000</strong> (TERBATAS untuk seluruh peserta)<br/>
-            📜 <strong>Sertifikat partisipasi</strong> untuk semua peserta<br/>
-            🧑‍💻 Pengalaman membangun website nyata dari ide timmu<br/>
-
-          <div style="background-color: #f5f5f5; padding: 15px; border-radius: 5px; margin: 20px 0;">
-            <p>📅 <strong>Pendaftaran:</strong> 25 Agustus - 21 September 2025<br/>
-            👥 <strong>Peserta:</strong> SMA/SMK & Mahasiswa/i seluruh Indonesia<br/>
-            💻 100% Online - bisa ikut dari mana aja!<br/>
-            💰 <strong>Registrasi:</strong> Rp100.000/tim (1-3 orang)</p>
+          <div style="background-color: #FFE5E5; padding: 15px; border-radius: 5px; margin: 20px 0;">
+            <p style="color: #FF3B30; font-weight: bold; font-size: 18px;">⚠️ DEADLINE ALERT!</p>
+            <p>Pendaftaran akan <strong>DITUTUP dalam 6 HARI</strong><br/>
+            Jangan sampai menyesal karena kehabisan waktu!</p>
           </div>
 
-          <p>👉 Jangan cuma baca, ayo share ke temanmu & daftar sekarang sebelum kuota voucher habis!<br/>
-          Kamu bisa langsung scan QR code di poster atau daftar melalui link berikut: <a href="https://www.study2challenge.bslc.or.id/" style="color: #1a237e;">https://www.study2challenge.bslc.or.id/</a></p>
+          <p>Kompetisi bergengsi ini mengangkat tema <strong>"Bridging Global Problems: Tech for a Better Tomorrow"</strong>. Ini kesempatanmu untuk membuktikan bahwa idemu bisa mengubah dunia! 🌍✨</p>
+
+          <h2 style="color: #1a237e;">🎁 SPECIAL BENEFITS YOU'LL GET:</h2>
+            🏆 Total hadiah fantastis <strong>Rp24.000.000</strong><br/>
+            💫 Voucher kelas bahasa <strong>Rp150.000</strong> (SEGERA HABIS!)<br/>
+            📜 Sertifikat resmi untuk portofoliomu<br/>
+            � Kesempatan membangun real-world project<br/>
+            🌐 Networking dengan tech enthusiasts
+
+          <div style="background-color: #f5f5f5; padding: 15px; border-radius: 5px; margin: 20px 0;">
+            ⏰ <strong>Deadline:</strong> 21 September 2025 (6 HARI LAGI!)<br/>
+            👥 <strong>Peserta:</strong> SMA/SMK & Mahasiswa/i seluruh Indonesia<br/>
+            💻 100% Online Competition<br/>
+            💰 <strong>Biaya:</strong> Rp100.000/tim (1-3 orang)
+          </div>
+
+          <p style="background-color: #E3F2FD; padding: 10px; border-radius: 5px;">
+          🎯 <strong>BONUS TIP:</strong> Semakin cepat kamu daftar, semakin banyak waktu untuk menyiapkan proposal terbaikmu!
+          </p>
+
+          <p>🔥 <strong>DAFTAR SEKARANG JUGA!</strong><br/>
+          Scan QR code di poster atau klik link berikut: <a href="https://www.study2challenge.bslc.or.id/" style="color: #1a237e;">https://www.study2challenge.bslc.or.id/</a></p>
 
           <h3 style="color: #1a237e;">📱Contact Person:</h3>
 
@@ -89,8 +100,8 @@ const sendBlastEmails = async () => {
       `,
       attachments: [
         {
-          filename: "study2challenge-poster.jpg",
-          path: "src/assets/poster s2c.jpg",
+          filename: "study2challenge-poster.png",
+          path: "src/assets/poster s2c.png",
           cid: "posterImage", // This is referenced in the HTML above using cid:posterImage
         },
       ],
