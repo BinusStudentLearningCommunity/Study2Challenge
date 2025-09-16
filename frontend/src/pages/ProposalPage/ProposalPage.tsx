@@ -132,7 +132,7 @@ const ProposalPage = () => {
                     • File format: PDF with name format "[TeamName]_Proposal
                     Hackathon Study2Challenge 2025.pdf"
                   </p>
-                  <p>• Maximum file size: 5 MB</p>
+                  <p>• Maximum file size: 10 MB</p>
                   <p>
                     • Maximum length: 15 pages (including cover & attachments)
                   </p>
