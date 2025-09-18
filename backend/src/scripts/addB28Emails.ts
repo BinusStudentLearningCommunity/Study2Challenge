@@ -990,8 +990,8 @@ const addB28Emails = async () => {
     ];
 
     // Add to database
-    // const result = await EmailBlast.insertMany(binusianAngkatan28);
-    const result = await EmailBlast.insertMany(b28Emails);
+    const result = await EmailBlast.insertMany(binusianAngkatan28);
+    // const result = await EmailBlast.insertMany(b28Emails);
 
     console.log("✅ Successfully added B28 emails:");
     console.log(result);

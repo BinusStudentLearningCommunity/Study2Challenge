@@ -404,6 +404,9 @@ const addB29Emails = async () => {
       { email: "alexander.radjagukguk@binus.ac.id", binusianAngkatan: 29 },
       { email: "hazel.rifathullah001@binus.ac.id", binusianAngkatan: 29 },
       { email: "fifian.irawan@binus.ac.id", binusianAngkatan: 29 },
+    ];
+
+    const emailB29 = [
       { email: "bryan.chandra006@binus.ac.id", binusianAngkatan: 29 },
       { email: "benaya.alfa@binus.ac.id", binusianAngkatan: 29 },
       { email: "michael.candra002@binus.ac.id", binusianAngkatan: 29 },
@@ -799,7 +802,7 @@ const addB29Emails = async () => {
     ];
 
     // Add to database
-    const result = await EmailBlast.insertMany(b29Emails);
+    const result = await EmailBlast.insertMany(emailB29);
 
     console.log("✅ Successfully added B29 emails:");
     console.log(result);

@@ -11,8 +11,36 @@ const addTestEmails = async () => {
 
     // Test emails
     const testEmails = [
-      { email: "keziameylani.t2005@gmail.com", isEmailSent: false },
-      { email: "kezia.tandapai@binus.ac.id", isEmailSent: false },
+      // {
+      //   email: "keziameylani.t2005@gmail.com",
+      //   isEmailSent: false,
+      //   binusianAngkatan: 27,
+      // },
+      {
+        email: "kezia.tandapai@binus.ac.id",
+        isEmailSent: false,
+        binusianAngkatan: 27,
+      },
+      {
+        email: "graceila.natasya@binus.ac.id",
+        isEmailSent: false,
+        binusianAngkatan: 27,
+      },
+      {
+        email: "nicole.alexsandra@binus.ac.id",
+        isEmailSent: false,
+        binusianAngkatan: 27,
+      },
+      {
+        email: "silverius.calvin@binus.ac.id",
+        isEmailSent: false,
+        binusianAngkatan: 27,
+      },
+      {
+        email: "stanley.wijaya004@binus.ac.id",
+        isEmailSent: false,
+        binusianAngkatan: 27,
+      },
     ];
 
     // Add to database
