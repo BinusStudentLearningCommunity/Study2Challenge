@@ -53,8 +53,12 @@ const AdminDashboardPage = () => {
         (team) =>
           team.teamName.toLowerCase().includes(searchQuery.toLowerCase()) ||
           team.teamCode.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          team.members.some((member) =>
-            member.fullName.toLowerCase().includes(searchQuery.toLowerCase())
+          team.members.some(
+            (member) =>
+              member.fullName
+                .toLowerCase()
+                .includes(searchQuery.toLowerCase()) ||
+              member.whatsappNumber.includes(searchQuery) // Tambahkan ini
           )
       );
     }
