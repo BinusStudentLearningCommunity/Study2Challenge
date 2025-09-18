@@ -13,6 +13,7 @@ import ProtectedRoute from "./protectedRoutes";
 import ProfilePage from "../pages/ProfilePage/ProfilePage";
 import NotFoundPage from "../pages/NotFoundPage/NotFoundPage";
 import AdminDashboardPage from "../pages/AdminDashboardPage/AdminDashboardPage";
+import AdminMembersPage from "../pages/AdminMembersPage/AdminMembersPage";
 import TeamPage from "../pages/TeamPage/TeamPage";
 import ProposalPage from "../pages/ProposalPage/ProposalPage";
 
@@ -53,6 +54,10 @@ const router = createBrowserRouter([
       {
         path: "/admin",
         element: <AdminDashboardPage />,
+      },
+      {
+        path: "/admin/members",
+        element: <AdminMembersPage />,
       },
       {
         path: "/team",
