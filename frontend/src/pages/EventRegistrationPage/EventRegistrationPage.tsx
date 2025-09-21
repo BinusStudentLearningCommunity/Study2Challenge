@@ -79,6 +79,23 @@ const EventRegistrationPage: React.FC = () => {
     checkStatusAndPrefill();
   }, [user, navigate]);
 
+  const registrationDeadline = new Date('2025-09-22T00:30:00');
+  const now = new Date();
+
+  if (now > registrationDeadline) {
+    return (
+      <div className={styles.container} style={{ textAlign: 'center' }}>
+        <h1 className={styles.title}>REGISTRATION CLOSED</h1>
+        <p className={styles.formSubtitle} style={{ fontSize: '1.2rem', marginTop: '20px' }}>
+          Mohon maaf, pendaftaran untuk STUDY 2 CHALLENGE 2025 telah berakhir pada 21 September 2025.
+        </p>
+        <Link to="/dashboard" className={styles.backButton} style={{ marginTop: '40px' }}>
+          &larr; Back to Dashboard
+        </Link>
+      </div>
+    );
+  }
+
   // Navigation handlers
   // Validate team name against requirements - with optional silent mode
   const validateTeamName = (showErrors: boolean = false): boolean => {

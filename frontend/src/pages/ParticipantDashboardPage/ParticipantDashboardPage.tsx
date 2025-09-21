@@ -70,7 +70,7 @@ const ParticipantDashboardPage: React.FC = () => {
         const checkDeadlines = () => {
             const now = new Date();
             // Registration deadline check (existing)
-            const registrationDeadline = new Date('2025-09-22T09:00:00'); // Sept 22, 9:00 AM
+            const registrationDeadline = new Date('2025-09-22T00:30:00'); // Sept 22, 0:30 AM
             if (now > registrationDeadline) {
                 setIsRegistrationClosed(true);
             }
@@ -177,7 +177,7 @@ const ParticipantDashboardPage: React.FC = () => {
                 {isRegistrationClosed && !teamData ? (
                     <div className={styles.registrationClosedContainer}>
                         <h2>Mohon Maaf, Pendaftaran Telah Ditutup</h2>
-                        <p>Pendaftaran untuk STUDY 2 CHALLENGE 2025 telah berakhir pada 22 September 2025.</p>
+                        <p>Pendaftaran untuk STUDY 2 CHALLENGE 2025 telah berakhir pada 21 September 2025.</p>
                     </div>
                 ) : (
                     <>
