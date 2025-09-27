@@ -76,7 +76,7 @@ const ParticipantDashboardPage: React.FC = () => {
             }
 
             // Qualification announcement deadline
-            const announcementDeadline = new Date('2025-09-27T12:00:00'); // Sept 27, 12:00 PM
+            const announcementDeadline = new Date('2025-09-27T18:00:00'); // Sept 27, 12:00 PM
             if (now > announcementDeadline) {
                 setHasAnnouncementTimePassed(true);
             }
